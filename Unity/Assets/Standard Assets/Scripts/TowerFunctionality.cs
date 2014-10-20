@@ -1,0 +1,62 @@
+﻿using UnityEngine;
+using System.Collections;
+
+public class TowerFunctionality : MonoBehaviour {
+
+	public bool type = true;
+	[HideInInspector] public GameObject tower;
+	[HideInInspector] public GameObject tower2;
+	[HideInInspector] public GameObject place;
+	[HideInInspector] public GameObject place2;
+	// Use this for initialization
+	void Start () {
+		tower2 = null;
+		place2 = null;
+	}
+	
+	// Update is called once per frame
+	void Update () {
+	
+	}
+
+	void OnMouseDown() {
+		if (type) {
+			BasicTower bTower = tower.GetComponent("BasicTower") as BasicTower;
+			float recoveryEnergy = InsertTower.energyNeeded[bTower.type]*0.7f;
+			if ((StartGame.energy + recoveryEnergy) <= StartGame.maxEnergy)
+				StartGame.energy += recoveryEnergy;
+			else
+				StartGame.energy = StartGame.maxEnergy;
+			Destroy(tower);
+
+			Transform _places = GameObject.Find("TowerPosition").transform;
+			for (int i=0;i<_places.childCount;i++) {
+				if (_places.GetChild(i) == place.transform)
+					StartGame.placeTag[i] = "Untagged";
+			}
+
+			InsertTower insertPlace = place.GetComponent ("InsertTower") as InsertTower;
+
+			// (target.GetComponent("InsertTower") as InsertTower).towerObjTag = towerObject.tag;
+			insertPlace.towerObj = null;
+			place.renderer.enabled = true;
+
+			/*if (insertPlace.tag.Substring (0, 5) == "Dente") {
+				int tag = int.Parse(insertPlace.tag.Substring (5, 1));
+				Debug.Log ("ahusdhuadhu " + tag + " - " + "xDente" + (tag+(tag>3?-3:3)));
+				GameObject target = GameObject.FindGameObjectWithTag ("xDente" + (tag+(tag>3?-3:3)));
+
+				GameObject targetAux = GameObject.FindGameObjectWithTag ("Dente" + (tag+(tag>3?-3:3)));
+				//BasicTower bTower2 = target.GetComponent ("BasicTower") as BasicTower;
+				targetAux.renderer.enabled = true;
+				(targetAux.GetComponent ("InsertTower") as InsertTower).towerObj = null;
+				Destroy(target);
+			}*/
+			DestroyTowerMenu.DestroyT ();
+			// Debug.Log ("jkdsajd");
+		}
+		else {
+			Debug.Log ("suposto upgrade");
+		}
+	}
+}
