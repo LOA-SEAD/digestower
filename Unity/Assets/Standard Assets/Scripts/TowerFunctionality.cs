@@ -12,11 +12,7 @@ public class TowerFunctionality : MonoBehaviour {
 	void Start () {
 		tower2 = null;
 		place2 = null;
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
+		StartGame.numberOfTowerFunctionalityObjectsAlive++;
 	}
 
 	void OnMouseDown() {
@@ -28,19 +24,19 @@ public class TowerFunctionality : MonoBehaviour {
 			else
 				StartGame.energy = StartGame.maxEnergy;
 			Destroy(tower);
-
+			
 			Transform _places = GameObject.Find("TowerPosition").transform;
 			for (int i=0;i<_places.childCount;i++) {
 				if (_places.GetChild(i) == place.transform)
 					StartGame.placeTag[i] = "Untagged";
 			}
-
+			
 			InsertTower insertPlace = place.GetComponent ("InsertTower") as InsertTower;
-
+			
 			// (target.GetComponent("InsertTower") as InsertTower).towerObjTag = towerObject.tag;
 			insertPlace.towerObj = null;
 			place.renderer.enabled = true;
-
+			
 			/*if (insertPlace.tag.Substring (0, 5) == "Dente") {
 				int tag = int.Parse(insertPlace.tag.Substring (5, 1));
 				Debug.Log ("ahusdhuadhu " + tag + " - " + "xDente" + (tag+(tag>3?-3:3)));
@@ -58,5 +54,9 @@ public class TowerFunctionality : MonoBehaviour {
 		else {
 			Debug.Log ("suposto upgrade");
 		}
+	}
+
+	void OnDestroy() {
+		StartGame.numberOfTowerFunctionalityObjectsAlive--;
 	}
 }

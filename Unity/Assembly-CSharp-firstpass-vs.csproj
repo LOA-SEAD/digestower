@@ -50,6 +50,7 @@
      <Compile Include="Assets\Standard Assets\Scripts\AcidoEspecial.cs" />
      <Compile Include="Assets\Standard Assets\Scripts\BasicTower.cs" />
      <Compile Include="Assets\Standard Assets\Scripts\BulletAway.cs" />
+     <Compile Include="Assets\Standard Assets\Scripts\ButtonAction.cs" />
      <Compile Include="Assets\Standard Assets\Scripts\CallSkill.cs" />
      <Compile Include="Assets\Standard Assets\Scripts\ChooseTower.cs" />
      <Compile Include="Assets\Standard Assets\Scripts\ColorX.cs" />
@@ -60,6 +61,7 @@
      <Compile Include="Assets\Standard Assets\Scripts\General Scripts\ActivateTrigger.cs" />
      <Compile Include="Assets\Standard Assets\Scripts\General Scripts\DetectClicksAndTouches.cs" />
      <Compile Include="Assets\Standard Assets\Scripts\InsertTower.cs" />
+     <Compile Include="Assets\Standard Assets\Scripts\MenuControl.cs" />
      <Compile Include="Assets\Standard Assets\Scripts\MouseMoveCamera.cs" />
      <Compile Include="Assets\Standard Assets\Scripts\RestartGame.cs" />
      <Compile Include="Assets\Standard Assets\Scripts\SalivaEspecial.cs" />

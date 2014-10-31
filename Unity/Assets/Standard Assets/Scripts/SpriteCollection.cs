@@ -15,9 +15,13 @@ public class SpriteCollection
 {
 	private Sprite[] sprites;
 	private string[] names;
-	
+
+	~SpriteCollection() {
+		StartGame.numberOfSpriteCollectionObjectsAlive--;
+	}
 	public SpriteCollection(string spritesheet)
 	{
+		StartGame.numberOfSpriteCollectionObjectsAlive++;
 		//try {
 			sprites = Resources.LoadAll<Sprite>(spritesheet);
 			names = new string[sprites.Length];

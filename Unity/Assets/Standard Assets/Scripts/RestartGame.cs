@@ -12,11 +12,10 @@ public class RestartGame : MonoBehaviour {
 	}
 
 	void Start () {
-	
+		StartGame.numberOfRestartGameObjectsAlive++;
 	}
-	
-	// Update is called once per frame
-	void Update () {
-	
+
+	void OnDestroy () {
+		StartGame.numberOfRestartGameObjectsAlive--;
 	}
 }

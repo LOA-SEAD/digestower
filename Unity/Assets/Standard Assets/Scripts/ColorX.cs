@@ -1,7 +1,14 @@
 ﻿using UnityEngine;
 
 public class ColorX {
-	
+
+	public ColorX () {
+		StartGame.numberOfColorXObjectsAlive++;
+	}
+	~ColorX() {
+		StartGame.numberOfColorXObjectsAlive--;
+	}
+
 	private static string GetHex(int num) {
 		const string alpha = "0123456789abcdef";
 		string ret = "" + alpha[num];

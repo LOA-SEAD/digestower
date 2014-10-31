@@ -3,8 +3,15 @@ using System.Collections;
 using System;
 
 public class FatPlace : MonoBehaviour {
+
+	/* ALTERACAO
+	 * a alteracao eh feita no painel de objetos, entrando em FatPosition (Hierarchy) e depois onde esta
+	 * escrito Places
+	 */
+	/* desconsiderar */
 	public float minimalFat = 100f;
-	public float affectMovementConstant = 2f;
+	public float affectMovementConstant = 10f;
+	/**/
 	public int fatPos = 0;
 	
 	// Use this for initialization
@@ -15,8 +22,8 @@ public class FatPlace : MonoBehaviour {
 	}
 
 	void OnTriggerEnter2D(Collider2D col){
-		// Update is called once per frame
-		if (GameObject.FindGameObjectWithTag((new string[3]{"TopFat", "RightFat", "LeftFat"})[fatPos]).renderer.enabled && col.gameObject.tag == "ComidaInserida") {
+		//Debug.Log ("entrou: " + col.tag);
+		if (GameObject.FindGameObjectWithTag((new string[3]{"TopFat", "RightFat", "LeftFat"})[fatPos]).renderer.enabled && col.gameObject.tag.Substring(0,14) == "ComidaInserida") {
 			FoodProperties foodProp = col.gameObject.GetComponent<FoodProperties>();
 			try {
 				foodProp.timerFatAffectMovement(affectMovementConstant);
@@ -27,9 +34,5 @@ public class FatPlace : MonoBehaviour {
 
 	void OnDestroy () {
 		StartGame.numberOfFatPlaceObjectsAlive--;
-	}
-
-	void Update () {
-	
 	}
 }

@@ -41,6 +41,7 @@ public class FollowWaypoints : MonoBehaviour
 	{
 		Transform targetWaypoint = _waypoints.GetChild(_targetWaypoint);
 		Vector3 relative = targetWaypoint.position - transform.position;
+
 		Vector3 movementNormal = Vector3.Normalize(relative);
 		float distanceToWaypoint = relative.magnitude;
 
@@ -55,7 +56,9 @@ public class FollowWaypoints : MonoBehaviour
 						vita.endPoint(int.Parse (point.Substring(8, 1)));
 					}
 					else if (food) {
-						food.endPoint(int.Parse (point.Substring(8, 1)));
+						int tag = int.Parse (point.Substring(8, 1));
+						food.endPoint(tag);
+						if (tag < 3) food.tag = "ComidaInserida" + (tag+1);
 					}
 					else if (saliva) {
 						saliva.endPoint(int.Parse (point.Substring(8, 1)));

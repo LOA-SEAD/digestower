@@ -9,6 +9,7 @@ public class MouseMoveCamera : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+		StartGame.numberOfMouseMoveCameraObjectsAlive++;
 	}
 
 	// Update is called once per frame
@@ -27,5 +28,9 @@ public class MouseMoveCamera : MonoBehaviour {
 			DestroyTowerMenu.DestroyT();
 			Camera.main.transform.position = new Vector3(Camera.main.transform.position.x, posY, Camera.main.transform.position.z);
 		}
+	}
+
+	void OnDestroy () {
+		StartGame.numberOfMouseMoveCameraObjectsAlive--;
 	}
 }

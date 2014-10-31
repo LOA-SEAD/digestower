@@ -7,6 +7,7 @@ public class FoodProperties : MonoBehaviour {
 	public float fat = 0.0f;
 	public float adjustmentPos = 2.3f;
 	public float vitaminUp = 0.0f;
+	private int alternateInt = 1;
 	/*[HideInInspector]*/ public float health = 0.0f;
 	/*[HideInInspector]*/ public float health2 = 0.0f;
 	/*[HideInInspector]*/ public float health3 = 0.0f;
@@ -24,11 +25,16 @@ public class FoodProperties : MonoBehaviour {
 	private int healthBarHeight = 3;
 	private int healthBarLeft = 45;
 	private int healthBarTop = 145;
-	private float myTimerInt;
+	private float myTimerInt, myTimerShakingInt;
 	private bool timeFat = false;
+	private bool timeShaking = false;
+	public float old_x, old_y;
 
+	/*desconsiderar*/
 	private float timerContaminated2 = 5.0f;
 	private float timerContaminated3 = 5.0f;
+	/**/
+	private SpriteCollection sprites;
 
 	private Vector2 scale, screen;
 
@@ -42,7 +48,10 @@ public class FoodProperties : MonoBehaviour {
 
 	public void endPoint(int point) {
 		if (point == (StartGame.fase+1)) {
-			StartGame.indigest += (health + health2 + health3)/((health > 0?1:0) + (health2 > 0?1:0) + (health3 > 0?1:0));
+			float indigestDenominator = ((health > 0?1:0) + (health2 > 0?1:0) + (health3 > 0?1:0));
+			float indigestPoints = (health + health2 + health3)/(indigestDenominator<1?1:indigestDenominator);
+			StartGame.indigest += indigestPoints;
+			// Debug.Log ("IndigestPoints: " + indigestPoints);
 			StartGame.fat -= fat;
 			GameObject[] target = GameObject.FindGameObjectsWithTag ("FatPlace");
 			for (int i = 0;i < target.Length;i++) {
@@ -64,24 +73,39 @@ public class FoodProperties : MonoBehaviour {
 
 		bool changed/*, changed2, changed3 = changed2 = changed*/ = false;
 		if (col.gameObject.tag.Length > 4 && col.gameObject.tag.Substring (0, 5) == "xDent") {
-			health -= 3;
+			/* ALTERACAO
+			* dano que o dente causa para todos os tipo de alimento de carboidrato (azul)
+			*/
+			health -= 5;
+			/**/
 			changed = true;
 		}
 		else if (col.gameObject.tag == "SalivaInserida" && col.gameObject.GetComponent<SalivaEspecial>().saiu && healthMode && health > 0) {
+			/* ALTERACAO
+			* dano que o especial de acido causa para todos os tipos de alimentos que possuem carboidrato (azul)
+			*/
 			health -= 20;
+			/**/
 			changed = true;
 		}
 		else if (col.gameObject.tag == "AcidoInserido" && col.gameObject.GetComponent<AcidoEspecial>().saiu && healthMode2 && health2 > 0) {
+			/* ALTERACAO
+			* dano que o especial de acido causa para todos os tipos de alimentos que possuem proteina (verdes)
+			*/
 			health2 -= 25;
+			/**/
 			changed = true;
 		}
 		else {
 			float healthAux = health, healthAux2 = health2, healthAux3 = health3;
+			/* ALTERACAO
+			 * dano de cada torre para todos os alimentos
+			 */
 			if (healthMode) {
 				// Debug.Log (col.gameObject.tag + "..");
-				if (col.gameObject.tag == "bullet 1")
-					health -= 10;
-				else if (col.gameObject.tag == "bullet 2")
+				if (col.gameObject.tag == "bullet 1"/*Torre 1*/)
+					health -= 15;
+				else if (col.gameObject.tag == "bullet 2"/*Torre 2*/)
 					health -= 20;
 
 				if (health < 0) {
@@ -91,13 +115,19 @@ public class FoodProperties : MonoBehaviour {
 			}
 			if (healthMode2) {
 				//Debug.Log (".." + col.gameObject.tag);
-				if (col.gameObject.tag == "bullet 3")
+				if (col.gameObject.tag == "bullet 3"/*Torre 3*/)
 					health2 -= 10;
 				else if (col.gameObject.tag == "bullet 4")
 					health2 -= 20;
 				else if (col.gameObject.tag == "bullet 7") {
+					/* ALTERACAO
+					 * tempo que a comida fica contaminada pelo tiro da torre 7
+					 */
 					timerContaminated2 = 5.0f;
+					/**/
 					contaminated2 = true;
+					if (!contaminated3)
+						movementSpeed *= 0.2f;
 				}
 
 				if (health2 < 0) {
@@ -112,8 +142,14 @@ public class FoodProperties : MonoBehaviour {
 				else if (col.gameObject.tag == "bullet 6")
 					health3 -= 20;
 				else if (col.gameObject.tag == "bullet 8") {
+					/* ALTERACAO
+					 * tempo que a comida fica contaminada pelo tiro da torre 8
+					 */
 					timerContaminated3 = 5.0f;
+					/**/
 					contaminated3 = true;
+					if (!contaminated2)
+						movementSpeed *= 0.2f;
 				}
 
 				if (health3 < 0) {
@@ -121,6 +157,8 @@ public class FoodProperties : MonoBehaviour {
 					//healthMode3 = false;
 				}
 			}
+			/**/
+
 			if (healthAux != health || healthAux2 != health2 || healthAux3 != health3 ||
 			    contaminated2 != contaminated2Bkp || contaminated3 != contaminated3Bkp) {
 				changed = true;
@@ -145,33 +183,49 @@ public class FoodProperties : MonoBehaviour {
 
 		//if ((changed2 && health2 == 0) || (health3 == 0 && changed3) || (health == 0 && changed)) {*/
 
-		if ((!healthMode && !healthMode3 && healthMode2 && health2 <= 0) ||
+		if (health <= 0 && health2 <= 0 && health3 <= 0) {
+		/*if ((!healthMode && !healthMode3 && healthMode2 && health2 <= 0) ||
 			    (!healthMode && !healthMode2 && healthMode3 && health3 <= 0) ||
 			    (!healthMode2 && !healthMode3 && healthMode && health <= 0) ||
 		    	(healthMode && healthMode2 && healthMode3 && health <= 0 && health2 <= 0 && health3 <= 0) ||
 		    	(healthMode && healthMode2 && !healthMode3 && health <= 0 && health2 <= 0) ||
-				(healthMode2 && healthMode3 && !healthMode && health2 <= 0 && health3 <= 0)) {
+				(healthMode2 && healthMode3 && !healthMode && health2 <= 0 && health3 <= 0)) {*/
 			//GameObject game = GameObject.FindGameObjectWithTag ("StartButton");
 			//StartGame gameProperties = game.GetComponent<StartGame>();
-			StartGame.energy += maxHealth;
-			StartGame.vitamin += vitaminUp;
-			
-			GameObject item = GameObject.FindGameObjectWithTag("Vitamina");
-			GameObject inserted = (GameObject)Instantiate (item, transform.position, Quaternion.identity);
+			foodDied();
+		}
+	}
 
+	void foodDied () {
+		StartGame.energy += maxHealth;
+		// StartGame.vitamin += vitaminUp;
+		
+		if (vitaminUp > 0) {
+			GameObject item = GameObject.FindGameObjectWithTag(vitaminUp<2?"Vitamina":"Vitamina2");
+			GameObject inserted = (GameObject)Instantiate (item, transform.position, Quaternion.identity);
+			
 			FollowWaypoints wayPoint = gameObject.GetComponent<FollowWaypoints>();
 			FollowWaypoints wayPointNew = inserted.AddComponent<FollowWaypoints>();
-			wayPointNew.vita = inserted.GetComponent<VitaminUp>();
+			VitaminUp vita = inserted.GetComponent<VitaminUp>() as VitaminUp;
+			/* ALTERACAO
+				 * valor de ganho da vitamina que sai de cada alimento
+				 */
+			vita.vitaminUp = vitaminUp;
+			/**/
+			wayPointNew.vita = vita;
 			wayPointNew.oldTag = inserted.tag;
 			inserted.tag = "VitaminaInserida";
+			
 			wayPointNew._targetWaypoint = wayPoint._targetWaypoint;
-
-			GameObject.Destroy (gameObject);
 		}
+		GameObject.Destroy (gameObject);
 	}
 	
 	void Start () {
+		sprites = new SpriteCollection ("Meleca");
+
 		StartGame.numberOfFoodPropertiesObjectsAlive++;
+
 		// health = health2 = health3 = maxHealth;
 		healthMode = healthMode2 = healthMode3 = false;
 		if (health > 0)
@@ -185,142 +239,164 @@ public class FoodProperties : MonoBehaviour {
 		scale = new Vector2(screen.x/1092, screen.y/614);
 	}
 	void OnDestroy () {
+		sprites = null;
 		StartGame.numberOfFoodPropertiesObjectsAlive--;
 	}
 	
 	void OnGUI() {
-		worldPosition = new Vector3(transform.position.x, transform.position.y + adjustmentPos, transform.position.z);
-		screenPosition = Camera.main.WorldToScreenPoint(worldPosition);
+		if (StartGame.started) {
+			worldPosition = new Vector3(transform.position.x, transform.position.y + adjustmentPos, transform.position.z);
+			screenPosition = Camera.main.WorldToScreenPoint(worldPosition);
 
-		Ray ray = new Ray (Camera.main.transform.position, transform.forward);
-		RaycastHit hit;
+			Ray ray = new Ray (Camera.main.transform.position, transform.forward);
+			RaycastHit hit;
 
-		float distance = Vector3.Distance(Camera.main.transform.position, transform.position);
+			float distance = Vector3.Distance(Camera.main.transform.position, transform.position);
 
-		if (!Physics.Raycast(ray, out hit, distance))
-		{
-				try {
+			if (!Physics.Raycast(ray, out hit, distance))
+			{
+					try {
 
-				/*Vector3 healthBarWorldPosition = transform.position;
-				healthBarWorldPosition.y += 20f;
-				Vector3 healthBarScreenPosition = Camera.main.WorldToScreenPoint(healthBarWorldPosition);
+					/*Vector3 healthBarWorldPosition = transform.position;
+					healthBarWorldPosition.y += 20f;
+					Vector3 healthBarScreenPosition = Camera.main.WorldToScreenPoint(healthBarWorldPosition);
 
-				Debug.Log (healthBarScreenPosition.y + ".." + screenPosition.y);
+					Debug.Log (healthBarScreenPosition.y + ".." + screenPosition.y);
 
-				float top = Screen.height - (healthBarScreenPosition.y + (healthBarTop / 2));*/
+					float top = Screen.height - (healthBarScreenPosition.y + (healthBarTop / 2));*/
 
-				Texture2D barTexture = new Texture2D (1, 1);
-				barTexture.SetPixel(0, 0, ColorX.HexToRGB("111011"));
-				barTexture.Apply ();
-
-				int posy = 1;
-
-				if (healthMode) {
+					Texture2D barTexture = new Texture2D (1, 1);
 					barTexture.SetPixel(0, 0, ColorX.HexToRGB("111011"));
 					barTexture.Apply ();
-					GUI.DrawTexture(new Rect(screenPosition.x - (healthBarLeft*scale.x) / 2 - 1,
-				                    		 Screen.height - screenPosition.y + (healthBarTop-1)*scale.y,
-				                    		 44*scale.x, healthBarHeight*scale.y+2), barTexture);
-					barTexture.SetPixel(0, 0, (health < percentLifeToColorChange*maxHealth) ? ColorX.HexToRGB("88c5f5") : ColorX.HexToRGB("88c5f5"));
-					barTexture.Apply ();
-					GUI.DrawTexture(new Rect(screenPosition.x - (healthBarLeft*scale.x) / 2,
-					                         Screen.height - screenPosition.y + healthBarTop*scale.y,
-					                         (health*42*scale.x)/maxHealth, healthBarHeight*scale.y), barTexture);
-					posy += 5;
-				}
-				if (healthMode2) {
-					barTexture.SetPixel(0, 0, ColorX.HexToRGB("111011"));
-					barTexture.Apply ();
-					GUI.DrawTexture(new Rect(screenPosition.x - (healthBarLeft*scale.x) / 2 - 1,
-					                         Screen.height - screenPosition.y + (healthBarTop-posy)*scale.y,
-					                         44*scale.x, healthBarHeight*scale.y+2), barTexture);
-					barTexture.SetPixel(0, 0, (health2 < percentLifeToColorChange*maxHealth) ? ColorX.HexToRGB("a5cc2e") : ColorX.HexToRGB("a5cc2e"));
-					barTexture.Apply ();
-					GUI.DrawTexture(new Rect(screenPosition.x - (healthBarLeft*scale.x) / 2,
-					                         Screen.height - screenPosition.y + (healthBarTop - posy+1)*scale.y,
-					                         (health2*42*scale.x)/maxHealth, healthBarHeight*scale.y), barTexture);
-					posy += 5;
-				}
-				if (healthMode3) {
-					barTexture.SetPixel(0, 0, ColorX.HexToRGB("111011"));
-					barTexture.Apply ();
-					GUI.DrawTexture(new Rect(screenPosition.x - (healthBarLeft*scale.x) / 2 - 1,
-					                         Screen.height - screenPosition.y + (healthBarTop - posy)*scale.y,
-					                         44*scale.x, healthBarHeight*scale.y+2), barTexture);
-					barTexture.SetPixel(0, 0, (health3 < percentLifeToColorChange*maxHealth) ? ColorX.HexToRGB("a966e2") : ColorX.HexToRGB("a966e2"));
-					barTexture.Apply ();
-					GUI.DrawTexture(new Rect(screenPosition.x - (healthBarLeft*scale.x) / 2,
-					                         Screen.height - screenPosition.y + (healthBarTop - posy+1)*scale.y,
-					                         (health3*42*scale.x)/maxHealth, healthBarHeight*scale.y), barTexture);
-				}
-				SpriteCollection sprites = new SpriteCollection("Meleca");
-				Sprite meleca = null;
-				if (contaminated2) meleca = sprites.GetSprite("Meleca verde (Ácido)");
-				else if (contaminated3) meleca = sprites.GetSprite("Meleca roxa (Base)");
 
-				if (meleca != null) {
-					Texture t = meleca.texture;
+					int posy = 1;
 
-					Rect tr = meleca.textureRect;
-					Rect r = new Rect(tr.x / t.width, tr.y / t.height, tr.width / t.width, tr.height / t.height );
+					if (healthMode) {
+						barTexture.SetPixel(0, 0, ColorX.HexToRGB("111011"));
+						barTexture.Apply ();
+						GUI.DrawTexture(new Rect(screenPosition.x - (healthBarLeft*scale.x) / 2 - 1,
+					                    		 Screen.height - screenPosition.y + (healthBarTop-1)*scale.y,
+					                    		 44*scale.x, healthBarHeight*scale.y+2), barTexture);
+						barTexture.SetPixel(0, 0, (health < percentLifeToColorChange*maxHealth) ? ColorX.HexToRGB("88c5f5") : ColorX.HexToRGB("88c5f5"));
+						barTexture.Apply ();
+						GUI.DrawTexture(new Rect(screenPosition.x - (healthBarLeft*scale.x) / 2,
+						                         Screen.height - screenPosition.y + healthBarTop*scale.y,
+						                         (health*42*scale.x)/maxHealth, healthBarHeight*scale.y), barTexture);
+						posy += 5;
+					}
+					if (healthMode2) {
+						barTexture.SetPixel(0, 0, ColorX.HexToRGB("111011"));
+						barTexture.Apply ();
+						GUI.DrawTexture(new Rect(screenPosition.x - (healthBarLeft*scale.x) / 2 - 1,
+						                         Screen.height - screenPosition.y + (healthBarTop-posy)*scale.y,
+						                         44*scale.x, healthBarHeight*scale.y+2), barTexture);
+						barTexture.SetPixel(0, 0, (health2 < percentLifeToColorChange*maxHealth) ? ColorX.HexToRGB("a5cc2e") : ColorX.HexToRGB("a5cc2e"));
+						barTexture.Apply ();
+						GUI.DrawTexture(new Rect(screenPosition.x - (healthBarLeft*scale.x) / 2,
+						                         Screen.height - screenPosition.y + (healthBarTop - posy+1)*scale.y,
+						                         (health2*42*scale.x)/maxHealth, healthBarHeight*scale.y), barTexture);
+						posy += 5;
+					}
+					if (healthMode3) {
+						barTexture.SetPixel(0, 0, ColorX.HexToRGB("111011"));
+						barTexture.Apply ();
+						GUI.DrawTexture(new Rect(screenPosition.x - (healthBarLeft*scale.x) / 2 - 1,
+						                         Screen.height - screenPosition.y + (healthBarTop - posy)*scale.y,
+						                         44*scale.x, healthBarHeight*scale.y+2), barTexture);
+						barTexture.SetPixel(0, 0, (health3 < percentLifeToColorChange*maxHealth) ? ColorX.HexToRGB("a966e2") : ColorX.HexToRGB("a966e2"));
+						barTexture.Apply ();
+						GUI.DrawTexture(new Rect(screenPosition.x - (healthBarLeft*scale.x) / 2,
+						                         Screen.height - screenPosition.y + (healthBarTop - posy+1)*scale.y,
+						                         (health3*42*scale.x)/maxHealth, healthBarHeight*scale.y), barTexture);
+					}
 
-					//Color guiColor = Color.white;
-					//guiColor.a = 0.5f;
-					//GUI.color = guiColor;
-					GUI.DrawTextureWithTexCoords(new Rect(screenPosition.x - (45*scale.x) / 2, Screen.height - screenPosition.y + (310f*scale.y) / 2, tr.width, tr.height), t, r);
+					Sprite meleca = null;
+					if (contaminated2 && contaminated3) meleca = sprites.GetSprite("Meleca roxa e verde");
+					else if (contaminated2) meleca = sprites.GetSprite("Meleca verde (Ácido)");
+					else if (contaminated3) meleca = sprites.GetSprite("Meleca roxa (Base)");
+
+					if (meleca != null) {
+						Texture t = meleca.texture;
+
+						Rect tr = meleca.textureRect;
+						Rect r = new Rect(tr.x / t.width, tr.y / t.height, tr.width / t.width, tr.height / t.height );
+
+						//Color guiColor = Color.white;
+						//guiColor.a = 0.5f;
+						//GUI.color = guiColor;
+						GUI.DrawTextureWithTexCoords(new Rect(screenPosition.x - (45*scale.x) / 2, Screen.height - screenPosition.y + (310f*scale.y) / 2, tr.width, tr.height), t, r);
+					}
+				} catch (NullReferenceException) {
 				}
-			} catch (NullReferenceException) {
+				// http://forum.unity3d.com/threads/health-bar-above-ememy.81560/
 			}
-			// http://forum.unity3d.com/threads/health-bar-above-ememy.81560/
 		}
+	}
+
+	public void shakeIt () {
+		myTimerShakingInt = 5.0f;
+		timeShaking = true;
+		old_x = 0;
+		old_y = 0;
 	}
 
 	// Update is called once per frame
 	void Update () {
-		if (timeFat) {
-			if (myTimerInt > 0)
-				myTimerInt -= Time.deltaTime;
-			else {
-				gameObject.GetComponent<FollowWaypoints>().movementSpeed = movementSpeedBkp;
-				// Debug.Log ("movementSpeed after: " + gameObject.GetComponent<FollowWaypoints>().movementSpeed + "/ before: " + movementSpeedBkp + "/ tag: " + gameObject.GetComponent<FollowWaypoints>().oldTag);
-				timeFat = false;
-			}
-		}
-
-		if (contaminated2) {
-			if (timerContaminated2 > 0) {
-				timerContaminated2 -= Time.deltaTime;
-				if (!contaminated3) {
-					movementSpeed *= 0.2f;
-					//Debug.Log ("gosma 3 ativa");
+		if (StartGame.started) {
+			if (timeShaking) {
+				if (myTimerShakingInt > 0) {
+					myTimerShakingInt -= Time.deltaTime;
+					alternateInt *= -1;
+					transform.position += new Vector3 (alternateInt*old_x, alternateInt*old_y, 0);
+					old_x = UnityEngine.Random.Range(0,0.035f);
+					old_y = UnityEngine.Random.Range(0,0.035f);
 				}
-				if (health2 > 0) health2 -= 0.2f;
-			}
-			else {
-				contaminated2 = false;
-				if (!contaminated3)
-					movementSpeed *= 5.0f;
-			}
-		}
-		if (contaminated3) {
-			if (timerContaminated3 > 0) {
-				timerContaminated3 -= Time.deltaTime;
-				if (!contaminated2) {
-					//Debug.Log ("gosma 3 ativa");
-					movementSpeed *= 0.2f;
+				else {
+					//transform.position = new Vector3 (old_x, old_y, 0);
+					timeShaking = false;
 				}
-				if (health3 > 0) health3 -= 0.2f;
 			}
-			else {
-				contaminated3 = false;
-				if (!contaminated2)
-					movementSpeed *= 5.0f;
+
+			if (timeFat) {
+				if (myTimerInt > 0)
+					myTimerInt -= Time.deltaTime;
+				else {
+					gameObject.GetComponent<FollowWaypoints>().movementSpeed = movementSpeedBkp;
+					// Debug.Log ("movementSpeed after: " + gameObject.GetComponent<FollowWaypoints>().movementSpeed + "/ before: " + movementSpeedBkp + "/ tag: " + gameObject.GetComponent<FollowWaypoints>().oldTag);
+					timeFat = false;
+				}
 			}
-		}
 
-		if (contaminated3 && contaminated2) {
-			//Debug.Log ("gosmaSSS ativas");
+			if (contaminated2) {
+				if (timerContaminated2 > 0) {
+					timerContaminated2 -= Time.deltaTime;
+					/* ALTERACAO
+				 	* quantidade de vida que tira as melecas/gosmas da Torre 7
+				 	*/
+					if (health2 > 0) health2 -= 0.2f;
+					/**/
+				}
+				else {
+					contaminated2 = false;
+					if (!contaminated3)
+						movementSpeed *= 5.0f;
+				}
+			}
+			if (contaminated3) {
+				if (timerContaminated3 > 0) {
+					timerContaminated3 -= Time.deltaTime;
+					/* ALTERACAO
+				 	* quantidade de vida que tira as melecas/gosmas da Torre 8
+				 	*/
+					if (health3 > 0) health3 -= 0.2f;
+				}
+				else {
+					contaminated3 = false;
+					if (!contaminated2)
+						movementSpeed *= 5.0f;
+				}
+			}
+			if (health <= 0 && health2 <= 0 && health3 <= 0) foodDied();
 		}
-
 	}
 }

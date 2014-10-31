@@ -3,18 +3,19 @@ using System.Collections;
 using System;
 
 public class VitaminUp : MonoBehaviour {
-	private SpriteCollection sprites;
+	// private SpriteCollection sprites;
 	private int reverse = 1;
 	private float timer = 0.5f;
+
+	public float vitaminUp = 20f;
 	//private float timer2 = 10f;
 	// Use this for initialization
 	void Start () {
 		StartGame.numberOfVitaminUpObjectsAlive++;
-		sprites = new SpriteCollection("Vitamin");
 	}
 
 	void OnMouseDown() {
-		StartGame.vitamin += 100;
+		StartGame.vitamin += vitaminUp * 50;
 		GameObject.Destroy (gameObject);
 		// Debug.Log ("destruiu");
 	}
@@ -32,7 +33,9 @@ public class VitaminUp : MonoBehaviour {
 			//timer2 -= Time.deltaTime;
 			if (timer < 0) {
 				try {
-					gameObject.GetComponent<SpriteRenderer>().sprite = sprites.GetSprite("Vitamina peq (frame " + reverse + ")");
+					SpriteCollection sprites = new SpriteCollection("Vitamin");
+					gameObject.GetComponent<SpriteRenderer>().sprite = sprites.GetSprite("Vitamina " + (vitaminUp<2?"peq":"gra") + " (frame " + reverse + ")");
+					sprites = null;
 				} catch (NullReferenceException) {
 					Debug.LogError ("vitamina sumiu");
 				}

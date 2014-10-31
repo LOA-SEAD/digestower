@@ -8,11 +8,9 @@ public class ChooseTower : MonoBehaviour {
 
 	void OnMouseDown() {
 		InsertTower.towerObject = gameObject;
+		MenuControl.DisableMenu (1);
 	}
 
-	void Update () {
-		
-	}
 	void OnDestroy () {
 		StartGame.numberOfChooseTowerObjectsAlive--;
 	}

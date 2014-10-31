@@ -3,7 +3,7 @@ using System.Collections;
 using System;
 
 public class SalivaEspecial : MonoBehaviour {
-	private SpriteCollection sprites;
+	// private SpriteCollection sprites;
 	private int reverse = 1;
 	private float timer = 0f;
 	// private float timer2 = 10f;
@@ -11,20 +11,22 @@ public class SalivaEspecial : MonoBehaviour {
 	
 	// Use this for initialization
 	void Start () {
-		//StartGame.numberOfVitaminUpObjectsAlive++;
-		sprites = new SpriteCollection("Saliva");
+		StartGame.numberOfSalivaEspecialObjectsAlive++;
+		//sprites = new SpriteCollection("Saliva");
 	}
 	
 	
 	
 	// Update is called once per frame
 	void Update () {
-		if (gameObject.tag == "SalivaInserida") {
+		if (StartGame.started && gameObject.tag == "SalivaInserida") {
 			timer -= Time.deltaTime;
 			// timer2 -= Time.deltaTime;
 			if (!saiu && timer < 0) {
 				try {
+					SpriteCollection sprites = new SpriteCollection("Saliva");
 					gameObject.GetComponent<SpriteRenderer>().sprite = sprites.GetSprite("Saliva (frame " + reverse + ")");
+					sprites = null;
 				} catch (NullReferenceException) {
 					Debug.LogError ("saliva sumiu");
 				}
@@ -37,6 +39,7 @@ public class SalivaEspecial : MonoBehaviour {
 					wayPoint.oldTag = "Saliva";
 					
 					saiu = true;
+					CallSkill.creatingSaliva = false;
 				}
 				else {
 					reverse++;
@@ -56,6 +59,7 @@ public class SalivaEspecial : MonoBehaviour {
 	}
 	
 	void OnDestroy () {
-		//StartGame.numberOfVitaminUpObjectsAlive--;
+		// sprites = null;
+		StartGame.numberOfSalivaEspecialObjectsAlive--;
 	}
 }

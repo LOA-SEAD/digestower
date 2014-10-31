@@ -12,7 +12,12 @@ using System;
  */
 public class StartGame : MonoBehaviour {
 	// public static StartGame current;
-	public GameObject activeTower;
+	// public GameObject activeTower;
+	public static float energy;
+	public static float vitamin;
+	public static float fat;
+	public static float indigest;
+
 	public static int numberOfChooseTowerObjectsAlive = 0,
 					  numberOfFollowWaypointsObjectsAlive = 0,
 					  numberOfVitaminUpObjectsAlive = 0,
@@ -20,37 +25,59 @@ public class StartGame : MonoBehaviour {
 					  numberOfBasicTowerObjectsAlive = 0,
 					  numberOfInsertTowerObjectsAlive = 0,
 					  numberOfBulletAwayObjectsAlive = 0,
-					  numberOfFoodPropertiesObjectsAlive = 0;
+					  numberOfFoodPropertiesObjectsAlive = 0,
+					  numberOfAcidoEspecialObjectsAlive = 0,
+					  numberOfSalivaEspecialObjectsAlive = 0,
+					  numberOfTowerFunctionalityObjectsAlive = 0,
+					  numberOfDestroyTowerMenuObjectsAlive = 0,
+					  numberOfCallSkillObjectsAlive = 0,
+					  numberOfSaveLoadObjectsAlive = 0,
+					  numberOfMouseMoveCameraObjectsAlive = 0,
+					  numberOfRestartGameObjectsAlive = 0,
+				      numberOfSpriteCollectionObjectsAlive = 0,
+					  numberOfColorXObjectsAlive = 0;
 
-	public static float energy = 1500;
-	public static float vitamin = 0;
-	public static float fat = 0;
-	public static float indigest = 0;
 	public static string[] placeTag;
 	public static string[] placeTagBkp;
 
 	public static float energyBkp, vitaminBkp, fatBkp, indigestBkp;
-
-	public float constantSpeed = 10.0f;
+	
+	/*desconsiderar*/
+	public float constantSpeed = 7.5f;
 	public float insertTimeInterval = 10.0f;
+	public float myTimerInterWaves = 3.0f;
+	/* ALTERACAO
+	 * a alteracao eh feita no StartButton no componente StartGame
+	 */
+	/**/
+
 	public static float msgTimeInterval = 10.0f;
 	public float initialPosX = -2.818f;
 	public float initialPosY = 3.19f;
 	//public float foodMovementSpeed = 10.0f;
 	// public int maximumFoods = 10;
+
+	/*desconsiderar*/
 	public static int fase = 0;
 	public static int nivel = 0;
 	public static int wave = 0;
 	public static int waveSet = 0;
+	/**/
 
 // 	private bool towerPosState = true;
 	private bool loose = false;
-	public static float maxEnergy = 3000;
-	public static float maxVitamin = 2000;
+
+	/* ALTERACAO
+	 * valores maximos energia, vitamina, gordura e indigestao
+	 */
+	public static float maxEnergy = 7000;
+	public static float maxVitamin = 3000;
 	public static float maxFat = 300;
 	public static float maxIndigest = 6000;
+	/**/
 
 	private int actualSubWave = 0;
+
 	private float myTimer, msgTimer;
 	public static bool started = false;
 	private GameObject[] instantiatedGameObjects;
@@ -70,23 +97,34 @@ public class StartGame : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+		MenuControl.DisableMenu (1);
+		MenuControl.DisableMenu (2);
+
 		placeTag = new string[GameObject.Find ("TowerPosition").transform.childCount];
 		placeTagBkp = new string[GameObject.Find ("TowerPosition").transform.childCount];
 		for (int i=0;i<GameObject.Find ("TowerPosition").transform.childCount;i++) {
 			placeTag[i] = "Untagged";
 			placeTagBkp[i] = "Untagged";
 		}
-
-		energy = 1500;
+		
+		/* ALTERACAO
+		 * Energia, vitamina, gordura e indigestao inciais
+		 */
+		energy = 7000;
 		vitamin = 0;
 		fat = 0;
 		indigest = 0;
+		/**/
 
-		fase = 0;
-		nivel = 0;
-		wave = 0;
+		/* ALTERACAO
+		 * Fase,nivel,wave e waveSet inciais
+		 */
+		fase = 2; /*0, 1, 2*/
+		nivel = 0; /*0, 1, 2*/
+		wave = 0; /*0:8, 1:7, 2:5*/
 		waveSet = 0;
 		actualSubWave = 0;
+		/**/
 
 		maxInserted[0,0] = new int[1]{5};
 		maxInserted[0,1] = new int[1]{5};
@@ -218,23 +256,23 @@ public class StartGame : MonoBehaviour {
 		tags[5,5] = new string[13]{"Batata","Mel","Cereal","Pao","Arroz","Banana","PaoIntegral","Lentilha","Peixe","Queijo","Mortadela","Soja","Carne"};
 		tags[5,6] = new string[13]{"Vagem","Banana","Arroz","PaoIntegral","Mel","Cereal","Pao","Queijo","Lentilha","Mortadela","Soja","Peixe","Carne"};
 
-		tags[6,0] = new string[8]{"Arroz", "Banana", "PaoIntegral", "Lentilha", "Mortadela", "Soja", "Manteiga", "Maionese"};
+		tags[6,0] = new string[8]{"Arroz", "Banana", "PaoIntegral", "Lentilha", "Mortadela", "Soja", "Margarina", "Maionese"};
 		tags[6,1] = new string[10]{"Mel", "Cereal", "Arroz", "Batata", "Lentilha", "Peixe", "Queijo", "Mortadela", "Coco", "Abacate"};
 		tags[6,2] = new string[11]{"Vagem", "Arroz", "PaoIntegral", "Pao", "Queijo", "Lentilha", "Soja", "Peixe", "Carne", "Chocolate", "Chips"};
 		tags[6,3] = new string[13]{"Cereal", "Pao", "Arroz", "Batata", "Banana", "Lentilha", "Mortadela", "Queijo", "Peixe", "Soja", "Bolo", "Ovo", "Amendoim"};
 		tags[6,4] = new string[11]{"Vagem","Batata", "Banana", "Mel", "Queijo", "Peixe", "Lentilha", "Soja", "Carne", "Leite", "Pastel"};
 
 		tags[7,0] = new string[14]{"Vagem", "Mel", "Pao", "Banana", "PaoIntegral", "Lentilha", "Peixe", "Queijo", "Mortadela", "Soja", "Carne", "Chocolate", "Abacate", "Coco"};
-		tags[7,1] = new string[15]{"Batata", "Banana", "Mel", "Cereal", "Pao", "Queijo", "Mortadela", "Soja", "Peixe", "Carne", "Soja", "Chips", "Manteiga", "Coco", "Bolo"};
-		tags[7,2] = new string[15]{"Vagem", "Banana", "Cereal", "Arroz", "PaoIntegral", "Queijo", "Lentilha", "Soja", "Peixe", "Carne", "Abacate", "Ovo", "Leite", "Manteiga", "Chips"};
-		tags[7,3] = new string[16]{"Batata", "Banana", "Arroz", "PaoIntegral", "Mel", "Queijo", "Lentilha", "Mortadela", "Soja", "Carne", "Coco", "Manteiga", "Leite", "Ovo", "Bolo", "Amendoim"};
+		tags[7,1] = new string[15]{"Batata", "Banana", "Mel", "Cereal", "Pao", "Queijo", "Mortadela", "Soja", "Peixe", "Carne", "Soja", "Chips", "Margarina", "Coco", "Bolo"};
+		tags[7,2] = new string[15]{"Vagem", "Banana", "Cereal", "Arroz", "PaoIntegral", "Queijo", "Lentilha", "Soja", "Peixe", "Carne", "Abacate", "Ovo", "Leite", "Margarina", "Chips"};
+		tags[7,3] = new string[16]{"Batata", "Banana", "Arroz", "PaoIntegral", "Mel", "Queijo", "Lentilha", "Mortadela", "Soja", "Carne", "Coco", "Margarina", "Leite", "Ovo", "Bolo", "Amendoim"};
 		tags[7,4] = new string[15]{"Vagem", "Banana", "Batata", "Cereal", "Queijo", "Lentilha", "Soja", "Peixe", "Carne", "Abacate", "Leite", "Ovo", "Bolo", "Pastel", "Amendoim"};
 
-		tags[8,0] = new string[10]{"Vagem", "Banana", "Arroz", "PaoIntegral", "Queijo", "Lentilha", "Mortadela", "Acabate", "Coco", "Manteiga"};
-		tags[8,1] = new string[12]{"Pao", "Batata", "Mel", "Cereal", "Soja", "Peixe", "Carne", "Coco", "Manteiga", "Leite", "Ovo", "Abacate"};
+		tags[8,0] = new string[10]{"Vagem", "Banana", "Arroz", "PaoIntegral", "Queijo", "Lentilha", "Mortadela", "Acabate", "Coco", "Margarina"};
+		tags[8,1] = new string[12]{"Pao", "Batata", "Mel", "Cereal", "Soja", "Peixe", "Carne", "Coco", "Margarina", "Leite", "Ovo", "Abacate"};
 		tags[8,2] = new string[15]{"Vagem", "Cereal", "Batata", "PaoIntegral", "Pao", "Queijo", "Lentilha", "Soja", "Peixe", "Carne", "Abacate", "Ovo", "Leite", "Maionese", "Bolo"};
-		tags[8,3] = new string[16]{"Banana","Mel","Cereal", "Batata", "Queijo", "Mortadela", "Soja", "Peixe", "Soja", "Chips", "Manteiga", "Coco", "Bolo", "Coco", "Pastel", "Amendoim"};
-		tags[8,4] = new string[16]{"Vagem", "Batata", "Banana", "Cereal", "PaoIntegral", "Queijo", "Lentilha", "Soja", "Peixe", "Carne", "Abacate", "Ovo", "Leite", "Manteiga", "Pastel", "Chocolate"};
+		tags[8,3] = new string[16]{"Banana","Mel","Cereal", "Batata", "Queijo", "Mortadela", "Soja", "Peixe", "Soja", "Chips", "Margarina", "Coco", "Bolo", "Coco", "Pastel", "Amendoim"};
+		tags[8,4] = new string[16]{"Vagem", "Batata", "Banana", "Cereal", "PaoIntegral", "Queijo", "Lentilha", "Soja", "Peixe", "Carne", "Abacate", "Ovo", "Leite", "Margarina", "Pastel", "Chocolate"};
 	
 		screen = new Vector2 (Screen.width, Screen.height);
 		scale = new Vector2(screen.x/1092, screen.y/614);
@@ -258,6 +296,7 @@ public class StartGame : MonoBehaviour {
 			
 			SpriteRenderer myRenderer = gameObject.GetComponent<SpriteRenderer>();
 			myRenderer.sprite = sprites.GetSprite("Botão pause");
+			sprites = null;
 			
 			placeTagBkp = placeTag;
 
@@ -270,6 +309,8 @@ public class StartGame : MonoBehaviour {
 
 			SpriteRenderer myRenderer = gameObject.GetComponent<SpriteRenderer>();
 			myRenderer.sprite = sprites.GetSprite("Botão iniciar");
+
+			sprites = null;
 
 			started = false;
 		}
@@ -325,16 +366,26 @@ public class StartGame : MonoBehaviour {
 		}
 
 		GUI.color = Color.white;
-		/*
+
 		GUI.Label(new Rect(Screen.height/2-100, Screen.width/2-0, 200, 100), "FP<size=20>" + numberOfFatPlaceObjectsAlive + "</size>");
 		GUI.Label(new Rect(Screen.height/2-100, Screen.width/2-30, 200, 100), "VU<size=20>" + numberOfVitaminUpObjectsAlive + "</size>");
 		GUI.Label(new Rect(Screen.height/2-100, Screen.width/2-60, 200, 100), "FW<size=20>" + numberOfFollowWaypointsObjectsAlive + "</size>");
-		GUI.Label(new Rect(Screen.height/2-100, Screen.width/2-80, 200, 100), "CT<size=20>" + numberOfChooseTowerObjectsAlive + "</size>");
-		GUI.Label(new Rect(Screen.height/2-100, Screen.width/2-110, 200, 100), "BT<size=20>" + numberOfBasicTowerObjectsAlive + "</size>");
-		GUI.Label(new Rect(Screen.height/2-100, Screen.width/2-140, 200, 100), "IT<size=20>" + numberOfInsertTowerObjectsAlive + "</size>");
-		GUI.Label(new Rect(Screen.height/2-100, Screen.width/2-170, 200, 100), "BA<size=20>" + numberOfBulletAwayObjectsAlive + "</size>");
-		GUI.Label(new Rect(Screen.height/2-100, Screen.width/2-200, 200, 100), "FP<size=20>" + numberOfFoodPropertiesObjectsAlive + "</size>");
-		*/
+		GUI.Label(new Rect(Screen.height/2-100, Screen.width/2-90, 200, 100), "CT<size=20>" + numberOfChooseTowerObjectsAlive + "</size>");
+		GUI.Label(new Rect(Screen.height/2-100, Screen.width/2-120, 200, 100), "BT<size=20>" + numberOfBasicTowerObjectsAlive + "</size>");
+		GUI.Label(new Rect(Screen.height/2-100, Screen.width/2-150, 200, 100), "IT<size=20>" + numberOfInsertTowerObjectsAlive + "</size>");
+		GUI.Label(new Rect(Screen.height/2-100, Screen.width/2-180, 200, 100), "BA<size=20>" + numberOfBulletAwayObjectsAlive + "</size>");
+		GUI.Label(new Rect(Screen.height/2-100, Screen.width/2-210, 200, 100), "FP<size=20>" + numberOfFoodPropertiesObjectsAlive + "</size>");
+		GUI.Label(new Rect(Screen.height/2-100, Screen.width/2-240, 200, 100), "SE<size=20>" + numberOfSalivaEspecialObjectsAlive + "</size>");
+		GUI.Label(new Rect(Screen.height/2-100, Screen.width/2-270, 200, 100), "AE<size=20>" + numberOfAcidoEspecialObjectsAlive + "</size>");
+		GUI.Label(new Rect(Screen.height/2-100, Screen.width/2-300, 200, 100), "TF<size=20>" + numberOfTowerFunctionalityObjectsAlive + "</size>");
+		GUI.Label(new Rect(Screen.height/2-100, Screen.width/2-330, 200, 100), "DTM<size=20>" + numberOfDestroyTowerMenuObjectsAlive + "</size>");
+		GUI.Label(new Rect(Screen.height/2-100, Screen.width/2-360, 200, 100), "CS<size=20>" + numberOfCallSkillObjectsAlive + "</size>");
+		GUI.Label(new Rect(Screen.height/2-100, Screen.width/2-390, 200, 100), "SL<size=20>" + numberOfSaveLoadObjectsAlive + "</size>");
+		GUI.Label(new Rect(Screen.height/2-100, Screen.width/2-420, 200, 100), "MMC<size=20>" + numberOfMouseMoveCameraObjectsAlive + "</size>");
+		GUI.Label(new Rect(Screen.height/2-100, Screen.width/2-450, 200, 100), "RG<size=20>" + numberOfRestartGameObjectsAlive + "</size>");
+		GUI.Label(new Rect(Screen.height/2-100, Screen.width/2-480, 200, 100), "CX<size=20>" + numberOfColorXObjectsAlive + "</size>");
+		GUI.Label(new Rect(Screen.height/2-100, Screen.width/2-510, 200, 100), "SC<size=20>" + numberOfSpriteCollectionObjectsAlive + "</size>");
+
 
 		if (!started) {
 			GUI.Label(new Rect(10, 10, 500, 20), "Posicione suas torres e clique no botao START novamente");
@@ -391,12 +442,12 @@ public class StartGame : MonoBehaviour {
 		//A simple countdown timer
 		if (started) {
 			if (indigest >= maxIndigest) {
-				msg ("Voce perdeu!!!!!");
+				//msg ("Voce perdeu!!!!!");
 				indigest = maxIndigest;
-				loose = true;
-				started = false;
+				//loose = true;
+				//started = false;
 			}
-			else if (myTimer > 0) {
+			if (myTimer > 0) {
 				myTimer -= Time.deltaTime;
 				if (Mathf.Round(myTimer) != myTimerInt) {
 					myTimerInt = (int)Mathf.Round(myTimer);
@@ -421,12 +472,12 @@ public class StartGame : MonoBehaviour {
 									//food.healthMode = fase;
 									Vector3 pos = new Vector3 (initialPosX, initialPosY, 0);
 									GameObject inserted = (GameObject)Instantiate (item, pos, Quaternion.identity);
-									inserted.AddComponent<FollowWaypoints>().movementSpeed = food.movementSpeed*constantSpeed;
+									inserted.AddComponent<FollowWaypoints>().movementSpeed = food.movementSpeed * constantSpeed;
 
 									FollowWaypoints foodWayProperties = inserted.GetComponent<FollowWaypoints>();
 									foodWayProperties.food = inserted.GetComponent<FoodProperties>();
 									foodWayProperties.oldTag = inserted.tag;
-									inserted.tag = "ComidaInserida"/* + (fase+1)*/;
+									inserted.tag = "ComidaInserida1"/* + (fase+1)*/;
 									waveSet++;
 								}
 								else {
@@ -435,18 +486,24 @@ public class StartGame : MonoBehaviour {
 								}
 							}
 							else {
-								actualSubWave = waveSet = 0;
+								myTimer = 150.0f;
+								if (myTimerInterWaves > 0) {
+									myTimerInterWaves -= Time.deltaTime;
+								}
+								else {
+									actualSubWave = waveSet = 0;
+									
+									energyBkp = energy;
+									vitaminBkp = vitamin;
+									fatBkp = fat;
+									indigestBkp = indigest;
+									placeTagBkp = placeTag;
 
-								energyBkp = energy;
-								vitaminBkp = vitamin;
-								fatBkp = fat;
-								indigestBkp = indigest;
-								placeTagBkp = placeTag;
-
-								wave++;
-								msg ("Wave: "+ (wave+1));
-								
-								myTimer = 100.0f;
+									wave++;
+									msg ("Wave: "+ (wave+1));
+									
+									myTimerInterWaves = 0.3f;
+								}
 
 								/*int r = Random.Range (0, 100);
 								if (r < 80) {

@@ -3,7 +3,7 @@ using System.Collections;
 using System;
 
 public class AcidoEspecial : MonoBehaviour {
-	private SpriteCollection sprites;
+	// private SpriteCollection sprites;
 	private int reverse = 1;
 	private float timer = 0f;
 	// private float timer2 = 10f;
@@ -11,20 +11,19 @@ public class AcidoEspecial : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		//StartGame.numberOfVitaminUpObjectsAlive++;
-		sprites = new SpriteCollection("Acido");
+		StartGame.numberOfAcidoEspecialObjectsAlive++;
 	}
-
-
 	
 	// Update is called once per frame
 	void Update () {
-		if (gameObject.tag == "AcidoInserido") {
+		if (StartGame.started && gameObject.tag == "AcidoInserido") {
 			timer -= Time.deltaTime;
 			// timer2 -= Time.deltaTime;
 			if (!saiu && timer < 0) {
 				try {
+					SpriteCollection sprites = new SpriteCollection("Acido");
 					gameObject.GetComponent<SpriteRenderer>().sprite = sprites.GetSprite("Acido (frame " + reverse + ")");
+					sprites = null;
 				} catch (NullReferenceException) {
 					Debug.LogError ("acido sumiu");
 				}
@@ -37,6 +36,7 @@ public class AcidoEspecial : MonoBehaviour {
 					wayPoint.oldTag = "Acido";
 
 					saiu = true;
+					CallSkill.creatingAcido = false;
 				}
 				else {
 					reverse++;
@@ -56,6 +56,6 @@ public class AcidoEspecial : MonoBehaviour {
 	}
 
 	void OnDestroy () {
-		//StartGame.numberOfVitaminUpObjectsAlive--;
+		StartGame.numberOfAcidoEspecialObjectsAlive--;
 	}
 }

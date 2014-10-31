@@ -30,11 +30,20 @@ public class SaveLoad : MonoBehaviour {
 		} 
 	}
 
+	void Start () {
+		StartGame.numberOfSaveLoadObjectsAlive++;
+	}
+
 	void OnMouseDown() {
 		if (type) {
-			Debug.Log("saving");
-			Save ();
-			StartGame.msg("Jogo salvo com sucesso!");
+			if (StartGame.started) {
+				Debug.Log("saving");
+				Save ();
+				StartGame.msg("Jogo salvo com sucesso!");
+			}
+			else {
+				StartGame.msg("Inicie o jogo antes de salvar!");
+			}
 		}
 		else {
 			Debug.Log("loading");
@@ -44,6 +53,7 @@ public class SaveLoad : MonoBehaviour {
 	}
 	
 	public static void Save() {
+		/*
 		SaveData data = new SaveData ();
 		data.wave = StartGame.wave;
 		//data.waveSet = StartGame.waveSet;
@@ -63,12 +73,25 @@ public class SaveLoad : MonoBehaviour {
 		FileStream file = File.Create (Application.persistentDataPath + "/savedGames.gd");
 		bf.Binder = new VersionDeserializationBinder();
 		bf.Serialize(file, data);
-		
+
 		file.Close();
+		*/
+
+		PlayerPrefs.SetInt("wave",StartGame.wave);
+		PlayerPrefs.SetInt("fase",StartGame.fase);
+		PlayerPrefs.SetInt("nivel",StartGame.nivel);
+		PlayerPrefs.SetFloat("energy",StartGame.energy);
+		PlayerPrefs.SetFloat("fat",StartGame.fat);
+		PlayerPrefs.SetFloat("vitamin",StartGame.vitamin);
+		PlayerPrefs.SetFloat("indigest",StartGame.indigest);
+
+		for (int i=0;i < GameObject.Find("TowerPosition").transform.childCount;i++) {
+			PlayerPrefs.SetString("place" + i,StartGame.placeTagBkp[i]);
+		}
 	}
 	
 	public static void Load() {
-		if(File.Exists(Application.persistentDataPath + "/savedGames.gd")) {
+		/*if(File.Exists(Application.persistentDataPath + "/savedGames.gd")) {
 			SaveData data = new SaveData ();
 			
 			BinaryFormatter bf = new BinaryFormatter();
@@ -87,15 +110,62 @@ public class SaveLoad : MonoBehaviour {
 			StartGame.fat = data.fat;
 			StartGame.vitamin = data.vitamin;
 			StartGame.indigest = data.indigest;
+			*/
+		if (PlayerPrefs.HasKey("wave")) {
+			StartGame.wave = PlayerPrefs.GetInt("wave");
+			StartGame.fase = PlayerPrefs.GetInt("fase");
+			StartGame.nivel = PlayerPrefs.GetInt("nivel");
+			StartGame.energy = PlayerPrefs.GetFloat("energy");
+			StartGame.fat = PlayerPrefs.GetFloat("fat");
+			StartGame.vitamin = PlayerPrefs.GetFloat("vitamin");
+			StartGame.indigest = PlayerPrefs.GetFloat("indigest");
+			InsertTower.activeTooth = new bool[3]{false, false, false};
+
+			//BasicTower bTower = tower.GetComponent("BasicTower") as BasicTower;
+			//Destroy(tower);
 			
-			Transform towerPlace = GameObject.Find("TowerPosition").transform;
-			for (int i=0;i < GameObject.Find("TowerPosition").transform.childCount;i++) {
-				StartGame.placeTag[i] = data.places[i];
-				(towerPlace.GetChild(i).GetComponent("InsertTower") as InsertTower).RestoreTowerPos(data.places[i]);
-				Debug.Log("restoring pos " + i + "..." + data.places[i]);
+			Transform _places = GameObject.Find("TowerPosition").transform;
+			for (int i=0;i<_places.childCount;i++) {
+				//if (_places.GetChild(i) == place.transform)
+				//	StartGame.placeTag[i] = "Untagged";
+				InsertTower insertPlace = _places.GetChild(i).GetComponent ("InsertTower") as InsertTower;
+				if (insertPlace.insertedTower != null)
+					Destroy (insertPlace.insertedTower);
+				if (insertPlace.insertedTower2 != null)
+					Destroy (insertPlace.insertedTower2);
+				// (target.GetComponent("InsertTower") as InsertTower).towerObjTag = towerObject.tag;
+				insertPlace.towerObj = null;
+				
+				/*StartGame.placeTag[i] = data.places[i];
+				if (data.places[i] != "Untagged") {
+					(towerPlace.GetChild(i).GetComponent("InsertTower") as InsertTower).RestoreTowerPos(data.places[i]);
+					//Debug.Log("restoring pos " + i + "..." + data.places[i]);
+				}*/
+
+				StartGame.placeTag[i] = PlayerPrefs.GetString("place" + i);
+				
+				if (PlayerPrefs.GetString("place" + i) == "xDente" && !InsertTower.activeTooth[(i<15?14:17)-i]) {
+					//Debug.Log ("i do dente: " + i + "..." + ((i<15?14:17)-i));
+					//if () {
+					_places.GetChild(i).renderer.enabled = true;
+					//}
+				}
+
+				if (StartGame.placeTag[i] != "Untagged") {
+					(_places.GetChild(i).GetComponent("InsertTower") as InsertTower).RestoreTowerPos(StartGame.placeTag[i]);
+					//Debug.Log("restoring pos " + i + "..." );
+				}
 			}
-			
-			file.Close();
 		}
+		else {
+			StartGame.msg ("Nao ha jogo salvo ate o momento");
+		}
+			
+			//file.Close();
+		//}
+	}
+
+	void OnDestroy () {
+		StartGame.numberOfSaveLoadObjectsAlive++;
 	}
 }
