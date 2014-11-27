@@ -8,7 +8,10 @@ public class ChooseTower : MonoBehaviour {
 
 	void OnMouseDown() {
 		InsertTower.towerObject = gameObject;
-		MenuControl.DisableMenu (1);
+		GameObject actualTower = GameObject.FindGameObjectWithTag("ActualTower");
+		(actualTower.GetComponent ("SpriteRenderer") as SpriteRenderer).sprite = (gameObject.GetComponent ("SpriteRenderer") as SpriteRenderer).sprite;
+		ButtonAction.DisableMenu (1);
+		ButtonAction.play ();
 	}
 
 	void OnDestroy () {

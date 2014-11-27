@@ -16,7 +16,7 @@ public class AcidoEspecial : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if (StartGame.started && gameObject.tag == "AcidoInserido") {
+		if (StartGame.paused == 0 && gameObject.tag == "AcidoInserido") {
 			timer -= Time.deltaTime;
 			// timer2 -= Time.deltaTime;
 			if (!saiu && timer < 0) {
@@ -31,7 +31,7 @@ public class AcidoEspecial : MonoBehaviour {
 				if (reverse == 6) {
 					FollowWaypoints wayPoint = gameObject.AddComponent<FollowWaypoints>();
 					wayPoint.acido = this;
-					wayPoint._targetWaypoint = 17;
+					wayPoint._targetWaypoint = 21;
 					wayPoint.movementSpeed = 40f;
 					wayPoint.oldTag = "Acido";
 

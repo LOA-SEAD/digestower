@@ -13,8 +13,9 @@ public class CallSkill : MonoBehaviour {
 	}
 
 	void OnMouseDown() {
-		MenuControl.DisableMenu (2);
-		if (type == 0 && StartGame.vitamin > 100 && !creatingSaliva) {
+		ButtonAction.DisableMenu (2);
+		ButtonAction.play ();
+		if (type == 0 && StartGame.vitamin > 1000 && !creatingSaliva) {
 			creatingSaliva = true;
 			/* ALTERACAO
 			* quanto vai custar de vitamina para utilizar o especial de saliva
@@ -22,11 +23,11 @@ public class CallSkill : MonoBehaviour {
 			StartGame.vitamin -= 1000;
 			/**/
 			GameObject item = GameObject.FindGameObjectWithTag("Saliva");
-			Vector3 pos = new Vector3 ( -0.858f, 3.39f, 0);
+			Vector3 pos = new Vector3 ( -0.858f, 2.75f, 0);
 			GameObject inserted = (GameObject)Instantiate (item, pos, Quaternion.identity);
 			inserted.tag = "SalivaInserida";
 		}
-		else if (type == 1 && StartGame.vitamin > 100 && StartGame.fase > 0 && !creatingAcido) {
+		else if (type == 1 && StartGame.vitamin > 1000 && StartGame.fase > 0 && !creatingAcido) {
 			creatingAcido = true;
 			/* ALTERACAO
 			* quanto vai custar de vitamina para utilizar o especial de acido
@@ -34,11 +35,11 @@ public class CallSkill : MonoBehaviour {
 			StartGame.vitamin -= 1000;
 			/**/
 			GameObject item = GameObject.FindGameObjectWithTag("Acido");
-			Vector3 pos = new Vector3 ( 0.35f, -3.55f, 0);
+			Vector3 pos = new Vector3 ( 0.45f, -6.10f, 0);
 			GameObject inserted = (GameObject)Instantiate (item, pos, Quaternion.identity);
 			inserted.tag = "AcidoInserido";
 		}
-		else if (type == 2 && StartGame.vitamin > 100 && StartGame.fase > 1 && !usingPhysicalExercise) {
+		else if (type == 2 && StartGame.vitamin > 1000 && StartGame.fase > 1 && !usingPhysicalExercise) {
 			usingPhysicalExercise = true;
 			/* ALTERACAO
 			* quanto vai custar de vitamina para utilizar o especial de acido

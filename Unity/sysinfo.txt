@@ -21,154 +21,182 @@ User locale: pt-BR
 System locale: pt-BR
 
 Running processes:
-Monitor.exe (3652)
+Monitor.exe (972)
     path: C:\Windows\PixArt\PAC7302\Monitor.exe
     company:  PixArt Imaging Incorporation
     product:  Registry Monitor
     filedesc: Registry Monitor
     filever:  1.4.2006.1103
     prodver:  5.2.3790.1830
-chrome.exe (4084)
-    path: C:\Program Files (x86)\Google\Chrome\Application\chrome.exe
-    company:  Google Inc.
-    product:  Google Chrome
-    filedesc: Google Chrome
-    filever:  37.0.2062.124
-    prodver:  37.0.2062.124
-VCDDaemon.exe (2024)
+Skype.exe (3972)
+    path: C:\Program Files (x86)\Skype\Phone\Skype.exe
+    company:  Skype Technologies S.A.
+    product:  Skype
+    filedesc: Skype 
+    filever:  6.22.64.107
+    prodver:  6.22.0.0
+VCDDaemon.exe (4284)
     path: C:\Program Files (x86)\Elaborate Bytes\VirtualCloneDrive\VCDDaemon.exe
     company:  Elaborate Bytes AG
     product:  Virtual CloneDrive
     filedesc: Virtual CloneDrive Daemon
     filever:  5.4.5.0
     prodver:  5.4.0.0
-AutoShutDown.exe (3468)
+AutoShutDown.exe (4428)
     path: C:\Program Files (x86)\Auto ShutDown\AutoShutDown.exe
     company:  
     product:  Auto Shutdown
     filedesc: Auto Shutdown
     filever:  3.4.0.0
     prodver:  3.4.0.0
-jusched.exe (3316)
+jusched.exe (4516)
     path: C:\Program Files (x86)\Common Files\Java\Java Update\jusched.exe
     company:  Oracle Corporation
     product:  Java(TM) Platform SE Auto Updater
     filedesc: Java(TM) Update Scheduler
     filever:  2.1.9.8
     prodver:  2.1.9.8
-AdobeARM.exe (3188)
+AdobeARM.exe (4588)
     path: C:\Program Files (x86)\Common Files\Adobe\ARM\1.0\AdobeARM.exe
     company:  Adobe Systems Incorporated
     product:  Adobe Reader and Acrobat Manager
     filedesc: Adobe Reader and Acrobat Manager
     filever:  1.701.3.3014
     prodver:  1.701.3.3014
-chrome.exe (3484)
-    path: C:\Program Files (x86)\Google\Chrome\Application\chrome.exe
-    company:  Google Inc.
-    product:  Google Chrome
-    filedesc: Google Chrome
-    filever:  37.0.2062.124
-    prodver:  37.0.2062.124
-acrotray.exe (3720)
+acrotray.exe (4648)
     path: C:\Program Files (x86)\Adobe\Acrobat 10.0\Acrobat\acrotray.exe
     company:  Adobe Systems Inc.
     product:  AcroTray - Adobe Acrobat Distiller helper application.
     filedesc: AcroTray
     filever:  10.1.10.18
     prodver:  10.1.10.18
-avastui.exe (3768)
+avastui.exe (4684)
     path: C:\Program Files\AVAST Software\Avast\avastui.exe
     company:  AVAST Software
     product:  avast! Antivirus 
     filedesc: avast! Antivirus
     filever:  9.0.2021.531
     prodver:  9.0.2021.531
-chrome.exe (4028)
+BavTray.exe (4908)
+    path: C:\Program Files (x86)\Baidu-Security-2014-4.4.4.82804\Baidu Antivirus\BavTray.exe
+    company:  Baidu, Inc.
+    product:  Baidu Antivirus
+    filedesc: Baidu Antivirus Tray Application
+    filever:  4.4.4.17268
+    prodver:  4.4.4.17268
+chrome.exe (1060)
     path: C:\Program Files (x86)\Google\Chrome\Application\chrome.exe
     company:  Google Inc.
     product:  Google Chrome
     filedesc: Google Chrome
-    filever:  37.0.2062.124
-    prodver:  37.0.2062.124
-chrome.exe (3216)
+    filever:  39.0.2171.71
+    prodver:  39.0.2171.71
+chrome.exe (5444)
     path: C:\Program Files (x86)\Google\Chrome\Application\chrome.exe
     company:  Google Inc.
     product:  Google Chrome
     filedesc: Google Chrome
-    filever:  37.0.2062.124
-    prodver:  37.0.2062.124
-chrome.exe (1624)
+    filever:  39.0.2171.71
+    prodver:  39.0.2171.71
+chrome.exe (5076)
     path: C:\Program Files (x86)\Google\Chrome\Application\chrome.exe
     company:  Google Inc.
     product:  Google Chrome
     filedesc: Google Chrome
-    filever:  37.0.2062.124
-    prodver:  37.0.2062.124
-chrome.exe (4632)
+    filever:  39.0.2171.71
+    prodver:  39.0.2171.71
+chrome.exe (5832)
     path: C:\Program Files (x86)\Google\Chrome\Application\chrome.exe
     company:  Google Inc.
     product:  Google Chrome
     filedesc: Google Chrome
-    filever:  37.0.2062.124
-    prodver:  37.0.2062.124
-chrome.exe (4884)
+    filever:  39.0.2171.71
+    prodver:  39.0.2171.71
+chrome.exe (6096)
     path: C:\Program Files (x86)\Google\Chrome\Application\chrome.exe
     company:  Google Inc.
     product:  Google Chrome
     filedesc: Google Chrome
-    filever:  37.0.2062.124
-    prodver:  37.0.2062.124
-AAM Updates Notifier.exe (2788)
-    path: C:\Program Files (x86)\Common Files\Adobe\OOBE\PDApp\UWA\AAM Updates Notifier.exe
-    company:  Adobe Systems Incorporated
-    product:  AAM Updates Notifier Application
-    filedesc: AAM Updates Notifier Application
-    filever:  2.0.242.0
-    prodver:  2.0.242.0
-chrome.exe (3076)
+    filever:  39.0.2171.71
+    prodver:  39.0.2171.71
+chrome.exe (4556)
     path: C:\Program Files (x86)\Google\Chrome\Application\chrome.exe
     company:  Google Inc.
     product:  Google Chrome
     filedesc: Google Chrome
-    filever:  37.0.2062.124
-    prodver:  37.0.2062.124
-chrome.exe (1684)
+    filever:  39.0.2171.71
+    prodver:  39.0.2171.71
+chrome.exe (6088)
     path: C:\Program Files (x86)\Google\Chrome\Application\chrome.exe
     company:  Google Inc.
     product:  Google Chrome
     filedesc: Google Chrome
-    filever:  37.0.2062.124
-    prodver:  37.0.2062.124
-MonoDevelop.exe (4952)
+    filever:  39.0.2171.71
+    prodver:  39.0.2171.71
+MonoDevelop.exe (4604)
     path: C:\Program Files (x86)\Unity\MonoDevelop\bin\MonoDevelop.exe
     company:  
     product:  MonoDevelop
     filedesc: MonoDevelop
     filever:  2.6.0.0
     prodver:  2.6.0.0
-chrome.exe (4116)
+AAM Updates Notifier.exe (5976)
+    path: C:\Program Files (x86)\Common Files\Adobe\OOBE\PDApp\UWA\AAM Updates Notifier.exe
+    company:  Adobe Systems Incorporated
+    product:  AAM Updates Notifier Application
+    filedesc: AAM Updates Notifier Application
+    filever:  2.0.242.0
+    prodver:  2.0.242.0
+chrome.exe (1552)
     path: C:\Program Files (x86)\Google\Chrome\Application\chrome.exe
     company:  Google Inc.
     product:  Google Chrome
     filedesc: Google Chrome
-    filever:  37.0.2062.124
-    prodver:  37.0.2062.124
-chrome.exe (2844)
+    filever:  39.0.2171.71
+    prodver:  39.0.2171.71
+chrome.exe (3912)
     path: C:\Program Files (x86)\Google\Chrome\Application\chrome.exe
     company:  Google Inc.
     product:  Google Chrome
     filedesc: Google Chrome
-    filever:  37.0.2062.124
-    prodver:  37.0.2062.124
-chrome.exe (3924)
+    filever:  39.0.2171.71
+    prodver:  39.0.2171.71
+chrome.exe (3684)
     path: C:\Program Files (x86)\Google\Chrome\Application\chrome.exe
     company:  Google Inc.
     product:  Google Chrome
     filedesc: Google Chrome
-    filever:  37.0.2062.124
-    prodver:  37.0.2062.124
-UnityBugReporter.exe (2676)
+    filever:  39.0.2171.71
+    prodver:  39.0.2171.71
+chrome.exe (4612)
+    path: C:\Program Files (x86)\Google\Chrome\Application\chrome.exe
+    company:  Google Inc.
+    product:  Google Chrome
+    filedesc: Google Chrome
+    filever:  39.0.2171.71
+    prodver:  39.0.2171.71
+adb.exe (3212)
+    path: C:\Tools\adt\sdk\platform-tools\adb.exe
+    company:  
+    product:  
+    filedesc: 
+    filever:  0.0.0.0
+    prodver:  0.0.0.0
+chrome.exe (3364)
+    path: C:\Program Files (x86)\Google\Chrome\Application\chrome.exe
+    company:  Google Inc.
+    product:  Google Chrome
+    filedesc: Google Chrome
+    filever:  39.0.2171.71
+    prodver:  39.0.2171.71
+chrome.exe (1000)
+    path: C:\Program Files (x86)\Google\Chrome\Application\chrome.exe
+    company:  Google Inc.
+    product:  Google Chrome
+    filedesc: Google Chrome
+    filever:  39.0.2171.71
+    prodver:  39.0.2171.71
+UnityBugReporter.exe (4532)
     path: C:\Program Files (x86)\Unity\Editor\UnityBugReporter.exe
     company:  Unity Technologies ApS
     product:  Unity Bug Reporter

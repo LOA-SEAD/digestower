@@ -19,7 +19,7 @@ public class SalivaEspecial : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if (StartGame.started && gameObject.tag == "SalivaInserida") {
+		if (StartGame.paused == 0 && gameObject.tag == "SalivaInserida") {
 			timer -= Time.deltaTime;
 			// timer2 -= Time.deltaTime;
 			if (!saiu && timer < 0) {

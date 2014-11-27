@@ -7,6 +7,7 @@ public class FoodProperties : MonoBehaviour {
 	public float fat = 0.0f;
 	public float adjustmentPos = 2.3f;
 	public float vitaminUp = 0.0f;
+	public bool girar = true;
 	private int alternateInt = 1;
 	/*[HideInInspector]*/ public float health = 0.0f;
 	/*[HideInInspector]*/ public float health2 = 0.0f;
@@ -14,10 +15,10 @@ public class FoodProperties : MonoBehaviour {
 	public bool healthMode, healthMode2, healthMode3;
 	public float percentLifeToColorChange = 0.3f;
 	public float movementSpeed = 10f;
-	public bool contaminated2 = false;
-	public bool contaminated3 = false;
-	public bool contaminated2Bkp = false;
-	public bool contaminated3Bkp = false;
+	[HideInInspector] public bool contaminated2 = false;
+	[HideInInspector] public bool contaminated3 = false;
+	[HideInInspector] public bool contaminated2Bkp = false;
+	[HideInInspector] public bool contaminated3Bkp = false;
 	private float movementSpeedBkp;
 	
 	private Vector3 worldPosition = new Vector3();
@@ -28,7 +29,7 @@ public class FoodProperties : MonoBehaviour {
 	private float myTimerInt, myTimerShakingInt;
 	private bool timeFat = false;
 	private bool timeShaking = false;
-	public float old_x, old_y;
+	[HideInInspector] public float old_x, old_y, pos_x, pos_y;
 
 	/*desconsiderar*/
 	private float timerContaminated2 = 5.0f;
@@ -63,6 +64,14 @@ public class FoodProperties : MonoBehaviour {
 			if (StartGame.fat < 0)
 				StartGame.fat = 0;
 			GameObject.Destroy (gameObject);
+		}
+		else if (maxHealth == 920.0f) {
+			if (point == 3) {
+				StartGame.msg ("Voce perdeu o jogo");
+				StartGame.paused = 1;
+				StartGame.started = false;
+				return;
+			}
 		}
 	}
 
@@ -244,7 +253,7 @@ public class FoodProperties : MonoBehaviour {
 	}
 	
 	void OnGUI() {
-		if (StartGame.started) {
+		if (StartGame.started && StartGame.paused < 2) {
 			worldPosition = new Vector3(transform.position.x, transform.position.y + adjustmentPos, transform.position.z);
 			screenPosition = Camera.main.WorldToScreenPoint(worldPosition);
 
@@ -334,20 +343,22 @@ public class FoodProperties : MonoBehaviour {
 	}
 
 	public void shakeIt () {
-		myTimerShakingInt = 5.0f;
+		myTimerShakingInt = 2.0f;
 		timeShaking = true;
 		old_x = 0;
 		old_y = 0;
+		pos_x = transform.position.x;
+		pos_y = transform.position.y;
 	}
 
 	// Update is called once per frame
 	void Update () {
-		if (StartGame.started) {
+		if (StartGame.paused == 0) {
 			if (timeShaking) {
 				if (myTimerShakingInt > 0) {
 					myTimerShakingInt -= Time.deltaTime;
 					alternateInt *= -1;
-					transform.position += new Vector3 (alternateInt*old_x, alternateInt*old_y, 0);
+					transform.position = new Vector3 (pos_x+alternateInt*old_x, pos_y+alternateInt*old_y, 0);
 					old_x = UnityEngine.Random.Range(0,0.035f);
 					old_y = UnityEngine.Random.Range(0,0.035f);
 				}

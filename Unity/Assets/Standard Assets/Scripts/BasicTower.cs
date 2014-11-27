@@ -22,7 +22,7 @@ public class BasicTower : MonoBehaviour {
 
 	public void shootFast() {
 		shootingFast = true;
-		myShootingTimer = 5.0f;
+		myShootingTimer = 2.0f;
 		bulletSpeed *= 2;
 	}
 	void Start () {
@@ -43,7 +43,7 @@ public class BasicTower : MonoBehaviour {
 	}*/
 	
 	void SpawnBullet() {
-		if (StartGame.started) {
+		if (StartGame.paused == 0) {
 			GameObject[] target = GameObject.FindGameObjectsWithTag ("ComidaInserida" + towerType);
 			/*GameObject[] target2 = GameObject.FindGameObjectsWithTag ("ComidaInserida2");
 			GameObject[] target3 = GameObject.FindGameObjectsWithTag ("ComidaInserida3");

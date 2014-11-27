@@ -35,7 +35,7 @@ public class InsertTower : MonoBehaviour {
 	public void RestoreTowerPos(string tag) {
 		towerObject = GameObject.FindGameObjectWithTag((tag == "xDente"?"Dente":tag));
 		//Debug.Log ("TOOTHPOS: " + toothPos + "...TOWERTYPE: " + towerType);
-		//Debug.Log ("   loading tower..." + tag);
+		Debug.Log ("   loading tower..." + tag);
 		// towerType = (tag == "xDente"?0:((new int[9]{0, 1, 1, 2, 2, 3, 3, 2, 3})[int.Parse(tag.Substring (6, 1))]));
 		LoadTower (true);
 	}
@@ -44,7 +44,6 @@ public class InsertTower : MonoBehaviour {
 		if (towerObj == null && towerObject) {
 			int type = 0;
 			float sufficientEnergy = 0;
-			if (towerObject.tag.Substring(0,5) == "Torre")
 			if (!loadingGame) {
 				if (towerObject.tag == "Dente")
 					sufficientEnergy = energyNeeded[8];
@@ -65,7 +64,7 @@ public class InsertTower : MonoBehaviour {
 				else return;
 			}
 			else if (towerObject.tag != "Dente")
-				type = int.Parse(towerObject.tag.Split(' ')[1]);
+				type = int.Parse (towerObject.tag.Substring(5,1));
 			
 			if (sufficientEnergy <= StartGame.energy) {
 				if (towerObject.tag == "Dente" && toothPos < 1)
@@ -75,7 +74,6 @@ public class InsertTower : MonoBehaviour {
 				if (toothPos > 0 && activeTooth[toothPos%3])
 					return;
 				StartGame.energy -= sufficientEnergy;
-				
 				towerObj = towerObject;
 				Vector3 pos = transform.position;
 				pos.y += 0.26f;
@@ -92,10 +90,14 @@ public class InsertTower : MonoBehaviour {
 				}
 				
 				insertedTower = (GameObject)Instantiate (towerObj, pos, qua);
+
 				if (towerObject.tag.Substring(0,5) == "Torre") {
 					insertedTower.tag = "Torre " + type;
-					insertedTower.renderer.enabled = true;
 				}
+
+				(insertedTower.GetComponent ("BoxCollider2D") as BoxCollider2D).enabled = true;
+				insertedTower.renderer.enabled = true;
+				insertedTower.renderer.sortingOrder = 4;
 
 				///
 				// towerObjTag = towerObject.tag;
@@ -135,6 +137,9 @@ public class InsertTower : MonoBehaviour {
 					//(target.GetComponent("InsertTower") as InsertTower).towerObjTag = towerObject.tag;
 					//
 					target.renderer.enabled = false;
+					insertedTower2.renderer.enabled = true;
+					insertedTower2.renderer.sortingOrder = 4;
+					(insertedTower2.GetComponent ("BoxCollider2D") as BoxCollider2D).enabled = true;
 					insertedTower2.tag = "xDente"/* + (tag+(tag>3?-3:3))*/;
 					insertedTower.tag = "xDente";
 					

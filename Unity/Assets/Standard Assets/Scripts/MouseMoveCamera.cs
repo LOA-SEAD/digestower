@@ -19,7 +19,7 @@ public class MouseMoveCamera : MonoBehaviour {
 			float posY = Mathf.Clamp (Camera.main.transform.position.y - (1 * speed), minimumY, maximumY);
 			//Debug.Log (posY);
 			DestroyTowerMenu.DestroyT();
-			if ((StartGame.fase == 0 && posY > 0.02) || (StartGame.fase == 1 && posY > -2.37) || StartGame.fase > 1)
+			if ((StartGame.fase == 0 && posY > -2.42) || (StartGame.fase == 1 && posY > -5.37) || StartGame.fase > 1)
 				Camera.main.transform.position = new Vector3(Camera.main.transform.position.x, posY, Camera.main.transform.position.z);
 		}
 		else if(Input.GetAxis ("Mouse ScrollWheel") > 0 || (Input.GetMouseButton(0) && Input.mousePosition.y >= (Screen.height * 0.9)))

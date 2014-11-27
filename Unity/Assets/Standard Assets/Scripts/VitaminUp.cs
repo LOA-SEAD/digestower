@@ -15,8 +15,10 @@ public class VitaminUp : MonoBehaviour {
 	}
 
 	void OnMouseDown() {
-		StartGame.vitamin += vitaminUp * 50;
-		GameObject.Destroy (gameObject);
+		if (StartGame.paused == 0) {
+			StartGame.vitamin += vitaminUp * 50;
+			GameObject.Destroy (gameObject);
+		}
 		// Debug.Log ("destruiu");
 	}
 

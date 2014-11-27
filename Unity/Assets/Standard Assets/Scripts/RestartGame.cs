@@ -6,9 +6,6 @@ public class RestartGame : MonoBehaviour {
 	// Use this for initialization
 
 	void OnMouseDown () {
-		Debug.Log ("uhdashuduh");
-		StartGame.started = false;
-		Application.LoadLevel (0); 
 	}
 
 	void Start () {

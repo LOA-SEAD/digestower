@@ -57,6 +57,7 @@ public class FollowWaypoints : MonoBehaviour
 					}
 					else if (food) {
 						int tag = int.Parse (point.Substring(8, 1));
+						// Debug.Log (oldTag);
 						food.endPoint(tag);
 						if (tag < 3) food.tag = "ComidaInserida" + (tag+1);
 					}
@@ -86,7 +87,9 @@ public class FollowWaypoints : MonoBehaviour
 
 		float targetAngle;
 		// Face walk direction
-		if (oldTag == "Vitamina" ||
+		if ((food != null && !food.girar) || vita != null)
+			targetAngle = 0;
+			/*oldTag == "Vitamina" ||
 		    oldTag == "Amendoim" ||
 		    oldTag == "Mel" ||
 		    oldTag == "Cereal" ||
@@ -98,8 +101,8 @@ public class FollowWaypoints : MonoBehaviour
 		    oldTag == "Margarina" ||
 		    oldTag == "Queijo" ||
 		    oldTag == "Arroz" ||
-		    oldTag == "Soja")
-			targetAngle = 0;
+		    oldTag == "Soja")*/
+
 		else
 			targetAngle = Mathf.Atan2(relative.y, relative.x) * Mathf.Rad2Deg - 270;
 
