@@ -5,7 +5,7 @@ public class DestroyTowerMenu : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		StartGame.numberOfDestroyTowerMenuObjectsAlive++;
+		//StartGame.numberOfDestroyTowerMenuObjectsAlive++;
 	}
 
 	public static void DestroyT () {
@@ -17,11 +17,15 @@ public class DestroyTowerMenu : MonoBehaviour {
 		//	Destroy (upgradeObjArray[i]);
 	}
 
-	void OnMouseDown() {
+	/*#if UNITY_EDITOR || UNITY_STANDALONE || UNITY_WEBPLAYER
+	void OnMouseUpAsButton () { OnPointerUpAsButton(); }
+	#endif
+	void OnPointerUpAsButton() {*/
+	void onMouseDown() {
 		this.DestroyT ();
 	}
 
 	void OnDestroy() {
-		StartGame.numberOfDestroyTowerMenuObjectsAlive--;
+		//StartGame.numberOfDestroyTowerMenuObjectsAlive--;
 	}
 }

@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 using System;
 
@@ -6,17 +6,25 @@ public class VitaminUp : MonoBehaviour {
 	// private SpriteCollection sprites;
 	private int reverse = 1;
 	private float timer = 0.5f;
+	public AudioClip clip;
 
 	public float vitaminUp = 20f;
 	//private float timer2 = 10f;
 	// Use this for initialization
 	void Start () {
-		StartGame.numberOfVitaminUpObjectsAlive++;
+		//StartGame.numberOfVitaminUpObjectsAlive++;
 	}
-
+	/*#if UNITY_EDITOR || UNITY_STANDALONE || UNITY_WEBPLAYER
+	void OnMouseUpAsButton () { OnPointerUpAsButton(); }
+	#endif
+	void OnPointerUpAsButton() {*/
 	void OnMouseDown() {
 		if (StartGame.paused == 0) {
-			StartGame.vitamin += vitaminUp * 50;
+			if ((StartGame.vitamin+vitaminUp*50) < StartGame.maxVitamin)
+				StartGame.vitamin += vitaminUp * 50;
+			else
+				StartGame.vitamin = StartGame.maxVitamin;
+			AudioSource.PlayClipAtPoint(clip, transform.position);
 			GameObject.Destroy (gameObject);
 		}
 		// Debug.Log ("destruiu");
@@ -30,13 +38,13 @@ public class VitaminUp : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
-		if (gameObject.tag == "VitaminaInserida") {
+		if (StartGame.paused == 0 && gameObject.tag == "VitaminaInserida") {
 			timer -= Time.deltaTime;
 			//timer2 -= Time.deltaTime;
 			if (timer < 0) {
 				try {
 					SpriteCollection sprites = new SpriteCollection("Vitamin");
-					gameObject.GetComponent<SpriteRenderer>().sprite = sprites.GetSprite("Vitamina " + (vitaminUp<2?"peq":"gra") + " (frame " + reverse + ")");
+					gameObject.GetComponent<SpriteRenderer>().sprite = sprites.GetSprite("Vitamina" + (vitaminUp<2?"Peq":"Gra") + reverse);
 					sprites = null;
 				} catch (NullReferenceException) {
 					Debug.LogError ("vitamina sumiu");
@@ -52,6 +60,6 @@ public class VitaminUp : MonoBehaviour {
 	}
 
 	void OnDestroy () {
-		StartGame.numberOfVitaminUpObjectsAlive--;
+		//StartGame.numberOfVitaminUpObjectsAlive--;
 	}
 }

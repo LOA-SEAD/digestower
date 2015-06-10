@@ -12,18 +12,21 @@ public class TowerFunctionality : MonoBehaviour {
 	void Start () {
 		tower2 = null;
 		place2 = null;
-		StartGame.numberOfTowerFunctionalityObjectsAlive++;
+		//StartGame.numberOfTowerFunctionalityObjectsAlive++;
 	}
 
+	/*#if UNITY_EDITOR || UNITY_STANDALONE || UNITY_WEBPLAYER
+	void OnMouseUpAsButton () { OnPointerUpAsButton(); }
+	#endif
+	void OnPointerUpAsButton() {*/
 	void OnMouseDown() {
 		if (type) {
 			BasicTower bTower = tower.GetComponent("BasicTower") as BasicTower;
-			float recoveryEnergy = InsertTower.energyNeeded[bTower.type]*0.7f;
+			float recoveryEnergy = InsertTower.energyNeeded[bTower.type-1]*(bTower.life/bTower.maxLife);
 			if ((StartGame.energy + recoveryEnergy) <= StartGame.maxEnergy)
 				StartGame.energy += recoveryEnergy;
 			else
 				StartGame.energy = StartGame.maxEnergy;
-			Destroy(tower);
 			
 			Transform _places = GameObject.Find("TowerPosition").transform;
 			for (int i=0;i<_places.childCount;i++) {
@@ -32,7 +35,8 @@ public class TowerFunctionality : MonoBehaviour {
 			}
 			
 			InsertTower insertPlace = place.GetComponent ("InsertTower") as InsertTower;
-			
+			insertPlace.verifyTowerProximity(bTower.type, false);
+			Destroy(tower);
 			// (target.GetComponent("InsertTower") as InsertTower).towerObjTag = towerObject.tag;
 			insertPlace.towerObj = null;
 			place.renderer.enabled = true;
@@ -57,6 +61,6 @@ public class TowerFunctionality : MonoBehaviour {
 	}
 
 	void OnDestroy() {
-		StartGame.numberOfTowerFunctionalityObjectsAlive--;
+		//StartGame.numberOfTowerFunctionalityObjectsAlive--;
 	}
 }

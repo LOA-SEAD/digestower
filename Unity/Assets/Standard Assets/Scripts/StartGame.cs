@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 using System;
 
@@ -13,6 +13,7 @@ using System;
 public class StartGame : MonoBehaviour {
 	// public static StartGame current;
 	// public GameObject activeTower;
+	public GUIText indigestText, energyText, fatText, vitaminText;
 	public static float energy;
 	public static float vitamin;
 	public static float fat;
@@ -20,8 +21,9 @@ public class StartGame : MonoBehaviour {
 	public Camera foregroundCamera;
 
 	public static bool firstStart = true;
+	public static bool loadingGame = false;
 
-	public static int numberOfChooseTowerObjectsAlive = 0,
+	/*public static int numberOfChooseTowerObjectsAlive = 0,
 					  numberOfFollowWaypointsObjectsAlive = 0,
 					  numberOfVitaminUpObjectsAlive = 0,
 					  numberOfFatPlaceObjectsAlive = 0,
@@ -38,7 +40,7 @@ public class StartGame : MonoBehaviour {
 					  numberOfMouseMoveCameraObjectsAlive = 0,
 					  numberOfRestartGameObjectsAlive = 0,
 				      numberOfSpriteCollectionObjectsAlive = 0,
-					  numberOfColorXObjectsAlive = 0;
+					  numberOfColorXObjectsAlive = 0;*/
 
 	public static string[] placeTag;
 	public static string[] placeTagBkp;
@@ -46,9 +48,9 @@ public class StartGame : MonoBehaviour {
 	public static float energyBkp, vitaminBkp, fatBkp, indigestBkp;
 	
 	/*desconsiderar*/
-	public float constantSpeed = 7.5f;
+	public float constantSpeed = 5.5f;
 	public float insertTimeInterval = 10.0f;
-	public float myTimerInterWaves = 3.0f;
+	public float myTimerInterWaves = 1.0f;
 	/* ALTERACAO
 	 * a alteracao eh feita no StartButton no componente StartGame
 	 */
@@ -65,24 +67,27 @@ public class StartGame : MonoBehaviour {
 	public static int nivel = 0;
 	public static int wave = 0;
 	public static int waveSet = 0;
-	
+
+	private static bool wasFullScreen = false;
+
+	private Texture2D barTexture;
 	/**/
 
 // 	private bool towerPosState = true;
-	private bool loose = false;
+	public static bool loose = false;
 
 	/* ALTERACAO
 	 * valores maximos energia, vitamina, gordura e indigestao
 	 */
 	public static float maxEnergy = 7000;
 	public static float maxVitamin = 3000;
-	public static float maxFat = 300;
+	public static float maxFat = 100;
 	public static float maxIndigest = 6000;
 	/**/
 
 	public static int actualSubWave = 0;
 
-	private float myTimer, msgTimer;
+	public float myTimer, msgTimer;
 	public static bool started = false;
 	public static int paused = 1;
 	private GameObject[] instantiatedGameObjects;
@@ -94,12 +99,52 @@ public class StartGame : MonoBehaviour {
 	private string[,][] tags = new string[8, 16][];
 	public static int[] numNivelEmFase = new int[4];
 	
-	private Vector3 screenPosition = new Vector3();
 	private int barHeight = 11;
-	private int barLeft = -90;
-	private int barTop = 318;
+	private int barLeft = 46;
+	private int barTop = 194;
 
-	private Vector2 scale, screen;
+	public static int infoActive = 0;
+	public static int[] infoTela = new int[2]{0, 0};
+	public static int personagemAtivo = 1;
+	private bool mostrandoFaixa = false;
+	public static bool almanaqueAberto = false;
+	public static bool playAfterClose = true;
+	public static bool stoppedAudio = false;
+	private static AudioSource[] allAudioSources;
+	private static bool[] audioPlaying;
+
+	public static void StopAllAudio() {
+		allAudioSources = FindObjectsOfType(typeof(AudioSource)) as AudioSource[];
+		audioPlaying = new bool[allAudioSources.Length];
+		for (int i = 0; i < allAudioSources.Length;++i) {
+			if (allAudioSources[i].isPlaying) {
+				allAudioSources[i].Pause();
+				audioPlaying[i] = true;
+			}
+			else
+				audioPlaying[i] = false;
+		}
+		stoppedAudio = true;
+	}
+
+	public static void ClearAllAudio() {
+		allAudioSources = FindObjectsOfType(typeof(AudioSource)) as AudioSource[];
+		audioPlaying = new bool[allAudioSources.Length];
+		for (int i = 0; i < allAudioSources.Length;++i) {
+			if (allAudioSources[i].isPlaying) {
+				allAudioSources[i].Stop();
+				audioPlaying[i] = false;
+			}
+		}
+	}
+
+	public static void PlayAllAudio() {
+		if (allAudioSources != null)
+			for (int i = 0; i < allAudioSources.Length;++i)
+				if (audioPlaying[i])
+					if (allAudioSources[i] != null) allAudioSources[i].Play();
+		stoppedAudio = false;
+	}
 
 	// Use this for initialization
 	void Start () {
@@ -109,6 +154,8 @@ public class StartGame : MonoBehaviour {
 		foreach (Resolution res in resolutions) {
 			Debug.Log(res.width + "x" + res.height);
 		}
+
+		barTexture = new Texture2D (1, 1);
 
 		Debug.Log (Screen.width + ".." + Screen.height);
 		//foregroundCamera = new Camera ();
@@ -131,6 +178,8 @@ public class StartGame : MonoBehaviour {
 		indigest = 0;
 		/**/
 
+		refreshStatus ();
+
 		/* ALTERACAO
 		 * Fase,nivel,wave e waveSet inciais
 		 */
@@ -139,6 +188,9 @@ public class StartGame : MonoBehaviour {
 		wave = 0; /*0:8, 1:7, 2:5*/
 		actualSubWave = 0;
 		waveSet = 0;
+		loose = false;
+		started = false;
+		(GameObject.FindGameObjectWithTag("BarraGordura").GetComponent ("SpriteRenderer") as SpriteRenderer).enabled = false;
 
 		/**/
 
@@ -298,7 +350,7 @@ public class StartGame : MonoBehaviour {
 		tags[5,3] = new string[16]{"Batata", "Banana", "Arroz", "PaoIntegral", "Mel", "Queijo", "Lentilha", "Mortadela", "Soja", "Carne", "Coco", "Margarina", "Leite", "Ovo", "Bolo", "Amendoim"};
 		tags[5,4] = new string[15]{"Vagem", "Banana", "Batata", "Cereal", "Queijo", "Lentilha", "Soja", "Peixe", "Carne", "Abacate", "Leite", "Ovo", "Bolo", "Pastel", "Amendoim"};
 	
-		tags[6,0] = new string[10]{"Vagem", "Banana", "Arroz", "PaoIntegral", "Queijo", "Lentilha", "Mortadela", "Acabate", "Coco", "Margarina"};
+		tags[6,0] = new string[10]{"Vagem", "Banana", "Arroz", "PaoIntegral", "Queijo", "Lentilha", "Mortadela", "Abacate", "Coco", "Margarina"};
 		tags[6,1] = new string[12]{"Pao", "Batata", "Mel", "Cereal", "Soja", "Peixe", "Carne", "Coco", "Margarina", "Leite", "Ovo", "Abacate"};
 		tags[6,2] = new string[15]{"Vagem", "Cereal", "Batata", "PaoIntegral", "Pao", "Queijo", "Lentilha", "Soja", "Peixe", "Carne", "Abacate", "Ovo", "Leite", "Maionese", "Bolo"};
 		tags[6,3] = new string[16]{"Banana","Mel","Cereal", "Batata", "Queijo", "Mortadela", "Soja", "Peixe", "Soja", "Chips", "Margarina", "Coco", "Bolo", "Coco", "Pastel", "Amendoim"};
@@ -306,16 +358,17 @@ public class StartGame : MonoBehaviour {
 
 		tags[7,0] = new string[1]{"Hamburguer"};
 
-		screen = new Vector2 (Screen.width, Screen.height);
-		scale = new Vector2(screen.x/1092, screen.y/614);
-
 		energyBkp = energy;
 		vitaminBkp = vitamin;
 		fatBkp = fat;
 		indigestBkp = indigest;
 
-		myTimer = 100.0f; //maximumFoods * insertTimeInterval + 1;
+		insertTimeInterval = 1f;
+		myTimerInterWaves = 0.09f;
+		myTimer = 149.423f; //maximumFoods * insertTimeInterval + 1;
 		msgTimer = 100.0f;
+		playAfterClose = false;
+		carregaTela (20, 27);
 		// instantiatedGameObjects = new GameObject[maximumFoods];
 		Debug.Log("GAME STARTED");
 	}
@@ -323,55 +376,118 @@ public class StartGame : MonoBehaviour {
 	// Update is called once per frame
 
 	public void pause (int pauseId = 1) {
-		Time.timeScale = 0;
-		
+		// Time.timeScale = 0;
+
+		GUITextStatus(false);
 		SpriteCollection sprites = new SpriteCollection("Start");
 		
 		SpriteRenderer myRenderer = gameObject.GetComponent<SpriteRenderer>();
-		myRenderer.sprite = sprites.GetSprite("Botão iniciar");
+		myRenderer.sprite = sprites.GetSprite("iniciar");
 		
 		sprites = null;
 		
 		paused = pauseId;
 	}
 
+	public void carregaTela(int start, int end) {
+		SpriteCollection sprites = new SpriteCollection("Telas");
+		infoTela = new int[2]{start,end};
+		infoActive = start;
+
+		GUITextStatus(false);
+		paused = 2;
+		GameObject tela = GameObject.FindGameObjectWithTag("InfoTela");
+		tela.GetComponent("SpriteRenderer").renderer.enabled = true;
+		(tela.GetComponent ("SpriteRenderer") as SpriteRenderer).sprite = sprites.GetSprite ("Tela" + start);
+		sprites = null;
+		//(tela.GetComponent ("BoxCollider2D") as BoxCollider2D).enabled = true;
+		tela.renderer.sortingOrder = 10;
+
+		GameObject btnProx = GameObject.FindGameObjectWithTag("InfoProx");
+		btnProx.GetComponent("SpriteRenderer").renderer.enabled = true;
+		btnProx.renderer.sortingOrder = 11;
+		//GameObject btnAnt = GameObject.FindGameObjectWithTag("InfoAnt");
+		//btnAnt.GetComponent("SpriteRenderer").renderer.enabled = true;
+		//btnAnt.renderer.sortingOrder = 11;
+		GameObject btnFechar = GameObject.FindGameObjectWithTag("InfoFechar");
+		btnFechar.GetComponent("SpriteRenderer").renderer.enabled = true;
+		btnFechar.renderer.sortingOrder = 11;
+		(btnFechar.GetComponent ("BoxCollider2D") as BoxCollider2D).enabled = true;
+		(btnProx.GetComponent ("BoxCollider2D") as BoxCollider2D).enabled = true;
+		//(btnAnt.GetComponent ("BoxCollider2D") as BoxCollider2D).enabled = true;
+
+		GameObject telaEscura = GameObject.FindGameObjectWithTag ("TelaEscura");
+		telaEscura.renderer.enabled = true;
+		telaEscura.renderer.sortingOrder = 7;
+		(telaEscura.GetComponent ("BoxCollider2D") as BoxCollider2D).enabled = true;
+	}
+
 	public void play() {
-		if (paused > 0) {
-			Time.timeScale = 1;
-			if (!started)
+		if (paused > 0 && !loose) {
+			//Time.timeScale = 1;
+			if (!started) {
 				started = true;
+				audio.Play ();
+			}
+			GUITextStatus(true);
 			//if (paused < 2) {
-				SpriteCollection sprites = new SpriteCollection("Start");
-				
-				SpriteRenderer myRenderer = gameObject.GetComponent<SpriteRenderer>();
-				myRenderer.sprite = sprites.GetSprite("Botão pause");
-				sprites = null;
-
-				placeTagBkp = placeTag;
-
-				paused = 0;
-
-				if (ButtonAction.activatedMenuTorres) {
-					ButtonAction.DisableMenu (1);
-				}
-				if (ButtonAction.activatedMenuEspeciais) {
-					ButtonAction.DisableMenu (2);
-				}
+			SpriteCollection sprites = new SpriteCollection("Start");
+			
+			SpriteRenderer myRenderer = gameObject.GetComponent<SpriteRenderer>();
+			myRenderer.sprite = sprites.GetSprite("pausar");
+			sprites = null;
+			
+			placeTagBkp = placeTag;
+			
+			paused = 0;
+			
+			if (ButtonAction.activatedMenuTorres) {
+				ButtonAction.DisableMenu (1);
+			}
+			if (ButtonAction.activatedMenuEspeciais) {
+				ButtonAction.DisableMenu (2);
+			}
 			//}
 			//if (!firstStart) paused = 0;
 			if (paused == 2) paused = 1;
 		}
+		else if (loose) {
+			//restartGame();
+		}
 	}
+
+	public static void restartGame() {
+		StartGame.started = false;
+		StartGame.paused = 1;
+		StartGame.loose = false;
+		StartGame.firstStart = true;
+		StartGame.playAfterClose = true;
+		(GameObject.FindGameObjectWithTag("StartButton").GetComponent ("StartGame") as StartGame).myTimer = 149.423f;
+		CallSkill.creatingAcido = false;
+		CallSkill.creatingSaliva = false;
+		CallSkill.usingPhysicalExercise = false;
+		InsertTower.activeTooth = new bool[3]{false, false, false};
+		ButtonAction.activatedMenuEspeciais = ButtonAction.activatedMenuPause = ButtonAction.activatedMenuSaveLoad = ButtonAction.activatedMenuTorres = false;
+		ButtonAction.storre3 = ButtonAction.storre4 = ButtonAction.storre5 = ButtonAction.storre6 = ButtonAction.storre7 = ButtonAction.storre8 = null;
+		InsertTower.towerObject = null;
+		Application.LoadLevel (0);
+		Time.timeScale = 1;
+	}
+
+	/*#if UNITY_EDITOR || UNITY_STANDALONE || UNITY_WEBPLAYER
+	void OnMouseUpAsButton () { OnPointerUpAsButton(); }
+	#endif
+	void OnPointerUpAsButton() {*/
 	void OnMouseDown() {
-		if (paused > 0 && !ButtonAction.activatedMenuPause) {
-			//if (!started /*firstStart*/ && paused == 1) {
-				//firstStart = false;
-			//	started = true;
-			//}
-			play ();
+		if (paused > 0) {
+			play();
+			if (!ButtonAction.activatedMenuPause && !ButtonAction.activatedMenuEspeciais &&
+				!ButtonAction.activatedMenuSaveLoad)
+				PlayAllAudio ();
 		}
 		else if (paused < 2 && !ButtonAction.activatedMenuPause) {
 			pause ();
+			StopAllAudio();
 		}
 	}
 
@@ -380,12 +496,30 @@ public class StartGame : MonoBehaviour {
 		msgBuffer = msg;
 	}
 
+	public static void refreshStatus () {
+		(GameObject.FindGameObjectWithTag ("IndigestText").GetComponent ("GUIText") as GUIText).text = Math.Floor((indigest*100)/maxIndigest) + "/" + 100;
+		(GameObject.FindGameObjectWithTag ("EnergyText").GetComponent ("GUIText") as GUIText).text = Math.Floor((energy*100)/maxEnergy) + "/" + 100;
+		(GameObject.FindGameObjectWithTag ("VitaminText").GetComponent ("GUIText") as GUIText).text = Math.Floor(vitamin*100/maxVitamin) + "/" + 100;
+		(GameObject.FindGameObjectWithTag("FatText").GetComponent ("GUIText") as GUIText).text = (fase > 1?(Math.Floor(fat*100/maxFat) + "/" + 100):"");
+	}
+
+	private Rect ResizeGUI(Rect _rect)
+	{
+		float FilScreenWidth = _rect.width / 1092;
+		float rectWidth = FilScreenWidth * Screen.width;
+		float FilScreenHeight = _rect.height / 614;
+		float rectHeight = FilScreenHeight * Screen.height;
+		float rectX = (_rect.x / 1092) * Screen.width;
+		float rectY = (_rect.y / 614) * Screen.height;
+		
+		return new Rect(rectX,rectY,rectWidth,rectHeight);
+	}
 	void OnGUI() {
-		if (!ButtonAction.activatedMenuTorres && !ButtonAction.activatedMenuEspeciais && !ButtonAction.activatedMenuPause) {
-			if (energy > maxEnergy)
-				energy = maxEnergy;
-			if (vitamin > maxVitamin)
-				vitamin = maxVitamin;
+		if (msgBuffer != null) {
+			GUI.color = Color.white;
+			GUI.Label(new Rect(Screen.height/2, Screen.width/4, 400, 400), "<size=40>" + msgBuffer + "</size>");
+		}
+		if (!ButtonAction.activatedMenuTorres && !ButtonAction.activatedMenuEspeciais && !ButtonAction.activatedMenuPause && infoActive == 0 && !mostrandoFaixa && !almanaqueAberto) {
 			if (fat > maxFat)
 				fat = maxFat;
 
@@ -405,7 +539,7 @@ public class StartGame : MonoBehaviour {
 			
 			//if (!Physics.Raycast(ray, out hit, distance))
 			//{
-			Texture2D barTexture = new Texture2D (1, 1);
+
 			/*
 			barTexture.SetPixel(0, 0, Color.black);
 			barTexture.Apply ();
@@ -420,16 +554,6 @@ public class StartGame : MonoBehaviour {
 			                    67, barHeight+2), barTexture);
 		    */
 
-			if (msgBuffer != null) {
-				if (msgTimer > 100-msgTimeInterval) {
-					msgTimer -= Time.deltaTime;
-					GUI.color = Color.white;
-					GUI.Label(new Rect(Screen.height/2, Screen.width/4, 400, 400), "<size=40>" + msgBuffer + "</size>");
-				} else {
-					msgBuffer = null;
-					msgTimer = 100;
-				}
-			}
 
 			GUI.color = Color.white;
 
@@ -454,52 +578,126 @@ public class StartGame : MonoBehaviour {
 			GUI.Label(new Rect(Screen.height/2-100, Screen.width/2-510, 200, 100), "SC<size=20>" + numberOfSpriteCollectionObjectsAlive + "</size>");
 
 	*/
-			if (!started) {
-				GUI.Label(new Rect(220, 10, 500, 40), "Posicione suas torres e clique no botao START novamente");
-			}
+			//if (!started) {
+			//	GUI.Label(new Rect(220, 10, 500, 40), "Posicione suas torres e clique no botao START");
+			//}
 
 			if (loose) {
-				GUI.Label(new Rect(10, 10, 500, 20), "Voce perdeu o jogo!!! Carregue novamente para voltar de onde havia salvo.");
+				carregaTela (35,37);
+				//GUI.Label(new Rect(10, 10, 500, 20), "Voce perdeu o jogo!!! Carregue novamente para voltar de onde havia salvo.");
 			}
 			gameObject.layer = 10;
 			barTexture.SetPixel(0, 0, ColorX.HexToRGB("ffec19"));
 			barTexture.Apply ();
-			GUI.DrawTexture(new Rect(screenPosition.x - barLeft*scale.x / 2,
-			                        Screen.height - screenPosition.y - (barTop - 25)*scale.y,
-		                            (fat*60*scale.x)/maxFat, barHeight*scale.y), barTexture);
-			GUI.Label(new Rect(115, barTop-2, 500, 20), "<color=#ffec19>" + fat + "/" + maxFat + "</color>");
+			GUI.DrawTexture(ResizeGUI(new Rect(barLeft,
+			                        barTop + 128,
+			                        (fat*60)/maxFat, barHeight)), barTexture);
+			//GUI.Label(ResizeGUI(new Rect(barLeft+69.5f, barTop + 123, 200, 20)), "<color=#ffec19>" + Math.Floor(fat) + "/" + maxFat + "</color>");
 			// 60 / 300
 			
 			barTexture.SetPixel(0, 0, ColorX.HexToRGB("fe7f02"));
 			barTexture.Apply ();
-			GUI.DrawTexture(new Rect(screenPosition.x - barLeft*scale.x / 2,
-			                         Screen.height - screenPosition.y - (barTop + 12.6f)*scale.y,
-			                         (vitamin*60*scale.x)/maxVitamin, barHeight*scale.y), barTexture);
-			GUI.Label(new Rect(115, barTop-40, 500, 20), "<color=#fe7f02>" + vitamin + "/" + maxVitamin + "</color>");
+			GUI.DrawTexture(ResizeGUI(new Rect(barLeft,
+			                         barTop + 89.6f,
+			                         vitamin*60/maxVitamin, barHeight)), barTexture);
+			//GUI.Label(ResizeGUI(new Rect(barLeft+69.5f, barTop + 85, 200, 20)), "<color=#fe7f02>" + Math.Floor(vitamin) + "/" + maxVitamin + "</color>");
 			// 60 / 2000
 			
 			barTexture.SetPixel(0, 0, ColorX.HexToRGB("ffffff"));
 			barTexture.Apply ();
-			GUI.DrawTexture(new Rect(screenPosition.x - barLeft*scale.x / 2,
-			                         Screen.height - screenPosition.y - (barTop + 51.5f)*scale.y,
-		                            (energy*85*scale.x)/maxEnergy, barHeight*scale.y), barTexture);
-			GUI.Label(new Rect(140, barTop-78, 500, 20), "<color=#ffffff>" + energy + "/" + maxEnergy + "</color>");
+			GUI.DrawTexture(ResizeGUI(new Rect(barLeft,
+			                         barTop + 51.5f,
+			                         (energy*85)/maxEnergy, barHeight)), barTexture);
+			//GUI.Label(ResizeGUI(new Rect(barLeft+94, barTop + 47.5f, 200, 20)), "<color=#ffffff>" + Math.Floor(energy) + "/" + maxEnergy + "</color>");
 			// 85 / 3000
 
 			barTexture.SetPixel(0, 0, ColorX.HexToRGB("b52929"));
 			barTexture.Apply ();
-			GUI.DrawTexture(new Rect(screenPosition.x - barLeft*scale.x / 2,
-			                         Screen.height - screenPosition.y - (barTop + 87.8f)*scale.y,
-			                         (indigest*120*scale.x)/maxIndigest, barHeight*scale.y), barTexture);
-			GUI.Label(new Rect(175, barTop-115, 500, 20), "<color=#b52929>" + indigest + "/" + maxIndigest + "</color>");
+			GUI.DrawTexture(ResizeGUI(new Rect(barLeft,
+			                         barTop + 14.8f,
+			                         (indigest*120)/maxIndigest, barHeight)), barTexture);
+			//GUI.Label(ResizeGUI(new Rect(barLeft+130, barTop + 9.8f, 200, 20)), "<color=#b52929>" + Math.Floor(indigest) + "/" + maxIndigest + "</color>");
 
+			barTexture.SetPixel(0, 0, ColorX.HexToRGB("3c3a3c"));
+			barTexture.Apply ();
+			GUI.DrawTexture(ResizeGUI(new Rect(barLeft+19,
+			                                   barTop + 89.6f,
+			                                   2, barHeight+1)), barTexture);
+			GUI.DrawTexture(ResizeGUI(new Rect(barLeft+39,
+			                                   barTop + 89.6f,
+			                                   2, barHeight+1)), barTexture);
 			// 60 / 6000
 			// http://forum.unity3d.com/threads/health-bar-above-ememy.81560/
 			//}
 		}
 	}
 
+	public void GUITextStatus(bool enable) {
+		(GameObject.FindGameObjectWithTag ("IndigestText").GetComponent ("GUIText") as GUIText).enabled = enable;
+		(GameObject.FindGameObjectWithTag ("EnergyText").GetComponent ("GUIText") as GUIText).enabled = enable;
+		(GameObject.FindGameObjectWithTag ("VitaminText").GetComponent ("GUIText") as GUIText).enabled = enable;
+		(GameObject.FindGameObjectWithTag("FatText").GetComponent ("GUIText") as GUIText).enabled = enable;
+	}
+
+	private IEnumerator Pause(int p, int f)
+	{
+		Time.timeScale = 0.00001f;
+		float pauseEndTime = Time.realtimeSinceStartup + p;
+		while (Time.realtimeSinceStartup < pauseEndTime)
+		{
+			GUITextStatus(false);
+			paused = 2;
+			yield return 0;
+		}
+		//Time.timeScale = 0;
+
+		if (f == 0) {
+			GameObject faixaFase1 = GameObject.FindGameObjectWithTag("FaixaFase1");
+			faixaFase1.GetComponent("SpriteRenderer").renderer.enabled = false;
+			//carregaTela(13,14);
+			mostrandoFaixa = false;
+			play ();
+		}
+		else if (f == 1) {
+			GameObject faixaFase2 = GameObject.FindGameObjectWithTag("FaixaFase2");
+			faixaFase2.GetComponent("SpriteRenderer").renderer.enabled = false;
+			//carregaTela(18,19);
+			mostrandoFaixa = false;
+			play ();
+		}
+		else if (f == 2) {
+			GameObject faixaFase3 = GameObject.FindGameObjectWithTag("FaixaFase3");
+			faixaFase3.GetComponent("SpriteRenderer").renderer.enabled = false;
+			//carregaTela(15,17);
+			mostrandoFaixa = false;
+			play ();
+		}
+		Time.timeScale = 1;
+	}
+
 	void Update () {
+		if (msgBuffer != null) {
+			if (msgTimer > 100-msgTimeInterval) {
+				msgTimer -= Time.deltaTime;
+			} else {
+				msgBuffer = null;
+				msgTimer = 100;
+			}
+		}
+		if (Time.frameCount % 30 == 0)
+		{
+			System.GC.Collect();
+		}
+
+		//if (wasFullScreen && !Screen.fullScreen) {
+			// this gets executed once right after leaving full screen
+		//}
+		if (/*!wasFullScreen && */Screen.fullScreen) {
+			// this gets executed once right after entering full screen
+			Screen.fullScreen = false;
+		}
+		//wasFullScreen = Screen.fullScreen;
+
 		//if (Input.GetMouseButtonDown(0)) {
 		//	started = true;
 			/*RaycastHit hit;
@@ -513,13 +711,17 @@ public class StartGame : MonoBehaviour {
 			}*/
 		//}
 		//A simple countdown timer
-		if (started) {
+		if (paused == 0) {
 			if (indigest >= maxIndigest) {
 				//msg ("Voce perdeu!!!!!");
 				indigest = maxIndigest;
-				//loose = true;
-				//started = false;
+				Time.timeScale = 0;
+				started = false;
+				loose = true;
+				carregaTela (35,37);
 			}
+			refreshStatus();
+
 			if (CallSkill.usingPhysicalExercise) {
 			}
 			else if (myTimer > 0) {
@@ -538,6 +740,39 @@ public class StartGame : MonoBehaviour {
 						//Debug.Log ("INSERTING OBJECTS f" + fase + "...n" + nivel + "...fn" + (fase*3+nivel) + "...w" + wave + "...a" + actualSubWave + ".. wS" + waveSet + "..waveN" + waveNum);
 						if (actualSubWave < waveNum.Length) {
 							if (waveSet < maxInserted[arrayPos,wave][actualSubWave]) {
+								if (fase == 0 && nivel == 0 && wave == 0 && actualSubWave == 0 && waveSet == 1) {
+									mostrandoFaixa = true;
+									GameObject faixaFase1 = GameObject.FindGameObjectWithTag("FaixaFase1");
+									if (!loadingGame) {
+										faixaFase1.audio.Play();
+									}
+									else loadingGame = false;
+									faixaFase1.GetComponent("SpriteRenderer").renderer.enabled = true;
+									StartCoroutine(Pause(3, 0));
+								}
+								if (fase == 1 && nivel == 0 && wave == 0 && actualSubWave == 0 && waveSet == 1) {
+									mostrandoFaixa = true;
+									GameObject faixaFase2 = GameObject.FindGameObjectWithTag("FaixaFase2");
+									GameObject.FindGameObjectWithTag("FaixaFase1").audio.Stop();
+									if (!loadingGame) {
+										faixaFase2.audio.Play();
+									}
+									else loadingGame = false;
+									faixaFase2.GetComponent("SpriteRenderer").renderer.enabled = true;
+									StartCoroutine(Pause(3, 1));
+								}
+								if (fase == 2 && nivel == 0 && wave == 0 && actualSubWave == 0 && waveSet == 1) {
+									mostrandoFaixa = true;
+									(GameObject.FindGameObjectWithTag("BarraGordura").GetComponent ("SpriteRenderer") as SpriteRenderer).enabled = true;
+									GameObject faixaFase3 = GameObject.FindGameObjectWithTag("FaixaFase3");
+									GameObject.FindGameObjectWithTag("FaixaFase2").audio.Stop ();
+									if (!loadingGame) {
+										faixaFase3.audio.Play();
+									}
+									else loadingGame = false;
+									faixaFase3.GetComponent("SpriteRenderer").renderer.enabled = true;
+									StartCoroutine(Pause(3, 2));
+								}
 								// if (insertTimeInterval > 0.5f) insertTimeInterval = 0.5f;
 								//Debug.Log (fase*3+nivel + ", " + wave + ", " + actualSubWave);
 								GameObject item = GameObject.FindGameObjectWithTag(tags[arrayPos,wave][actualSubWave]);
@@ -593,30 +828,33 @@ public class StartGame : MonoBehaviour {
 											//Debug.Log ("tag: " + tags[numNivelEmFase[0]*(faseTemp > 0?1:0)+numNivelEmFase[1]*(faseTemp > 1?1:0)+numNivelEmFase[2]*(faseTemp > 2?1:0)+nivelTemp,waveTemp][actualSubWaveTemp]);
 											GameObject nextSprite = GameObject.FindGameObjectWithTag(tags[numNivelEmFase[0]*(faseTemp > 0?1:0)+numNivelEmFase[1]*(faseTemp > 1?1:0)+numNivelEmFase[2]*(faseTemp > 2?1:0)+nivelTemp,waveTemp][actualSubWaveTemp]);
 
-											Sprite sprite = (nextSprite.GetComponent ("SpriteRenderer") as SpriteRenderer).sprite;
-
-											SpriteRenderer spriteRenderer = (nextFood.GetComponent ("SpriteRenderer") as SpriteRenderer);
-											spriteRenderer.sprite = sprite;
+											(nextFood.GetComponent ("SpriteRenderer") as SpriteRenderer).sprite = (nextSprite.GetComponent ("SpriteRenderer") as SpriteRenderer).sprite;
 										}
 										else ButtonAction.nivelChange = false;
 									}
 								}
 								else {
+									GameObject.FindGameObjectWithTag("FaixaFase3").audio.Stop();
+									GameObject.FindGameObjectWithTag("Hamburguer").audio.Play();
 									myTimer = 0;
 								}
 								waveSet++;
 							}
 							else {
-								actualSubWave++;
-								waveSet = 0;
+								if (myTimerInterWaves > 0) {
+									myTimerInterWaves -= Time.deltaTime;
+								}
+								else {
+									actualSubWave++;
+									waveSet = 0;
+									myTimerInterWaves = 0.09f;
+
+								}
 							}
 						}
 						else {
-							myTimer = 150.0f;
-							if (myTimerInterWaves > 0) {
-								myTimerInterWaves -= Time.deltaTime;
-							}
-							else {
+
+							//else {
 								actualSubWave = waveSet = 0;
 								
 								energyBkp = energy;
@@ -626,10 +864,10 @@ public class StartGame : MonoBehaviour {
 								placeTagBkp = placeTag;
 
 								wave++;
-								msg ("Wave: "+ (wave+1));
+								//msg ("Wave: "+ (wave+1));
 								
-								myTimerInterWaves = 0.3f;
-							}
+								myTimer = 149.423f;
+							//}
 
 							/*int r = Random.Range (0, 100);
 							if (r < 80) {
@@ -649,7 +887,7 @@ public class StartGame : MonoBehaviour {
 						if (wave > maxInsertedSize[numNivelEmFase[0]*(fase > 0?1:0)+numNivelEmFase[1]*(fase > 1?1:0)+nivel]) {
 							wave = actualSubWave = waveSet = 0;
 							nivel++;
-							msg ("Nivel: "+ (nivel+1));
+							//msg ("Nivel: "+ (nivel+1));
 							// insertTimeInterval = 12.5f;
 						}
 
@@ -662,7 +900,7 @@ public class StartGame : MonoBehaviour {
 							actualSubWave = waveSet = wave = nivel = 0;
 							//energy = 1000;
 							//vitamin = 0;
-							msg ("Fase: "+ (fase+1));
+							//msg ("Fase: "+ (fase+1));
 							// fase++;
 						}
 

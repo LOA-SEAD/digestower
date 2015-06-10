@@ -3,10 +3,10 @@
 public class ColorX {
 
 	public ColorX () {
-		StartGame.numberOfColorXObjectsAlive++;
+		//StartGame.numberOfColorXObjectsAlive++;
 	}
 	~ColorX() {
-		StartGame.numberOfColorXObjectsAlive--;
+		//StartGame.numberOfColorXObjectsAlive--;
 	}
 
 	private static string GetHex(int num) {

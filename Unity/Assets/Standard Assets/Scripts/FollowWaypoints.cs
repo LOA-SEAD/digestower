@@ -13,6 +13,7 @@ public class FollowWaypoints : MonoBehaviour
 	public VitaminUp vita = null;
 	public SalivaEspecial saliva = null;
 	public AcidoEspecial acido = null;
+	//public Particula part = null;
 	//private BaseLevelScript _levelScript;
 	private Transform _waypoints;
 
@@ -21,7 +22,7 @@ public class FollowWaypoints : MonoBehaviour
 	{
 		//_levelScript = GameObject.Find("LevelScript").GetComponent<BaseLevelScript>();
 		_waypoints = GameObject.Find("Waypoints").transform;
-		StartGame.numberOfFollowWaypointsObjectsAlive++;
+		//StartGame.numberOfFollowWaypointsObjectsAlive++;
 	}
 	
 	// Update is called once per frame
@@ -33,7 +34,8 @@ public class FollowWaypoints : MonoBehaviour
 	// Fixed update
 	void FixedUpdate()
 	{
-		handleWalkWaypoints();
+		if (StartGame.paused == 0)
+			handleWalkWaypoints();
 	}
 	
 	// Handle walking the waypoints
@@ -67,6 +69,9 @@ public class FollowWaypoints : MonoBehaviour
 					else if (acido) {
 						acido.endPoint(int.Parse (point.Substring(8, 1)));
 					}
+					//else if (part) {
+					//	part.endPoint (int.Parse (point.Substring(8, 1)));
+					//}
 				}
 				// Set new waypoint as target
 				_targetWaypoint++;
@@ -110,6 +115,6 @@ public class FollowWaypoints : MonoBehaviour
 	}
 
 	void OnDestroy () {
-		StartGame.numberOfFollowWaypointsObjectsAlive--;
+		//StartGame.numberOfFollowWaypointsObjectsAlive--;
 	}
 }

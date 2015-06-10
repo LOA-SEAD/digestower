@@ -17,11 +17,11 @@ public class SpriteCollection
 	private string[] names;
 
 	~SpriteCollection() {
-		StartGame.numberOfSpriteCollectionObjectsAlive--;
+		//StartGame.numberOfSpriteCollectionObjectsAlive--;
 	}
 	public SpriteCollection(string spritesheet)
 	{
-		StartGame.numberOfSpriteCollectionObjectsAlive++;
+		//StartGame.numberOfSpriteCollectionObjectsAlive++;
 		//try {
 			sprites = Resources.LoadAll<Sprite>(spritesheet);
 			names = new string[sprites.Length];

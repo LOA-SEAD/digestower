@@ -6,12 +6,13 @@ public class AcidoEspecial : MonoBehaviour {
 	// private SpriteCollection sprites;
 	private int reverse = 1;
 	private float timer = 0f;
+	public int nFood = 0;
 	// private float timer2 = 10f;
 	[HideInInspector] public bool saiu = false;
 
 	// Use this for initialization
 	void Start () {
-		StartGame.numberOfAcidoEspecialObjectsAlive++;
+		//StartGame.numberOfAcidoEspecialObjectsAlive++;
 	}
 	
 	// Update is called once per frame
@@ -22,7 +23,7 @@ public class AcidoEspecial : MonoBehaviour {
 			if (!saiu && timer < 0) {
 				try {
 					SpriteCollection sprites = new SpriteCollection("Acido");
-					gameObject.GetComponent<SpriteRenderer>().sprite = sprites.GetSprite("Acido (frame " + reverse + ")");
+					gameObject.GetComponent<SpriteRenderer>().sprite = sprites.GetSprite("Acido" + reverse);
 					sprites = null;
 				} catch (NullReferenceException) {
 					Debug.LogError ("acido sumiu");
@@ -36,6 +37,8 @@ public class AcidoEspecial : MonoBehaviour {
 					wayPoint.oldTag = "Acido";
 
 					saiu = true;
+					audio.Play ();
+					nFood = 0;
 					CallSkill.creatingAcido = false;
 				}
 				else {
@@ -51,11 +54,18 @@ public class AcidoEspecial : MonoBehaviour {
 
 	public void endPoint(int point) {
 		if (point == 2) {
+			if (nFood > 3) {
+				if (StartGame.indigest < 501)
+					StartGame.indigest = 0;
+				else
+					StartGame.indigest -= 500;
+			}
+			(GameObject.FindGameObjectWithTag("AcidoText").GetComponent ("GUIText") as GUIText).text = "";
 			GameObject.Destroy (gameObject);
 		}
 	}
 
 	void OnDestroy () {
-		StartGame.numberOfAcidoEspecialObjectsAlive--;
+		//StartGame.numberOfAcidoEspecialObjectsAlive--;
 	}
 }

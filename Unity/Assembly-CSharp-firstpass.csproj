@@ -63,14 +63,17 @@
      <Compile Include="Assets\Standard Assets\Scripts\InsertTower.cs" />
      <Compile Include="Assets\Standard Assets\Scripts\MenuControl.cs" />
      <Compile Include="Assets\Standard Assets\Scripts\MouseMoveCamera.cs" />
-     <Compile Include="Assets\Standard Assets\Scripts\RestartGame.cs" />
+     <Compile Include="Assets\Standard Assets\Scripts\OnTouchDown.cs" />
+     <Compile Include="Assets\Standard Assets\Scripts\Particula.cs" />
      <Compile Include="Assets\Standard Assets\Scripts\SalivaEspecial.cs" />
      <Compile Include="Assets\Standard Assets\Scripts\SaveData.cs" />
      <Compile Include="Assets\Standard Assets\Scripts\SaveLoad.cs" />
+     <Compile Include="Assets\Standard Assets\Scripts\ScaleFont.cs" />
      <Compile Include="Assets\Standard Assets\Scripts\SpriteCollection.cs" />
      <Compile Include="Assets\Standard Assets\Scripts\StartGame.cs" />
      <Compile Include="Assets\Standard Assets\Scripts\TowerFunctionality.cs" />
      <Compile Include="Assets\Standard Assets\Scripts\VitaminUp.cs" />
+     <None Include="Assets\StreamingAssets\build_info.txt" />
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Program Files (x86)/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/4.6.0/UnityEngine.UI.dll</HintPath>
  </Reference>

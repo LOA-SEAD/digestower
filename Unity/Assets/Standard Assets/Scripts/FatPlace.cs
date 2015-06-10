@@ -9,7 +9,7 @@ public class FatPlace : MonoBehaviour {
 	 * escrito Places
 	 */
 	/* desconsiderar */
-	public float minimalFat = 100f;
+	public float minimalFat = 50f;
 	public float affectMovementConstant = 10f;
 	/**/
 	public int fatPos = 0;
@@ -18,12 +18,12 @@ public class FatPlace : MonoBehaviour {
 	void Start () {
 		gameObject.renderer.enabled = false;
 		GameObject.FindGameObjectWithTag ((new string[3]{"TopFat", "RightFat", "LeftFat"})[fatPos]).renderer.enabled = false;
-		StartGame.numberOfFatPlaceObjectsAlive++;
+		//StartGame.numberOfFatPlaceObjectsAlive++;
 	}
 
 	void OnTriggerEnter2D(Collider2D col){
 		//Debug.Log ("entrou: " + col.tag);
-		if (GameObject.FindGameObjectWithTag((new string[3]{"TopFat", "RightFat", "LeftFat"})[fatPos]).renderer.enabled && col.gameObject.tag.Substring(0,14) == "ComidaInserida") {
+		if (GameObject.FindGameObjectWithTag((new string[3]{"TopFat", "RightFat", "LeftFat"})[fatPos]).renderer.enabled && col.gameObject.tag.Length > 13 && col.gameObject.tag.Substring(0,14) == "ComidaInserida") {
 			FoodProperties foodProp = col.gameObject.GetComponent<FoodProperties>();
 			try {
 				foodProp.timerFatAffectMovement(affectMovementConstant);
@@ -33,6 +33,6 @@ public class FatPlace : MonoBehaviour {
 	}
 
 	void OnDestroy () {
-		StartGame.numberOfFatPlaceObjectsAlive--;
+		//StartGame.numberOfFatPlaceObjectsAlive--;
 	}
 }

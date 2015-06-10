@@ -9,13 +9,17 @@ public class CallSkill : MonoBehaviour {
 	public int type = 0;
 	// Use this for initialization
 	void Start () {
-		StartGame.numberOfCallSkillObjectsAlive++;
+		//StartGame.numberOfCallSkillObjectsAlive++;
 	}
 
+	/*#if UNITY_EDITOR || UNITY_STANDALONE || UNITY_WEBPLAYER
+	void OnMouseUpAsButton () { OnPointerUpAsButton(); }
+	#endif
+	void OnPointerUpAsButton() {*/
 	void OnMouseDown() {
 		ButtonAction.DisableMenu (2);
 		ButtonAction.play ();
-		if (type == 0 && StartGame.vitamin > 1000 && !creatingSaliva) {
+		if (type == 0 && StartGame.vitamin >= 1000 && !creatingSaliva) {
 			creatingSaliva = true;
 			/* ALTERACAO
 			* quanto vai custar de vitamina para utilizar o especial de saliva
@@ -27,7 +31,7 @@ public class CallSkill : MonoBehaviour {
 			GameObject inserted = (GameObject)Instantiate (item, pos, Quaternion.identity);
 			inserted.tag = "SalivaInserida";
 		}
-		else if (type == 1 && StartGame.vitamin > 1000 && StartGame.fase > 0 && !creatingAcido) {
+		else if (type == 1 && StartGame.vitamin >= 1000 && StartGame.fase > 0 && !creatingAcido) {
 			creatingAcido = true;
 			/* ALTERACAO
 			* quanto vai custar de vitamina para utilizar o especial de acido
@@ -39,12 +43,23 @@ public class CallSkill : MonoBehaviour {
 			GameObject inserted = (GameObject)Instantiate (item, pos, Quaternion.identity);
 			inserted.tag = "AcidoInserido";
 		}
-		else if (type == 2 && StartGame.vitamin > 1000 && StartGame.fase > 1 && !usingPhysicalExercise) {
+		else if (type == 2 && StartGame.vitamin >= 1000 && StartGame.fase > 1 && !usingPhysicalExercise) {
 			usingPhysicalExercise = true;
 			/* ALTERACAO
 			* quanto vai custar de vitamina para utilizar o especial de acido
 			*/
 			StartGame.vitamin -= 1000;
+			if (StartGame.fat > 20) StartGame.fat -= 20;
+			else StartGame.fat = 0;
+
+			GameObject[] target_fat = GameObject.FindGameObjectsWithTag ("FatPlace");
+			for (int i = 0;i < target_fat.Length;i++) {
+				FatPlace fatPlace = target_fat[i].GetComponent<FatPlace>();
+				if (StartGame.fat < fatPlace.minimalFat) {
+					GameObject.FindGameObjectWithTag((new string[3]{"TopFat", "RightFat", "LeftFat"})[fatPlace.fatPos]).renderer.enabled = false;
+				}
+			}
+
 			/**/
 			GameObject[] target1 = GameObject.FindGameObjectsWithTag ("ComidaInserida1");
 			GameObject[] target2 = GameObject.FindGameObjectsWithTag ("ComidaInserida2");
@@ -72,6 +87,6 @@ public class CallSkill : MonoBehaviour {
 	}
 
 	void OnDestroy () {
-		StartGame.numberOfCallSkillObjectsAlive--;
+		//StartGame.numberOfCallSkillObjectsAlive--;
 	}
 }

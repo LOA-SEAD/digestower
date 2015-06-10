@@ -10,6 +10,7 @@ using System.Text.RegularExpressions;
 public class SaveLoad : MonoBehaviour {
 	public bool type = false;
 	public int slot = 1;
+	private Sprite bkp;
 	//public static List<StartGame> savedGames = new List<StartHG>();
 
 	public sealed class VersionDeserializationBinder : SerializationBinder 
@@ -33,9 +34,38 @@ public class SaveLoad : MonoBehaviour {
 	}
 
 	void Start () {
-		StartGame.numberOfSaveLoadObjectsAlive++;
+		//StartGame.numberOfSaveLoadObjectsAlive++;
 	}
 
+	void OnMouseEnter()
+	{
+		SpriteCollection sprites = null;
+		if (slot == 1 || slot == 2 || slot == 3) {
+			bkp = (gameObject.GetComponent ("SpriteRenderer") as SpriteRenderer).sprite;
+			sprites = new SpriteCollection("Pressed");
+		}
+		if (slot == 1) {
+			(gameObject.GetComponent ("SpriteRenderer") as SpriteRenderer).sprite = sprites.GetSprite ("Arquivo1Pressionado");
+		}
+		else if (slot == 2) {
+			(gameObject.GetComponent ("SpriteRenderer") as SpriteRenderer).sprite = sprites.GetSprite ("Arquivo2Pressionado");
+		}
+		else if (slot == 3) {
+			(gameObject.GetComponent ("SpriteRenderer") as SpriteRenderer).sprite = sprites.GetSprite ("Arquivo3Pressionado");
+		}
+		sprites = null;
+	}
+	void OnMouseExit()
+	{
+		if (slot == 1 || slot == 2 || slot == 3) {
+			(gameObject.GetComponent ("SpriteRenderer") as SpriteRenderer).sprite = bkp;
+		}
+	}
+
+	/*#if UNITY_EDITOR || UNITY_STANDALONE || UNITY_WEBPLAYER
+	void OnMouseUpAsButton () { OnPointerUpAsButton(); }
+	#endif
+	void OnPointerUpAsButton() {*/
 	void OnMouseDown() {
 		if (type) {
 			if (StartGame.started) {
@@ -53,7 +83,8 @@ public class SaveLoad : MonoBehaviour {
 			// else StartGame.msg("Carregue antes de iniciar");
 		}
 	}
-	
+
+
 	public void Save() {
 		/*
 		SaveData data = new SaveData ();
@@ -87,8 +118,16 @@ public class SaveLoad : MonoBehaviour {
 		PlayerPrefs.SetFloat("vitamin" + slot,StartGame.vitamin);
 		PlayerPrefs.SetFloat("indigest" + slot,StartGame.indigest);
 
-		for (int i=0;i < GameObject.Find("TowerPosition").transform.childCount;i++) {
+		Transform _places = GameObject.Find("TowerPosition").transform;
+		for (int i=0;i < _places.childCount;i++) {
 			PlayerPrefs.SetString(slot + "place" + i,Regex.Replace(StartGame.placeTagBkp[i], "\\s", String.Empty));
+			InsertTower insertPlace = _places.GetChild(i).GetComponent ("InsertTower") as InsertTower;
+			if (insertPlace.insertedTower != null) {
+				BasicTower basicTower = insertPlace.insertedTower.GetComponent("BasicTower") as BasicTower;
+				PlayerPrefs.SetFloat(slot + "life"  + i, basicTower != null?basicTower.life:0);
+			}
+			else
+				PlayerPrefs.SetFloat(slot + "life"  + i, 0);
 		}
 	}
 	
@@ -117,11 +156,29 @@ public class SaveLoad : MonoBehaviour {
 			StartGame.wave = PlayerPrefs.GetInt("wave" + slot);
 			StartGame.fase = PlayerPrefs.GetInt("fase" + slot);
 			StartGame.nivel = PlayerPrefs.GetInt("nivel" + slot);
+			StartGame.actualSubWave = 0;
+			StartGame.waveSet = 0;
 			StartGame.energy = PlayerPrefs.GetFloat("energy" + slot);
 			StartGame.fat = PlayerPrefs.GetFloat("fat" + slot);
 			StartGame.vitamin = PlayerPrefs.GetFloat("vitamin" + slot);
 			StartGame.indigest = PlayerPrefs.GetFloat("indigest" + slot);
+			(GameObject.FindGameObjectWithTag("BarraGordura").GetComponent ("SpriteRenderer") as SpriteRenderer).enabled = (StartGame.fase > 1?true:false);
+
+			//StartGame.started = false;
+			//StartGame.paused = 1;
+			//StartGame.loose = false;
+			//StartGame.firstStart = true;
+			//StartGame.playAfterClose = true;
+			CallSkill.creatingAcido = false;
+			CallSkill.creatingSaliva = false;
+			CallSkill.usingPhysicalExercise = false;
 			InsertTower.activeTooth = new bool[3]{false, false, false};
+
+			GameObject[] target_fat = GameObject.FindGameObjectsWithTag ("FatPlace");
+			for (int i = 0;i < target_fat.Length;i++) {
+				FatPlace fatPlace = target_fat[i].GetComponent<FatPlace>();
+				GameObject.FindGameObjectWithTag((new string[3]{"TopFat", "RightFat", "LeftFat"})[fatPlace.fatPos]).renderer.enabled = (StartGame.fat >= fatPlace.minimalFat);
+			}
 
 			//BasicTower bTower = tower.GetComponent("BasicTower") as BasicTower;
 			//Destroy(tower);
@@ -172,7 +229,10 @@ public class SaveLoad : MonoBehaviour {
 				if ((target12[i].GetComponent("BulletAway") as BulletAway) != null)
 					Destroy (target12[i]);
 
+			ButtonAction.carregaTowers(false, 0);
+
 			Transform _places = GameObject.Find("TowerPosition").transform;
+
 			for (int i=0;i<_places.childCount;i++) {
 				//if (_places.GetChild(i) == place.transform)
 				//	StartGame.placeTag[i] = "Untagged";
@@ -200,13 +260,24 @@ public class SaveLoad : MonoBehaviour {
 				}
 
 				if (StartGame.placeTag[i] != "Untagged") {
-					(_places.GetChild(i).GetComponent("InsertTower") as InsertTower).RestoreTowerPos(StartGame.placeTag[i]);
+					(_places.GetChild(i).GetComponent("InsertTower") as InsertTower).RestoreTowerPos(StartGame.placeTag[i], PlayerPrefs.GetFloat(slot + "life" + i));
 					//Debug.Log("restoring pos " + i + "..." );
 				}
 				else {
 					(_places.GetChild(i).GetComponent("InsertTower") as InsertTower).renderer.enabled = true;
 				}
 			}
+			StartGame.loose = false;
+			Time.timeScale = 1;
+			(GameObject.FindGameObjectWithTag("StartButton").GetComponent("StartGame") as StartGame).myTimerInterWaves = 0.04f;
+			StartGame.refreshStatus ();
+
+			StartGame.ClearAllAudio();
+			StartGame.loadingGame = true;
+			(GameObject.FindGameObjectWithTag("StartButton").GetComponent ("StartGame") as StartGame).myTimer = 149.423f;
+			if (StartGame.fase < 3) GameObject.FindGameObjectWithTag("FaixaFase" + (StartGame.fase + 1)).audio.Play();
+			else GameObject.FindGameObjectWithTag("Hamburguer").audio.Play();
+			if (!StartGame.started) StartGame.StopAllAudio();
 		}
 		else {
 			StartGame.msg ("Nao ha jogo salvo ate o momento");
@@ -217,6 +288,6 @@ public class SaveLoad : MonoBehaviour {
 	}
 
 	void OnDestroy () {
-		StartGame.numberOfSaveLoadObjectsAlive++;
+		//StartGame.numberOfSaveLoadObjectsAlive++;
 	}
 }
