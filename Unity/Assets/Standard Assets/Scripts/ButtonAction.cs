@@ -470,8 +470,8 @@ public class ButtonAction : MonoBehaviour {
 				StartGame.paused = 1;
 				if (StartGame.infoTela[0] == 1 && StartGame.infoTela[1] == 4)
 					(GameObject.FindGameObjectWithTag("StartButton").GetComponent ("StartGame") as StartGame).carregaTela (5,10);
-				else if (StartGame.infoTela[0] == 20 && StartGame.infoTela[1] == 23)
-					(GameObject.FindGameObjectWithTag("StartButton").GetComponent ("StartGame") as StartGame).carregaTela (24,27);
+				else if (StartGame.infoTela[0] == 20 && StartGame.infoTela[1] == 24)
+					(GameObject.FindGameObjectWithTag("StartButton").GetComponent ("StartGame") as StartGame).carregaTela (25,28);
 				else if (StartGame.infoTela[0] == 48 && StartGame.infoTela[1] == 52) {
 					CallSkill.firstUsePhysical = false;
 					//StartGame.playAfterClose = true;
@@ -722,7 +722,7 @@ public class ButtonAction : MonoBehaviour {
 			Time.timeScale = 1;
 			if (StartGame.started) play ();
 			
-			(GameObject.FindGameObjectWithTag("StartButton").GetComponent ("StartGame") as StartGame).carregaTela (20, 23);
+			(GameObject.FindGameObjectWithTag("StartButton").GetComponent ("StartGame") as StartGame).carregaTela (20, 24);
 		}
 		else if (type == 28) {//Ajuda
 
