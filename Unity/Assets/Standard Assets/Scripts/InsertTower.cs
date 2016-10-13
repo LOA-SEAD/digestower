@@ -291,7 +291,9 @@ public class InsertTower : MonoBehaviour {
 				gameObject.renderer.enabled = false;
 			}
 			else {
-				StartGame.msg("Voce esta sem energia no momento");
+				EnergyBar.piscar = true;
+				//StartGame.msg("Voce esta sem energia no momento");
+
 				// Debug.Log ("energia acabouuu");
 			}
 		}

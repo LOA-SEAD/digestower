@@ -13,6 +13,8 @@ using System;
 public class StartGame : MonoBehaviour {
 	// public static StartGame current;
 	// public GameObject activeTower;
+	public static bool activatedMenuInicial = false;
+
 	public GUIText indigestText, energyText, fatText, vitaminText;
 	public static float energy;
 	public static float vitamin;
@@ -59,6 +61,7 @@ public class StartGame : MonoBehaviour {
 	public static float msgTimeInterval = 10.0f;
 	public float initialPosX = -2.95f;
 	public float initialPosY = 2.59f;
+	public GameObject place1, place2;
 	//public float foodMovementSpeed = 10.0f;
 	// public int maximumFoods = 10;
 
@@ -83,6 +86,7 @@ public class StartGame : MonoBehaviour {
 	public static float maxVitamin = 3000;
 	public static float maxFat = 100;
 	public static float maxIndigest = 6000;
+
 	/**/
 
 	public static int actualSubWave = 0;
@@ -112,6 +116,7 @@ public class StartGame : MonoBehaviour {
 	public static bool stoppedAudio = false;
 	private static AudioSource[] allAudioSources;
 	private static bool[] audioPlaying;
+	private Sprite bkp;
 
 	public static void StopAllAudio() {
 		allAudioSources = FindObjectsOfType(typeof(AudioSource)) as AudioSource[];
@@ -368,9 +373,49 @@ public class StartGame : MonoBehaviour {
 		myTimer = 149.423f; //maximumFoods * insertTimeInterval + 1;
 		msgTimer = 100.0f;
 		playAfterClose = false;
-		carregaTela (20, 27);
+	
+		CallSkill.firstUsePhysical = true;
+
+		place1.GetComponent("SpriteRenderer").renderer.enabled = false;
+		place2.GetComponent("SpriteRenderer").renderer.enabled = false;
+		(place1.GetComponent ("BoxCollider2D") as BoxCollider2D).enabled = false;
+		(place2.GetComponent ("BoxCollider2D") as BoxCollider2D).enabled = false;
+
+		menuInicial (true);
+
 		// instantiatedGameObjects = new GameObject[maximumFoods];
 		Debug.Log("GAME STARTED");
+	}
+
+	public void menuInicial(bool ativ) {
+		activatedMenuInicial = ativ;
+		GameObject Tela = GameObject.FindGameObjectWithTag("MenuInicial");
+		Tela.GetComponent("SpriteRenderer").renderer.enabled = ativ;
+		if (ativ) Tela.renderer.sortingOrder = 10;
+		else Tela.renderer.sortingOrder = 0;
+		(Tela.GetComponent ("BoxCollider2D") as BoxCollider2D).enabled = ativ;
+		
+		//GameObject btnAjuda = GameObject.FindGameObjectWithTag("AjudaButton");
+		//btnAjuda.GetComponent("SpriteRenderer").renderer.enabled = ativ;
+		//btnAjuda.renderer.sortingOrder = 11;
+		//(btnAjuda.GetComponent ("BoxCollider2D") as BoxCollider2D).enabled = ativ;
+		
+		GameObject btnIniciar = GameObject.FindGameObjectWithTag("IniciarButton");
+		(btnIniciar.GetComponent ("BoxCollider2D") as BoxCollider2D).enabled = ativ;
+		btnIniciar.GetComponent("SpriteRenderer").renderer.enabled = ativ;
+		btnIniciar.renderer.sortingOrder = 11;
+
+		//GameObject btnCreditos = GameObject.FindGameObjectWithTag("CreditosButton");
+		//(btnCreditos.GetComponent ("BoxCollider2D") as BoxCollider2D).enabled = ativ;
+		//btnCreditos.GetComponent("SpriteRenderer").renderer.enabled = ativ;
+		//btnCreditos.renderer.sortingOrder = 11;
+
+		GameObject btnCarregar = GameObject.FindGameObjectWithTag("CarregarInicialButton");
+		(btnCarregar.GetComponent ("BoxCollider2D") as BoxCollider2D).enabled = ativ;
+		btnCarregar.GetComponent("SpriteRenderer").renderer.enabled = ativ;
+		btnCarregar.renderer.sortingOrder = 11;
+
+
 	}
 	
 	// Update is called once per frame
@@ -393,6 +438,7 @@ public class StartGame : MonoBehaviour {
 		SpriteCollection sprites = new SpriteCollection("Telas");
 		infoTela = new int[2]{start,end};
 		infoActive = start;
+		Debug.Log ("kkkkkkkk");
 
 		GUITextStatus(false);
 		paused = 2;
@@ -478,6 +524,19 @@ public class StartGame : MonoBehaviour {
 	void OnMouseUpAsButton () { OnPointerUpAsButton(); }
 	#endif
 	void OnPointerUpAsButton() {*/
+
+	void OnMouseEnter()
+	{
+		SpriteCollection sprites = null;
+		bkp = (gameObject.GetComponent ("SpriteRenderer") as SpriteRenderer).sprite;
+		sprites = new SpriteCollection("Pressed");
+		(gameObject.GetComponent ("SpriteRenderer") as SpriteRenderer).sprite = sprites.GetSprite ("IniciarPressionado");
+		sprites = null;
+	}
+	void OnMouseExit()
+	{
+		(gameObject.GetComponent ("SpriteRenderer") as SpriteRenderer).sprite = bkp;
+	}
 	void OnMouseDown() {
 		if (paused > 0) {
 			play();
@@ -519,7 +578,7 @@ public class StartGame : MonoBehaviour {
 			GUI.color = Color.white;
 			GUI.Label(new Rect(Screen.height/2, Screen.width/4, 400, 400), "<size=40>" + msgBuffer + "</size>");
 		}
-		if (!ButtonAction.activatedMenuTorres && !ButtonAction.activatedMenuEspeciais && !ButtonAction.activatedMenuPause && infoActive == 0 && !mostrandoFaixa && !almanaqueAberto) {
+		if (!activatedMenuInicial && !ButtonAction.activatedMenuTorres && !ButtonAction.activatedMenuEspeciais && !ButtonAction.activatedMenuPause && infoActive == 0 && !mostrandoFaixa && !almanaqueAberto) {
 			if (fat > maxFat)
 				fat = maxFat;
 
@@ -636,7 +695,14 @@ public class StartGame : MonoBehaviour {
 		(GameObject.FindGameObjectWithTag ("IndigestText").GetComponent ("GUIText") as GUIText).enabled = enable;
 		(GameObject.FindGameObjectWithTag ("EnergyText").GetComponent ("GUIText") as GUIText).enabled = enable;
 		(GameObject.FindGameObjectWithTag ("VitaminText").GetComponent ("GUIText") as GUIText).enabled = enable;
-		(GameObject.FindGameObjectWithTag("FatText").GetComponent ("GUIText") as GUIText).enabled = enable;
+		if (enable) {
+			if (fase > 1)
+				(GameObject.FindGameObjectWithTag("FatText").GetComponent ("GUIText") as GUIText).enabled = true;
+			else
+				(GameObject.FindGameObjectWithTag("FatText").GetComponent ("GUIText") as GUIText).enabled = false;
+		}
+		else
+			(GameObject.FindGameObjectWithTag("FatText").GetComponent ("GUIText") as GUIText).enabled = enable;
 	}
 
 	private IEnumerator Pause(int p, int f)
@@ -654,6 +720,10 @@ public class StartGame : MonoBehaviour {
 		if (f == 0) {
 			GameObject faixaFase1 = GameObject.FindGameObjectWithTag("FaixaFase1");
 			faixaFase1.GetComponent("SpriteRenderer").renderer.enabled = false;
+			place1.GetComponent("SpriteRenderer").renderer.enabled = false;
+			place2.GetComponent("SpriteRenderer").renderer.enabled = false;
+			(place1.GetComponent ("BoxCollider2D") as BoxCollider2D).enabled = false;
+			(place2.GetComponent ("BoxCollider2D") as BoxCollider2D).enabled = false;
 			//carregaTela(13,14);
 			mostrandoFaixa = false;
 			play ();
@@ -662,12 +732,20 @@ public class StartGame : MonoBehaviour {
 			GameObject faixaFase2 = GameObject.FindGameObjectWithTag("FaixaFase2");
 			faixaFase2.GetComponent("SpriteRenderer").renderer.enabled = false;
 			//carregaTela(18,19);
+			place1.GetComponent("SpriteRenderer").renderer.enabled = true;
+			place2.GetComponent("SpriteRenderer").renderer.enabled = true;
+			(place1.GetComponent ("BoxCollider2D") as BoxCollider2D).enabled = true;
+			(place2.GetComponent ("BoxCollider2D") as BoxCollider2D).enabled = true;
 			mostrandoFaixa = false;
 			play ();
 		}
 		else if (f == 2) {
 			GameObject faixaFase3 = GameObject.FindGameObjectWithTag("FaixaFase3");
 			faixaFase3.GetComponent("SpriteRenderer").renderer.enabled = false;
+			place1.GetComponent("SpriteRenderer").renderer.enabled = true;
+			place2.GetComponent("SpriteRenderer").renderer.enabled = true;
+			(place1.GetComponent ("BoxCollider2D") as BoxCollider2D).enabled = true;
+			(place2.GetComponent ("BoxCollider2D") as BoxCollider2D).enabled = true;
 			//carregaTela(15,17);
 			mostrandoFaixa = false;
 			play ();

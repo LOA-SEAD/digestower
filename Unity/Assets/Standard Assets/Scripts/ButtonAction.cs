@@ -28,7 +28,7 @@ public class ButtonAction : MonoBehaviour {
 	void OnMouseEnter()
 	{
 		SpriteCollection sprites = null;
-		if ((type > 0 && type < 10) || (type > 10 && type < 15) || type == 25 || type == 22 || type == 21 || type == 26) {
+		if ((type > 0 && type < 10) || (type > 10 && type < 15) || type == 22 || type == 21 || type == 20 || (type >= 24 && type <= 30)) {
 			bkp = (gameObject.GetComponent ("SpriteRenderer") as SpriteRenderer).sprite;
 			sprites = new SpriteCollection("Pressed");
 		}
@@ -58,11 +58,23 @@ public class ButtonAction : MonoBehaviour {
 			(gameObject.GetComponent ("SpriteRenderer") as SpriteRenderer).sprite = sprites.GetSprite ("EsquerdaPressionado");
 		else if (type == 14 || type == 22 || type == 26 ||  type == 21)
 			(gameObject.GetComponent ("SpriteRenderer") as SpriteRenderer).sprite = sprites.GetSprite ("Fechar2Pressionado");
+		else if (type == 24)
+			(gameObject.GetComponent ("SpriteRenderer") as SpriteRenderer).sprite = sprites.GetSprite ("TorresPressionado");
+		else if (type == 20)
+			(gameObject.GetComponent ("SpriteRenderer") as SpriteRenderer).sprite = sprites.GetSprite ("AlimentosPressionado");
+		else if (type == 27)
+			(gameObject.GetComponent ("SpriteRenderer") as SpriteRenderer).sprite = sprites.GetSprite ("IniciarPressed");
+		else if (type == 28)
+			(gameObject.GetComponent ("SpriteRenderer") as SpriteRenderer).sprite = sprites.GetSprite ("AjudaPressionado");
+		else if (type == 29)
+			(gameObject.GetComponent ("SpriteRenderer") as SpriteRenderer).sprite = sprites.GetSprite ("CarregarInicialPressionado");
+		else if (type == 30)
+			(gameObject.GetComponent ("SpriteRenderer") as SpriteRenderer).sprite = sprites.GetSprite ("CreditosPressionado");
 		sprites = null;
 	}
 	void OnMouseExit()
 	{
-		if ((type > 0 && type < 10) || (type > 10 && type < 15) || type == 25 || type == 22 || type == 21 || type == 26) {
+		if ((type > 0 && type < 10) || (type > 10 && type < 15) || type == 22 || type == 21 || type == 20 || (type >= 24 && type <= 30)) {
 			(gameObject.GetComponent ("SpriteRenderer") as SpriteRenderer).sprite = bkp;
 		}
 	}
@@ -458,6 +470,13 @@ public class ButtonAction : MonoBehaviour {
 				StartGame.paused = 1;
 				if (StartGame.infoTela[0] == 1 && StartGame.infoTela[1] == 4)
 					(GameObject.FindGameObjectWithTag("StartButton").GetComponent ("StartGame") as StartGame).carregaTela (5,10);
+				else if (StartGame.infoTela[0] == 20 && StartGame.infoTela[1] == 23)
+					(GameObject.FindGameObjectWithTag("StartButton").GetComponent ("StartGame") as StartGame).carregaTela (24,27);
+				else if (StartGame.infoTela[0] == 48 && StartGame.infoTela[1] == 52) {
+					CallSkill.firstUsePhysical = false;
+					//StartGame.playAfterClose = true;
+					play ();
+				}
 				else
 					StartGame.playAfterClose = true;
 			}
@@ -494,9 +513,13 @@ public class ButtonAction : MonoBehaviour {
 		else if (type == 20) {
 			GameObject btnAbrirAlimento = GameObject.FindGameObjectWithTag("AbrirAlimentos");
 			(btnAbrirAlimento.GetComponent ("BoxCollider2D") as BoxCollider2D).enabled = false;
+			btnAbrirAlimento.GetComponent("SpriteRenderer").renderer.enabled = false;
+			btnAbrirAlimento.renderer.sortingOrder = 0;
 			
 			GameObject btnAbrirTorre = GameObject.FindGameObjectWithTag("AbrirTorres");
 			(btnAbrirTorre.GetComponent ("BoxCollider2D") as BoxCollider2D).enabled = false;
+			btnAbrirTorre.GetComponent("SpriteRenderer").renderer.enabled = false;
+			btnAbrirTorre.renderer.sortingOrder = 0;
 
 			GameObject menuTela = GameObject.FindGameObjectWithTag("MenuAlmanaque");
 			menuTela.GetComponent("SpriteRenderer").renderer.enabled = false;
@@ -596,9 +619,13 @@ public class ButtonAction : MonoBehaviour {
 		else if (type == 24) {
 			GameObject btnAbrirAlimento = GameObject.FindGameObjectWithTag("AbrirAlimentos");
 			(btnAbrirAlimento.GetComponent ("BoxCollider2D") as BoxCollider2D).enabled = false;
-			
+			btnAbrirAlimento.GetComponent("SpriteRenderer").renderer.enabled = false;
+			btnAbrirAlimento.renderer.sortingOrder = 0;
+
 			GameObject btnAbrirTorre = GameObject.FindGameObjectWithTag("AbrirTorres");
 			(btnAbrirTorre.GetComponent ("BoxCollider2D") as BoxCollider2D).enabled = false;
+			btnAbrirTorre.GetComponent("SpriteRenderer").renderer.enabled = false;
+			btnAbrirTorre.renderer.sortingOrder = 0;
 
 			GameObject infoTelaA = GameObject.FindGameObjectWithTag("MenuAlmanaque");
 			infoTelaA.GetComponent("SpriteRenderer").renderer.enabled = false;
@@ -642,14 +669,18 @@ public class ButtonAction : MonoBehaviour {
 			
 			GameObject btnAbrirAlimento = GameObject.FindGameObjectWithTag("AbrirAlimentos");
 			(btnAbrirAlimento.GetComponent ("BoxCollider2D") as BoxCollider2D).enabled = true;
+			btnAbrirAlimento.GetComponent("SpriteRenderer").renderer.enabled = true;
+			btnAbrirAlimento.renderer.sortingOrder = 11;
 
 			GameObject btnAbrirTorre = GameObject.FindGameObjectWithTag("AbrirTorres");
 			(btnAbrirTorre.GetComponent ("BoxCollider2D") as BoxCollider2D).enabled = true;
+			btnAbrirTorre.GetComponent("SpriteRenderer").renderer.enabled = true;
+			btnAbrirTorre.renderer.sortingOrder = 11;
 
 			GameObject btnFechar = GameObject.FindGameObjectWithTag("MenuAlmanaqueFechar");
 			btnFechar.GetComponent("SpriteRenderer").renderer.enabled = true;
-			btnFechar.renderer.sortingOrder = 11;
 			(btnFechar.GetComponent ("BoxCollider2D") as BoxCollider2D).enabled = true;
+			btnFechar.renderer.sortingOrder = 11;
 			
 			Time.timeScale = 0;
 			StartGame.almanaqueAberto = true;
@@ -669,14 +700,78 @@ public class ButtonAction : MonoBehaviour {
 
 			GameObject btnAbrirAlimento = GameObject.FindGameObjectWithTag("AbrirAlimentos");
 			(btnAbrirAlimento.GetComponent ("BoxCollider2D") as BoxCollider2D).enabled = false;
+			btnAbrirAlimento.GetComponent("SpriteRenderer").renderer.enabled = false;
+			btnAbrirAlimento.renderer.sortingOrder = 11;
 			
 			GameObject btnAbrirTorre = GameObject.FindGameObjectWithTag("AbrirTorres");
 			(btnAbrirTorre.GetComponent ("BoxCollider2D") as BoxCollider2D).enabled = false;
+			btnAbrirTorre.GetComponent("SpriteRenderer").renderer.enabled = false;
+			btnAbrirTorre.renderer.sortingOrder = 11;
 
 			StartGame.almanaqueAberto = false;
 			Time.timeScale = 1;
 			if (StartGame.started) play ();
 			(GameObject.FindGameObjectWithTag("StartButton").GetComponent ("StartGame") as StartGame).GUITextStatus(true);
+		}
+		else if (type == 27) {// Iniciar
+			(GameObject.FindGameObjectWithTag("StartButton").GetComponent ("StartGame") as StartGame).menuInicial(false);
+
+			(GameObject.FindGameObjectWithTag("StartButton").GetComponent ("StartGame") as StartGame).GUITextStatus(true);
+
+			StartGame.almanaqueAberto = false;
+			Time.timeScale = 1;
+			if (StartGame.started) play ();
+			
+			(GameObject.FindGameObjectWithTag("StartButton").GetComponent ("StartGame") as StartGame).carregaTela (20, 23);
+		}
+		else if (type == 28) {//Ajuda
+
+		}
+		else if (type == 29) {//Carregar
+			activatedMenuSaveLoad = true;
+			//DisableMenu (3);
+			// GameObject menuPause = GameObject.FindGameObjectWithTag ("MenuPause");
+			//(menuEspecial.GetComponent("MenuControl") as MenuControl).EnableMenu(2);
+			GameObject save1 = GameObject.FindGameObjectWithTag ("Save1Button");
+			SaveLoad saveload1 = save1.GetComponent("SaveLoad") as SaveLoad;
+			saveload1.type = false;
+			saveload1.slot = 1;
+			GameObject save2 = GameObject.FindGameObjectWithTag ("Save2Button");
+			SaveLoad saveload2 = save2.GetComponent("SaveLoad") as SaveLoad;
+			saveload2.type = false;
+			saveload2.slot = 2;
+			GameObject save3 = GameObject.FindGameObjectWithTag ("Save3Button");
+			SaveLoad saveload3 = save3.GetComponent("SaveLoad") as SaveLoad;
+			saveload3.type = false;
+			saveload3.slot = 3;
+			GameObject continu = GameObject.FindGameObjectWithTag ("Continue2Button");
+
+			GameObject menuPause = GameObject.FindGameObjectWithTag ("MenuPause");
+			menuPause.renderer.enabled = true;
+			menuPause.renderer.sortingOrder = 13;
+			GameObject telaEscura = GameObject.FindGameObjectWithTag ("TelaEscura");
+			telaEscura.renderer.enabled = true;
+			telaEscura.renderer.sortingOrder = 12;
+			(telaEscura.GetComponent ("BoxCollider2D") as BoxCollider2D).enabled = true;
+
+			//menuPause.renderer.enabled = true;
+			//menuPause.renderer.sortingOrder = 8;
+			//(menuEspecial.GetComponent ("BoxCollider2D") as BoxCollider2D).enabled = true;
+			save1.renderer.enabled = true;
+			save1.renderer.sortingOrder = 14;
+			(save1.GetComponent ("BoxCollider2D") as BoxCollider2D).enabled = true;
+			save2.renderer.enabled = true;
+			save2.renderer.sortingOrder = 14;
+			(save2.GetComponent ("BoxCollider2D") as BoxCollider2D).enabled = true;
+			save3.renderer.enabled = true;
+			save3.renderer.sortingOrder = 14;
+			(save3.GetComponent ("BoxCollider2D") as BoxCollider2D).enabled = true;
+			continu.renderer.enabled = true;
+			continu.renderer.sortingOrder = 14;
+			(continu.GetComponent ("BoxCollider2D") as BoxCollider2D).enabled = true;
+		}
+		else if (type == 30) {//Creditos
+
 		}
 	}
 

@@ -6,6 +6,7 @@ public class CallSkill : MonoBehaviour {
 	public static bool creatingSaliva = false;
 	public static bool creatingAcido = false;
 	public static bool usingPhysicalExercise = false;
+	public static bool firstUsePhysical = true;
 	public int type = 0;
 	// Use this for initialization
 	void Start () {
@@ -45,6 +46,12 @@ public class CallSkill : MonoBehaviour {
 		}
 		else if (type == 2 && StartGame.vitamin >= 1000 && StartGame.fase > 1 && !usingPhysicalExercise) {
 			usingPhysicalExercise = true;
+			if (firstUsePhysical) {
+				Debug.Log ("xxxxxxxxxx");
+				(GameObject.FindGameObjectWithTag("StartButton").GetComponent ("StartGame") as StartGame).carregaTela (48,52);
+				Debug.Log ("bbbbbbb");
+			}
+
 			/* ALTERACAO
 			* quanto vai custar de vitamina para utilizar o especial de acido
 			*/

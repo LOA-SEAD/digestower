@@ -271,6 +271,7 @@ public class SaveLoad : MonoBehaviour {
 			Time.timeScale = 1;
 			(GameObject.FindGameObjectWithTag("StartButton").GetComponent("StartGame") as StartGame).myTimerInterWaves = 0.04f;
 			StartGame.refreshStatus ();
+			CallSkill.firstUsePhysical = true;
 
 			StartGame.ClearAllAudio();
 			StartGame.loadingGame = true;
@@ -278,6 +279,10 @@ public class SaveLoad : MonoBehaviour {
 			if (StartGame.fase < 3) GameObject.FindGameObjectWithTag("FaixaFase" + (StartGame.fase + 1)).audio.Play();
 			else GameObject.FindGameObjectWithTag("Hamburguer").audio.Play();
 			if (!StartGame.started) StartGame.StopAllAudio();
+			StartGame startGame = GameObject.FindGameObjectWithTag("StartButton").GetComponent ("StartGame") as StartGame;
+			if (StartGame.activatedMenuInicial) {
+				startGame.menuInicial(false);
+			}
 		}
 		else {
 			StartGame.msg ("Nao ha jogo salvo ate o momento");

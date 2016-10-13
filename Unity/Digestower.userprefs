@@ -1,22 +1,16 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Standard Assets\Scripts\BasicTower.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Standard Assets\Scripts\StartGame.cs">
     <Files>
-      <File FileName="Assets\Standard Assets\Scripts\AcidoEspecial.cs" Line="1" Column="1" />
-      <File FileName="Assets\Reporter\Reporter.cs" Line="1819" Column="7" />
-      <File FileName="Assets\Standard Assets\Scripts\ButtonAction.cs" Line="1" Column="1" />
-      <File FileName="Assets\Standard Assets\Scripts\MouseMoveCamera.cs" Line="1" Column="1" />
-      <File FileName="Assets\Standard Assets\Scripts\InsertTower.cs" Line="276" Column="41" />
-      <File FileName="Assets\Standard Assets\Scripts\SaveLoad.cs" Line="277" Column="9" />
-      <File FileName="Assets\Standard Assets\Scripts\StartGame.cs" Line="131" Column="32" />
+      <File FileName="Assets\Standard Assets\Scripts\EnergyBar.cs" Line="1" Column="1" />
+      <File FileName="Assets\Standard Assets\Scripts\StartGame.cs" Line="441" Column="26" />
       <File FileName="Assets\Standard Assets\Scripts\VitaminUp.cs" Line="1" Column="1" />
       <File FileName="Assets\Standard Assets\Scripts\OnTouchDown.cs" Line="1" Column="1" />
       <File FileName="Assets\Standard Assets\Scripts\ScaleFont.cs" Line="1" Column="1" />
-      <File FileName="Assets\Standard Assets\Scripts\BasicTower.cs" Line="53" Column="8" />
+      <File FileName="Assets\Standard Assets\Scripts\BasicTower.cs" Line="1" Column="1" />
       <File FileName="Assets\Standard Assets\Scripts\FoodProperties.cs" Line="1" Column="1" />
       <File FileName="Assets\Standard Assets\Scripts\Particula.cs" Line="1" Column="1" />
-      <File FileName="Assets\Standard Assets\Scripts\SpriteCollection.cs" Line="1" Column="1" />
-      <File FileName="Assets\Standard Assets\Scripts\CallSkill.cs" Line="1" Column="1" />
+      <File FileName="Assets\Standard Assets\Scripts\CallSkill.cs" Line="52" Column="27" />
       <File FileName="Assets\Standard Assets\Scripts\SalivaEspecial.cs" Line="1" Column="1" />
       <File FileName="Assets\Standard Assets\Scripts\TowerFunctionality.cs" Line="1" Column="1" />
       <File FileName="Assets\Standard Assets\Scripts\BulletAway.cs" Line="1" Column="1" />
@@ -27,6 +21,10 @@
       <File FileName="Assets\Standard Assets\Scripts\FollowWaypoints.cs" Line="1" Column="1" />
       <File FileName="Assets\Standard Assets\Scripts\MenuControl.cs" Line="1" Column="1" />
       <File FileName="Assets\Standard Assets\Scripts\SaveData.cs" Line="1" Column="1" />
+      <File FileName="Assets\Standard Assets\Scripts\InsertTower.cs" Line="1" Column="1" />
+      <File FileName="Assets\Standard Assets\Scripts\ButtonAction.cs" Line="1" Column="1" />
+      <File FileName="Assets\Standard Assets\Scripts\SaveLoad.cs" Line="1" Column="1" />
+      <File FileName="Assets\Standard Assets\Scripts\SpriteCollection.cs" Line="1" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
