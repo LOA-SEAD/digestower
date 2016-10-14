@@ -225,10 +225,12 @@ public class ButtonAction : MonoBehaviour {
 				(saliva.GetComponent ("BoxCollider2D") as BoxCollider2D).enabled = true;
 				acido.renderer.enabled = true;
 				acido.renderer.sortingOrder = 6;
+				Debug.Log ("actual: " + StartGame.fase);
 				if (StartGame.fase < 1)
 					(acido.GetComponent ("SpriteRenderer") as SpriteRenderer).sprite = 
 						(GameObject.FindGameObjectWithTag("AcidoDesabilitado").GetComponent ("SpriteRenderer") as SpriteRenderer).sprite;
 				else {
+					Debug.Log ("Entrou!");
 					(acido.GetComponent ("BoxCollider2D") as BoxCollider2D).enabled = true;
 					(acido.GetComponent ("SpriteRenderer") as SpriteRenderer).sprite = sacido;
 				}

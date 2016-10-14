@@ -19,8 +19,8 @@ public class BasicTower : MonoBehaviour {
 	private bool shootingFast = false;
 	private float myShootingTimer;
 	private GameObject btnDestruir = null;
-	private GameObject blueStar = null;
-	private GameObject yellowStar = null;
+	//private GameObject blueStar = null;
+	//private GameObject yellowStar = null;
 	[HideInInspector] public GameObject place;
 	private float percentLifeToColorChange = 0.35f;
 	private int healthBarHeight = 3;
@@ -30,8 +30,8 @@ public class BasicTower : MonoBehaviour {
 	public float life = 0.0f;
 	public float adjustmentPos = 2.3f;
 	private LineRenderer lineRenderer;
-	private bool activateBlueStar = false;
-	private bool activateYellowStar = false;
+	//private bool activateBlueStar = false;
+	//private bool activateYellowStar = false;
 
 	public GameObject bullet;
 
@@ -61,9 +61,9 @@ public class BasicTower : MonoBehaviour {
 			fireRate *= (pinc / 100);
 			bulletSpeed *= (pinc / 100);
 
-			if (pinc == 120 || pinc == 70 || p == 70) activateBlueStar = true;
-			if ((pinc == 100 && gameObject.tag != "xDente") || pinc == 80) activateYellowStar = true;
-			if (pinc == 50 || (pinc == 70 && proximityCount > 0)) activateYellowStar = false;
+			//if (pinc == 120 || pinc == 70 || p == 70) activateBlueStar = true;
+			//if ((pinc == 100 && gameObject.tag != "xDente") || pinc == 80) activateYellowStar = true;
+			//if (pinc == 50 || (pinc == 70 && proximityCount > 0)) activateYellowStar = false;
 			//Debug.Log (gameObject.tag + "..."+ proximityCount + "..." + p + "..." + proximityTowers);
 		}
 	}
@@ -359,7 +359,7 @@ public class BasicTower : MonoBehaviour {
 						CallSkill.usingPhysicalExercise = false;
 				}
 			}
-			if (blueStar == null && activateBlueStar) {
+			/*if (blueStar == null && activateBlueStar) {
 				GameObject estrelaObj = GameObject.FindGameObjectWithTag ("EstrelaAzul");
 				// GameObject upgradeObj = GameObject.FindGameObjectWithTag ("Upgrade");
 				//Debug.Log ((gameObject.GetComponent("BoxCollider2D") as BoxCollider2D).size);
@@ -399,15 +399,15 @@ public class BasicTower : MonoBehaviour {
 			}
 			else if (yellowStar != null && !activateYellowStar) {
 				Destroy (yellowStar);
-			}
+			}*/
 		}
 	}
 
-	void OnDestroy() {
+	/*void OnDestroy() {
 		if (yellowStar != null)
 			Destroy (yellowStar);
 		if (blueStar != null)
 			Destroy (blueStar);
 		//StartGame.numberOfBasicTowerObjectsAlive--;
-	}
+	}*/
 }
