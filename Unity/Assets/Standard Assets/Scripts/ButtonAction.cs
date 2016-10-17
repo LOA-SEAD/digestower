@@ -9,6 +9,10 @@ public class ButtonAction : MonoBehaviour {
 						activatedMenuPause = false, activatedMenuSaveLoad = false, activatedMenuTorres = false;
 	public static bool nivelChange = true;
 	private Sprite bkp;
+	public AudioClip clip; /* Gracas a isso que e possivel escolher um audio na tela do Unity.
+							  Para ele ser tocado, va no local que ele sera ativado e use o seguinte comando:
+	                          AudioSource.PlayClipAtPoint(clip, transform.position);*/
+	//public AudioClip clip2;
 	// Use this for initialization
 	void Start () {
 
@@ -156,18 +160,16 @@ public class ButtonAction : MonoBehaviour {
 	void OnPointerUpAsButton() {*/
 	void OnMouseDown() {
 		if (type == 1 && !activatedMenuPause) {
-			//audio.Play();
+			AudioSource.PlayClipAtPoint (clip, transform.position);
 			if (activatedMenuTorres) {
 				DisableMenu (1);
 				if (StartGame.started) {
 					play ();
-				}
-				else {
+				} else {
 					StartGame.paused = 1;
-					(GameObject.FindGameObjectWithTag("StartButton").GetComponent ("StartGame") as StartGame).GUITextStatus(true);
+					(GameObject.FindGameObjectWithTag ("StartButton").GetComponent ("StartGame") as StartGame).GUITextStatus (true);
 				}
-			}
-			else {
+			} else {
 				DisableMenu (2);
 				pause ();
 				GameObject menuTorre = GameObject.FindGameObjectWithTag ("MenuTorres");
@@ -195,18 +197,16 @@ public class ButtonAction : MonoBehaviour {
 				myTimerInt = 4.0f;
 				activatedMenuTorres = true;
 			}
-		}
-		else if (type == 2 && StartGame.started && !activatedMenuPause && !activatedMenuSaveLoad) {
-			//audio.Play();
+		} else if (type == 2 && StartGame.started && !activatedMenuPause && !activatedMenuSaveLoad) {
+			AudioSource.PlayClipAtPoint (clip, transform.position);
 			//StartGame.indigest = 0;
 			//StartGame.energy = StartGame.maxEnergy;
 			if (activatedMenuEspeciais) {
 				DisableMenu (2);
 				play ();
-			}
-			else {
+			} else {
 				DisableMenu (1);
-				pause();
+				pause ();
 				GameObject menuEspecial = GameObject.FindGameObjectWithTag ("MenuEspeciais");
 				//(menuEspecial.GetComponent("MenuControl") as MenuControl).EnableMenu(2);
 				GameObject saliva = GameObject.FindGameObjectWithTag ("SalivaCaller");
@@ -228,7 +228,7 @@ public class ButtonAction : MonoBehaviour {
 				Debug.Log ("actual: " + StartGame.fase);
 				if (StartGame.fase < 1)
 					(acido.GetComponent ("SpriteRenderer") as SpriteRenderer).sprite = 
-						(GameObject.FindGameObjectWithTag("AcidoDesabilitado").GetComponent ("SpriteRenderer") as SpriteRenderer).sprite;
+						(GameObject.FindGameObjectWithTag ("AcidoDesabilitado").GetComponent ("SpriteRenderer") as SpriteRenderer).sprite;
 				else {
 					Debug.Log ("Entrou!");
 					(acido.GetComponent ("BoxCollider2D") as BoxCollider2D).enabled = true;
@@ -238,7 +238,7 @@ public class ButtonAction : MonoBehaviour {
 				exercicio.renderer.sortingOrder = 6;
 				if (StartGame.fase < 2)
 					(exercicio.GetComponent ("SpriteRenderer") as SpriteRenderer).sprite = 
-						(GameObject.FindGameObjectWithTag("AtividadeFisicaDesabilitado").GetComponent ("SpriteRenderer") as SpriteRenderer).sprite;
+						(GameObject.FindGameObjectWithTag ("AtividadeFisicaDesabilitado").GetComponent ("SpriteRenderer") as SpriteRenderer).sprite;
 				else {
 					(exercicio.GetComponent ("BoxCollider2D") as BoxCollider2D).enabled = true;
 					(exercicio.GetComponent ("SpriteRenderer") as SpriteRenderer).sprite = sexercicio;
@@ -246,34 +246,34 @@ public class ButtonAction : MonoBehaviour {
 				myTimerInt = 4.0f;
 				activatedMenuEspeciais = true;
 			}
-		}
-		else if (type == 3) {
-			StartGame.restartGame();
-		}
-		else if (type == 4) {
-			DisableMenu(3);
-			if (StartGame.started) play ();
+		} else if (type == 3) {
+			StartGame.restartGame ();
+		} else if (type == 4) {
+			AudioSource.PlayClipAtPoint (clip, transform.position);
+			DisableMenu (3);
+			if (StartGame.started)
+				play ();
 			if (StartGame.paused == 2) {
 				StartGame.paused = 1;
-				(GameObject.FindGameObjectWithTag("StartButton").GetComponent ("StartGame") as StartGame).GUITextStatus(true);
+				(GameObject.FindGameObjectWithTag ("StartButton").GetComponent ("StartGame") as StartGame).GUITextStatus (true);
 			}
-		}
-		else if (type == 5 || type == 6) {
+		} else if (type == 5 || type == 6) {
+			AudioSource.PlayClipAtPoint (clip, transform.position);
 			activatedMenuSaveLoad = true;
 			DisableMenu (3);
 			// GameObject menuPause = GameObject.FindGameObjectWithTag ("MenuPause");
 			//(menuEspecial.GetComponent("MenuControl") as MenuControl).EnableMenu(2);
 			GameObject save1 = GameObject.FindGameObjectWithTag ("Save1Button");
-			SaveLoad saveload1 = save1.GetComponent("SaveLoad") as SaveLoad;
-			saveload1.type = (type == 5?true:false);
+			SaveLoad saveload1 = save1.GetComponent ("SaveLoad") as SaveLoad;
+			saveload1.type = (type == 5 ? true : false);
 			saveload1.slot = 1;
 			GameObject save2 = GameObject.FindGameObjectWithTag ("Save2Button");
-			SaveLoad saveload2 = save2.GetComponent("SaveLoad") as SaveLoad;
-			saveload2.type = (type == 5?true:false);
+			SaveLoad saveload2 = save2.GetComponent ("SaveLoad") as SaveLoad;
+			saveload2.type = (type == 5 ? true : false);
 			saveload2.slot = 2;
 			GameObject save3 = GameObject.FindGameObjectWithTag ("Save3Button");
-			SaveLoad saveload3 = save3.GetComponent("SaveLoad") as SaveLoad;
-			saveload3.type = (type == 5?true:false);
+			SaveLoad saveload3 = save3.GetComponent ("SaveLoad") as SaveLoad;
+			saveload3.type = (type == 5 ? true : false);
 			saveload3.slot = 3;
 			GameObject continu = GameObject.FindGameObjectWithTag ("Continue2Button");
 
@@ -293,8 +293,15 @@ public class ButtonAction : MonoBehaviour {
 			continu.renderer.sortingOrder = 9;
 			(continu.GetComponent ("BoxCollider2D") as BoxCollider2D).enabled = true;
 
+		} 
+		else if (type == 7) {
+			AudioSource.PlayClipAtPoint (clip, transform.position);
+		} 
+		else if (type == 8) {
+			AudioSource.PlayClipAtPoint (clip, transform.position);
 		}
 		else if (type == 9) {
+			AudioSource.PlayClipAtPoint (clip, transform.position);
 			DisableMenu(4);
 			if (StartGame.started) play ();
 			if (StartGame.paused == 2) {
@@ -329,6 +336,7 @@ public class ButtonAction : MonoBehaviour {
 		}
 		else if (type == 11) {
 			if (StartGame.paused < 2 && !ButtonAction.activatedMenuPause) {
+				AudioSource.PlayClipAtPoint(clip, transform.position);
 				pause ();
 				
 				ButtonAction.DisableMenu (1);
@@ -369,6 +377,7 @@ public class ButtonAction : MonoBehaviour {
 			}
 		}
 		else if (type == 12) {
+			AudioSource.PlayClipAtPoint(clip, transform.position);
 			if (StartGame.infoActive < StartGame.infoTela[1]) {
 				//Debug.Log (StartGame.infoActive + "..." + StartGame.infoTela[1]);
 				SpriteCollection sprites = new SpriteCollection("Telas");
@@ -400,6 +409,7 @@ public class ButtonAction : MonoBehaviour {
 			}
 		}
 		else if (type == 13) {
+			AudioSource.PlayClipAtPoint(clip, transform.position);
 			if (StartGame.infoActive > StartGame.infoTela[0]) {
 				SpriteCollection sprites = new SpriteCollection("Telas");
 				GameObject tela = GameObject.FindGameObjectWithTag("InfoTela");
@@ -664,6 +674,7 @@ public class ButtonAction : MonoBehaviour {
 			(GameObject.FindGameObjectWithTag("StartButton").GetComponent ("StartGame") as StartGame).GUITextStatus(false);
 		}
 		else if (type == 25) {
+			AudioSource.PlayClipAtPoint(clip, transform.position);
 			GameObject infoTela = GameObject.FindGameObjectWithTag("MenuAlmanaque");
 			infoTela.GetComponent("SpriteRenderer").renderer.enabled = true;
 			infoTela.renderer.sortingOrder = 10;

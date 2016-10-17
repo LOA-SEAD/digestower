@@ -118,6 +118,10 @@ public class StartGame : MonoBehaviour {
 	private static bool[] audioPlaying;
 	private Sprite bkp;
 
+	public AudioClip clip1; /* Gracas a isso que e possivel escolher um audio na tela do Unity.
+							  Para ele ser tocado, va no local que ele sera ativado e use o seguinte comando:
+	                          AudioSource.PlayClipAtPoint(clip1, transform.position);*/
+
 	public static void StopAllAudio() {
 		allAudioSources = FindObjectsOfType(typeof(AudioSource)) as AudioSource[];
 		audioPlaying = new bool[allAudioSources.Length];
@@ -471,6 +475,7 @@ public class StartGame : MonoBehaviour {
 	public void play() {
 		if (paused > 0 && !loose) {
 			//Time.timeScale = 1;
+			//Para tocar o trompete
 			if (!started) {
 				started = true;
 				audio.Play ();
@@ -538,7 +543,12 @@ public class StartGame : MonoBehaviour {
 		(gameObject.GetComponent ("SpriteRenderer") as SpriteRenderer).sprite = bkp;
 	}
 	void OnMouseDown() {
+		//Audio do pause nao funciona por causa do stopAllAudio()
 		if (paused > 0) {
+			//Audio do play
+			if (started) {
+				AudioSource.PlayClipAtPoint(clip1, transform.position);
+			}
 			play();
 			if (!ButtonAction.activatedMenuPause && !ButtonAction.activatedMenuEspeciais &&
 				!ButtonAction.activatedMenuSaveLoad)

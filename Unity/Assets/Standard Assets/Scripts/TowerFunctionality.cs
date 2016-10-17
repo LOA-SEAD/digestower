@@ -4,6 +4,9 @@ using System.Collections;
 public class TowerFunctionality : MonoBehaviour {
 
 	public bool type = true;
+	public AudioClip clip; /* Gracas a isso que e possivel escolher um audio na tela do Unity.
+							  Para ele ser tocado, va no local que ele sera ativado e use o seguinte comando:
+	                          AudioSource.PlayClipAtPoint(clip, transform.position);*/
 	[HideInInspector] public GameObject tower;
 	[HideInInspector] public GameObject tower2;
 	[HideInInspector] public GameObject place;
@@ -23,8 +26,10 @@ public class TowerFunctionality : MonoBehaviour {
 		if (type) {
 			BasicTower bTower = tower.GetComponent("BasicTower") as BasicTower;
 			float recoveryEnergy = InsertTower.energyNeeded[bTower.type-1]*(bTower.life/bTower.maxLife);
-			if ((StartGame.energy + recoveryEnergy) <= StartGame.maxEnergy)
+			if ((StartGame.energy + recoveryEnergy) <= StartGame.maxEnergy){
 				StartGame.energy += recoveryEnergy;
+				AudioSource.PlayClipAtPoint (clip, transform.position);
+			}
 			else
 				StartGame.energy = StartGame.maxEnergy;
 			

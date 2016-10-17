@@ -11,6 +11,7 @@ public class SaveLoad : MonoBehaviour {
 	public bool type = false;
 	public int slot = 1;
 	private Sprite bkp;
+	public AudioClip clip;
 	//public static List<StartGame> savedGames = new List<StartHG>();
 
 	public sealed class VersionDeserializationBinder : SerializationBinder 
@@ -67,6 +68,7 @@ public class SaveLoad : MonoBehaviour {
 	#endif
 	void OnPointerUpAsButton() {*/
 	void OnMouseDown() {
+		AudioSource.PlayClipAtPoint (clip, transform.position);
 		if (type) {
 			if (StartGame.started) {
 				Debug.Log("saving");

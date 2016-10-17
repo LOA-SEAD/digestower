@@ -39,6 +39,9 @@ public class FoodProperties : MonoBehaviour {
 	private SpriteCollection sprites;
 
 	private Vector2 scale, screen;
+	public AudioClip clip; /* Gracas a isso que e possivel escolher um audio na tela do Unity.
+							  Para ele ser tocado, va no local que ele sera ativado e use o seguinte comando:
+	                          AudioSource.PlayClipAtPoint(clip, transform.position);*/
 
 	public void timerFatAffectMovement (float movementSpeedInc) {
 		myTimerInt = 0.2f;
@@ -53,7 +56,7 @@ public class FoodProperties : MonoBehaviour {
 			float indigestDenominator = ((health > 0?1:0) + (health2 > 0?1:0) + (health3 > 0?1:0));
 			float indigestPoints = (health + health2 + health3)/(indigestDenominator<1?1:indigestDenominator);
 			StartGame.indigest += indigestPoints;
-			// Debug.Log ("IndigestPoints: " + indigestPoints);
+			AudioSource.PlayClipAtPoint (clip, transform.position);
 			if (StartGame.fase > 1) {
 				if ((StartGame.fat - fat) <= StartGame.maxFat)
 				{
