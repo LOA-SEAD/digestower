@@ -12,8 +12,9 @@ public class ChooseTower : MonoBehaviour {
 	void OnPointerUpAsButton() {*/
 	void OnMouseDown() {
 		InsertTower.towerObject = gameObject;
-		GameObject actualTower = GameObject.FindGameObjectWithTag("ActualTower");
-		(actualTower.GetComponent ("SpriteRenderer") as SpriteRenderer).sprite = (gameObject.GetComponent ("SpriteRenderer") as SpriteRenderer).sprite;
+		//Antiga referencia a ultima torre usada
+		/*GameObject actualTower = GameObject.FindGameObjectWithTag("ActualTower");
+		(actualTower.GetComponent ("SpriteRenderer") as SpriteRenderer).sprite = (gameObject.GetComponent ("SpriteRenderer") as SpriteRenderer).sprite;*/
 		ButtonAction.DisableMenu (1);
 		if (!StartGame.started) StartGame.paused = 1;
 		if (StartGame.started) ButtonAction.play ();

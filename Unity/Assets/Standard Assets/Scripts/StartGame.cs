@@ -109,6 +109,7 @@ public class StartGame : MonoBehaviour {
 
 	public static int infoActive = 0;
 	public static int[] infoTela = new int[2]{0, 0};
+	public static int[] zimi = new int[2]{0, 0};
 	public static int personagemAtivo = 1;
 	private bool mostrandoFaixa = false;
 	public static bool almanaqueAberto = false;
@@ -447,6 +448,7 @@ public class StartGame : MonoBehaviour {
 		GUITextStatus(false);
 		paused = 2;
 		GameObject tela = GameObject.FindGameObjectWithTag("InfoTela");
+		Debug.Log (GameObject.FindGameObjectWithTag ("InfoTela").name);
 		tela.GetComponent("SpriteRenderer").renderer.enabled = true;
 		(tela.GetComponent ("SpriteRenderer") as SpriteRenderer).sprite = sprites.GetSprite ("Tela" + start);
 		sprites = null;
@@ -470,6 +472,39 @@ public class StartGame : MonoBehaviour {
 		telaEscura.renderer.enabled = true;
 		telaEscura.renderer.sortingOrder = 7;
 		(telaEscura.GetComponent ("BoxCollider2D") as BoxCollider2D).enabled = true;
+	}
+
+	//Funcao criada para controlar a aparicao das dicas dadas pela Zimi
+	public void dicasZimi(int start, int end) {
+		//Carrega a pasta
+		SpriteCollection sprites = new SpriteCollection("Zimi");
+		zimi = new int[2]{start,end};
+		infoActive = start;
+		Debug.Log ("zimi");
+		
+		GUITextStatus(false);
+		paused = 2;
+		GameObject tela = GameObject.FindGameObjectWithTag("DicasZimi");
+		tela.GetComponent("SpriteRenderer").renderer.enabled = true;
+		//Para carregar o que sera utilizado naquele momento
+		(tela.GetComponent ("SpriteRenderer") as SpriteRenderer).sprite = sprites.GetSprite ("Zimi" + start);
+		sprites = null;
+		//(tela.GetComponent ("BoxCollider2D") as BoxCollider2D).enabled = true;
+		tela.renderer.sortingOrder = 10;
+		
+		GameObject btnProx = GameObject.FindGameObjectWithTag("InfoProx");
+		btnProx.GetComponent("SpriteRenderer").renderer.enabled = true;
+		//btnProx.GetComponent("SpriteRenderer").
+		btnProx.renderer.sortingOrder = 11;
+		//GameObject btnAnt = GameObject.FindGameObjectWithTag("InfoAnt");
+		//btnAnt.GetComponent("SpriteRenderer").renderer.enabled = true;
+		//btnAnt.renderer.sortingOrder = 11;
+		GameObject btnFechar = GameObject.FindGameObjectWithTag("InfoFechar");
+		btnFechar.GetComponent("SpriteRenderer").renderer.enabled = true;
+		btnFechar.renderer.sortingOrder = 11;
+		(btnFechar.GetComponent ("BoxCollider2D") as BoxCollider2D).enabled = true;
+		(btnProx.GetComponent ("BoxCollider2D") as BoxCollider2D).enabled = true;
+		//(btnAnt.GetComponent ("BoxCollider2D") as BoxCollider2D).enabled = true;
 	}
 
 	public void play() {
@@ -848,6 +883,7 @@ public class StartGame : MonoBehaviour {
 									else loadingGame = false;
 									faixaFase2.GetComponent("SpriteRenderer").renderer.enabled = true;
 									StartCoroutine(Pause(3, 1));
+									//(GameObject.FindGameObjectWithTag("InfoFechar").GetComponent ("StartGame") as StartGame).dicasZimi (14,16);
 								}
 								if (fase == 2 && nivel == 0 && wave == 0 && actualSubWave == 0 && waveSet == 1) {
 									mostrandoFaixa = true;
@@ -860,6 +896,7 @@ public class StartGame : MonoBehaviour {
 									else loadingGame = false;
 									faixaFase3.GetComponent("SpriteRenderer").renderer.enabled = true;
 									StartCoroutine(Pause(3, 2));
+									//(GameObject.FindGameObjectWithTag("InfoFechar").GetComponent ("StartGame") as StartGame).dicasZimi (19,22);
 								}
 								// if (insertTimeInterval > 0.5f) insertTimeInterval = 0.5f;
 								//Debug.Log (fase*3+nivel + ", " + wave + ", " + actualSubWave);

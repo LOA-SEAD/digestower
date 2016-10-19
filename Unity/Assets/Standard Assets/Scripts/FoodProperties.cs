@@ -30,6 +30,7 @@ public class FoodProperties : MonoBehaviour {
 	private float myTimerInt, myTimerShakingInt;
 	private bool timeFat = false;
 	private bool timeShaking = false;
+	private bool dicaZimiVitamina = false;
 	[HideInInspector] public float old_x, old_y, pos_x, pos_y;
 
 	/*desconsiderar*/
@@ -77,6 +78,7 @@ public class FoodProperties : MonoBehaviour {
 				FatPlace fatPlace = target[i].GetComponent<FatPlace>();
 				if (StartGame.fat >= fatPlace.minimalFat) {
 					GameObject.FindGameObjectWithTag((new string[3]{"TopFat", "RightFat", "LeftFat"})[fatPlace.fatPos]).renderer.enabled = true;
+					//(GameObject.FindGameObjectWithTag("InfoFechar").GetComponent ("StartGame") as StartGame).dicasZimi (25,25);
 					Debug.Log ("fat enabled" + (new string[3]{"TopFat", "RightFat", "LeftFat"})[fatPlace.fatPos] + ".." + fatPlace.fatPos);
 				}
 			}
@@ -256,6 +258,11 @@ public class FoodProperties : MonoBehaviour {
 			FollowWaypoints wayPoint = gameObject.GetComponent<FollowWaypoints>();
 			FollowWaypoints wayPointNew = inserted.AddComponent<FollowWaypoints>();
 			VitaminUp vita = inserted.GetComponent<VitaminUp>() as VitaminUp;
+			//Chama mais uma dica da Zimi
+			/*if (!dicaZimiVitamina){
+						dicaZimiVitamina = true;
+						(GameObject.FindGameObjectWithTag("InfoFechar").GetComponent ("StartGame") as StartGame).dicasZimi (11,11);
+					}*/
 			/* ALTERACAO
 				 * valor de ganho da vitamina que sai de cada alimento
 				 */

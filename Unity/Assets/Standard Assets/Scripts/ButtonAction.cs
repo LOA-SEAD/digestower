@@ -484,6 +484,8 @@ public class ButtonAction : MonoBehaviour {
 					(GameObject.FindGameObjectWithTag("StartButton").GetComponent ("StartGame") as StartGame).carregaTela (5,10);
 				else if (StartGame.infoTela[0] == 20 && StartGame.infoTela[1] == 24)
 					(GameObject.FindGameObjectWithTag("StartButton").GetComponent ("StartGame") as StartGame).carregaTela (25,28);
+				else if (StartGame.infoTela[0] == 25 && StartGame.infoTela[1] == 28)
+					(GameObject.FindGameObjectWithTag("InfoFechar").GetComponent ("StartGame") as StartGame).dicasZimi (1,3);
 				else if (StartGame.infoTela[0] == 48 && StartGame.infoTela[1] == 52) {
 					CallSkill.firstUsePhysical = false;
 					//StartGame.playAfterClose = true;
