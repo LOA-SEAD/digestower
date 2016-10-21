@@ -693,43 +693,43 @@ public class StartGame : MonoBehaviour {
 			gameObject.layer = 10;
 			barTexture.SetPixel(0, 0, ColorX.HexToRGB("ffec19"));
 			barTexture.Apply ();
-			GUI.DrawTexture(ResizeGUI(new Rect(barLeft,
-			                        barTop + 128,
-			                        (fat*60)/maxFat, barHeight)), barTexture);
+			GUI.DrawTexture(ResizeGUI(new Rect(barLeft - 0.5f,
+			                        barTop + 127f,
+			                        (fat*60)/maxFat, barHeight - 0.5f)), barTexture);
 			//GUI.Label(ResizeGUI(new Rect(barLeft+69.5f, barTop + 123, 200, 20)), "<color=#ffec19>" + Math.Floor(fat) + "/" + maxFat + "</color>");
 			// 60 / 300
 			
 			barTexture.SetPixel(0, 0, ColorX.HexToRGB("fe7f02"));
 			barTexture.Apply ();
-			GUI.DrawTexture(ResizeGUI(new Rect(barLeft,
-			                         barTop + 89.6f,
-			                         vitamin*60/maxVitamin, barHeight)), barTexture);
+			GUI.DrawTexture(ResizeGUI(new Rect(barLeft - 0.5f,
+			                         barTop + 89.5f,
+			                         vitamin*60/maxVitamin, barHeight - 0.5f)), barTexture);
 			//GUI.Label(ResizeGUI(new Rect(barLeft+69.5f, barTop + 85, 200, 20)), "<color=#fe7f02>" + Math.Floor(vitamin) + "/" + maxVitamin + "</color>");
 			// 60 / 2000
 			
 			barTexture.SetPixel(0, 0, ColorX.HexToRGB("ffffff"));
 			barTexture.Apply ();
-			GUI.DrawTexture(ResizeGUI(new Rect(barLeft,
+			GUI.DrawTexture(ResizeGUI(new Rect(barLeft - 0.5f,
 			                         barTop + 51.5f,
-			                         (energy*85)/maxEnergy, barHeight)), barTexture);
+			                         (energy*85)/maxEnergy, barHeight - 1.5f)), barTexture);
 			//GUI.Label(ResizeGUI(new Rect(barLeft+94, barTop + 47.5f, 200, 20)), "<color=#ffffff>" + Math.Floor(energy) + "/" + maxEnergy + "</color>");
 			// 85 / 3000
 
 			barTexture.SetPixel(0, 0, ColorX.HexToRGB("b52929"));
 			barTexture.Apply ();
-			GUI.DrawTexture(ResizeGUI(new Rect(barLeft,
-			                         barTop + 14.8f,
-			                         (indigest*120)/maxIndigest, barHeight)), barTexture);
+			GUI.DrawTexture(ResizeGUI(new Rect(barLeft - 0.5f,
+			                         barTop + 14.5f,
+			                         (indigest*120)/maxIndigest, barHeight - 0.5f)), barTexture);
 			//GUI.Label(ResizeGUI(new Rect(barLeft+130, barTop + 9.8f, 200, 20)), "<color=#b52929>" + Math.Floor(indigest) + "/" + maxIndigest + "</color>");
 
 			barTexture.SetPixel(0, 0, ColorX.HexToRGB("3c3a3c"));
 			barTexture.Apply ();
-			GUI.DrawTexture(ResizeGUI(new Rect(barLeft+19,
+			GUI.DrawTexture(ResizeGUI(new Rect(barLeft+18,
 			                                   barTop + 89.6f,
-			                                   2, barHeight+1)), barTexture);
-			GUI.DrawTexture(ResizeGUI(new Rect(barLeft+39,
+			                                   1.5f, barHeight - 0.5f)), barTexture);
+			GUI.DrawTexture(ResizeGUI(new Rect(barLeft+38,
 			                                   barTop + 89.6f,
-			                                   2, barHeight+1)), barTexture);
+			                                   1.5f, barHeight - 0.5f)), barTexture);
 			// 60 / 6000
 			// http://forum.unity3d.com/threads/health-bar-above-ememy.81560/
 			//}
