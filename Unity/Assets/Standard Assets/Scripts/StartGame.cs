@@ -381,10 +381,10 @@ public class StartGame : MonoBehaviour {
 	
 		CallSkill.firstUsePhysical = true;
 
-		place1.GetComponent("SpriteRenderer").renderer.enabled = false;
+		/*place1.GetComponent("SpriteRenderer").renderer.enabled = false;
 		place2.GetComponent("SpriteRenderer").renderer.enabled = false;
 		(place1.GetComponent ("BoxCollider2D") as BoxCollider2D).enabled = false;
-		(place2.GetComponent ("BoxCollider2D") as BoxCollider2D).enabled = false;
+		(place2.GetComponent ("BoxCollider2D") as BoxCollider2D).enabled = false;*/
 
 		menuInicial (true);
 
@@ -703,7 +703,7 @@ public class StartGame : MonoBehaviour {
 			barTexture.Apply ();
 			GUI.DrawTexture(ResizeGUI(new Rect(barLeft - 0.5f,
 			                         barTop + 89.5f,
-			                         vitamin*60/maxVitamin, barHeight - 0.5f)), barTexture);
+			                         vitamin*58.5f/maxVitamin, barHeight - 0.5f)), barTexture);
 			//GUI.Label(ResizeGUI(new Rect(barLeft+69.5f, barTop + 85, 200, 20)), "<color=#fe7f02>" + Math.Floor(vitamin) + "/" + maxVitamin + "</color>");
 			// 60 / 2000
 			
@@ -918,7 +918,10 @@ public class StartGame : MonoBehaviour {
 
 								if (fase < 3) {
 									if (waveSet == 0) {
-										int actualSubWaveTemp = actualSubWave+1, waveTemp = wave, nivelTemp = nivel, faseTemp = fase;
+										int actualSubWaveTemp = actualSubWave+1;
+										int waveTemp = wave;
+										int nivelTemp = nivel;
+										int faseTemp = fase;
 										int[] waveNumTemp = maxInserted[StartGame.numNivelEmFase[0]*(StartGame.fase > 0?1:0)+StartGame.numNivelEmFase[1]*(StartGame.fase > 1?1:0)+StartGame.nivel,wave];
 										if (actualSubWaveTemp >= waveNumTemp.Length) {
 											waveTemp++;

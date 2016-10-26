@@ -127,9 +127,9 @@ public class FoodProperties : MonoBehaviour {
 		}
 		else if (col.gameObject.tag == "SalivaInserida" && col.gameObject.GetComponent<SalivaEspecial>().saiu && healthMode && health > 0) {
 			/* ALTERACAO
-			* dano que o especial de acido causa para todos os tipos de alimentos que possuem carboidrato (azul)
+			* dano que o especial de saliva causa para todos os tipos de alimentos que possuem carboidrato (azul)
 			*/
-
+			Debug.Log ("Saliva");
 			health -= 60;
 			(GameObject.FindGameObjectWithTag("SalivaText").GetComponent ("GUIText") as GUIText).text = ++col.gameObject.GetComponent<SalivaEspecial>().nFood + "";
 			/**/
@@ -139,6 +139,7 @@ public class FoodProperties : MonoBehaviour {
 			/* ALTERACAO
 			* dano que o especial de acido causa para todos os tipos de alimentos que possuem proteina (verdes)
 			*/
+			Debug.Log ("Acido");
 			health2 -= 60;
 			(GameObject.FindGameObjectWithTag("AcidoText").GetComponent ("GUIText") as GUIText).text = ++col.gameObject.GetComponent<AcidoEspecial>().nFood + "";
 			/**/
@@ -173,9 +174,13 @@ public class FoodProperties : MonoBehaviour {
 					 */
 					timerContaminated2 = 5.0f;
 					/**/
-					contaminated2 = true;
+					/*contaminated2 = true;
 					if (!contaminated3)
-						movementSpeed *= 0.05f;
+						gameObject.GetComponent<FollowWaypoints>().movementSpeed *= 0.5f;*/
+					if (!contaminated2){
+						contaminated2 = true;
+						gameObject.GetComponent<FollowWaypoints>().movementSpeed *= 0.5f;
+					}
 				}
 
 				if (health2 < 0) {
@@ -194,10 +199,13 @@ public class FoodProperties : MonoBehaviour {
 					 * tempo que a comida fica contaminada pelo tiro da torre 8
 					 */
 					timerContaminated3 = 5.0f;
-					/**/
-					contaminated3 = true;
+					/*contaminated3 = true;
 					if (!contaminated2)
-						movementSpeed *= 0.05f;
+						gameObject.GetComponent<FollowWaypoints>().movementSpeed *= 0.5f;*/
+					if (!contaminated3){
+						contaminated3 = true;
+						gameObject.GetComponent<FollowWaypoints>().movementSpeed *= 0.5f;
+					}
 				}
 
 				if (health3 < 0) {
@@ -455,9 +463,13 @@ public class FoodProperties : MonoBehaviour {
 					/**/
 				}
 				else {
-					contaminated2 = false;
+					/*contaminated2 = false;
 					if (!contaminated3)
-						movementSpeed *= 20.0f;
+						gameObject.GetComponent<FollowWaypoints>().movementSpeed *= 2.0f;*/
+					if (contaminated2){
+						contaminated2 = false;
+						gameObject.GetComponent<FollowWaypoints>().movementSpeed *= 2.0f;
+					}
 				}
 			}
 			if (contaminated3) {
@@ -469,9 +481,13 @@ public class FoodProperties : MonoBehaviour {
 					if (health3 > 0) health3 -= 0.3f;
 				}
 				else {
-					contaminated3 = false;
+					/*contaminated3 = false;
 					if (!contaminated2)
-						movementSpeed *= 20.0f;
+						gameObject.GetComponent<FollowWaypoints>().movementSpeed *= 2.0f;*/
+					if (contaminated3){
+						contaminated3 = false;
+						gameObject.GetComponent<FollowWaypoints>().movementSpeed *= 2.0f;
+					}
 				}
 			}
 			if (health <= 0 && health2 <= 0 && health3 <= 0) foodDied();

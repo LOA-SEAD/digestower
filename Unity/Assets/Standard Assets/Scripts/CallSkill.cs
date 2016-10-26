@@ -53,7 +53,7 @@ public class CallSkill : MonoBehaviour {
 			}
 
 			/* ALTERACAO
-			* quanto vai custar de vitamina para utilizar o especial de acido
+			* quanto vai custar de vitamina para utilizar o especial de exercicio
 			*/
 			StartGame.vitamin -= 1000;
 			if (StartGame.fat > 20) StartGame.fat -= 20;

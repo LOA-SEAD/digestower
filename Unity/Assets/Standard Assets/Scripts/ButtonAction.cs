@@ -379,7 +379,7 @@ public class ButtonAction : MonoBehaviour {
 		else if (type == 12) {
 			AudioSource.PlayClipAtPoint(clip, transform.position);
 			if (StartGame.infoActive < StartGame.infoTela[1]) {
-				//Debug.Log (StartGame.infoActive + "..." + StartGame.infoTela[1]);
+				Debug.Log (StartGame.infoActive + "..." + StartGame.infoTela[1]);
 				SpriteCollection sprites = new SpriteCollection("Telas");
 				GameObject tela = GameObject.FindGameObjectWithTag("InfoTela");
 				(tela.GetComponent ("SpriteRenderer") as SpriteRenderer).sprite = sprites.GetSprite ("Tela" + (++StartGame.infoActive));

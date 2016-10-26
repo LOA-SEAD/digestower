@@ -180,6 +180,7 @@ public class InsertTower : MonoBehaviour {
 						dicaZimiTorres = true;
 						(GameObject.FindGameObjectWithTag("InfoFechar").GetComponent ("StartGame") as StartGame).dicasZimi (4,8);
 					}*/
+					Debug.Log ("Mastiga");
 					pos.y -= 0.21f;
 					if (toothPos > 3) {
 						qua = qua2;
@@ -220,7 +221,6 @@ public class InsertTower : MonoBehaviour {
 				if (toothPos > 0) {
 					activeTooth[toothPos%3] = true;
 					if (toothPos > 3) {
-						Debug.Log ("2");
 						pos.y += 0.9f;
 						pos.x -= 0.08f;
 					}
