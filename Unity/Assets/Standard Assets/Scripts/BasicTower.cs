@@ -142,10 +142,10 @@ public class BasicTower : MonoBehaviour {
 				}
 				if (haveNear) {
 					if (gameObject.tag.Substring(0, 5) == "xDent") {
-						if (target[closerTarget].GetComponent<FoodProperties>().healthMode) {
+						//if (target[closerTarget].GetComponent<FoodProperties>().healthMode) {
 							transform.Translate (0, 0.05f*reverse, 0);
 							reverse *= -1;
-						}
+						//}
 					}
 					else {
 						Vector3 dir = (target[closerTarget].transform.position - transform.position).normalized;

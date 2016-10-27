@@ -420,7 +420,7 @@ public class StartGame : MonoBehaviour {
 		btnCarregar.GetComponent("SpriteRenderer").renderer.enabled = ativ;
 		btnCarregar.renderer.sortingOrder = 11;
 
-
+		GameObject.FindGameObjectWithTag("MenuInicial").audio.Play();
 	}
 	
 	// Update is called once per frame
@@ -687,6 +687,7 @@ public class StartGame : MonoBehaviour {
 			//}
 
 			if (loose) {
+				//Como esta tudo na mesma tela, nao da para deixar duas musicas, portanto nao tem como tocar musica no final
 				carregaTela (35,37);
 				//GUI.Label(new Rect(10, 10, 500, 20), "Voce perdeu o jogo!!! Carregue novamente para voltar de onde havia salvo.");
 			}
@@ -769,20 +770,20 @@ public class StartGame : MonoBehaviour {
 			place2.GetComponent("SpriteRenderer").renderer.enabled = false;
 			(place1.GetComponent ("BoxCollider2D") as BoxCollider2D).enabled = false;
 			(place2.GetComponent ("BoxCollider2D") as BoxCollider2D).enabled = false;
-			//carregaTela(13,14);
 			mostrandoFaixa = false;
-			play ();
+			pause ();
+			carregaTela(13,14);
 		}
 		else if (f == 1) {
 			GameObject faixaFase2 = GameObject.FindGameObjectWithTag("FaixaFase2");
 			faixaFase2.GetComponent("SpriteRenderer").renderer.enabled = false;
-			//carregaTela(18,19);
 			place1.GetComponent("SpriteRenderer").renderer.enabled = true;
 			place2.GetComponent("SpriteRenderer").renderer.enabled = true;
 			(place1.GetComponent ("BoxCollider2D") as BoxCollider2D).enabled = true;
 			(place2.GetComponent ("BoxCollider2D") as BoxCollider2D).enabled = true;
 			mostrandoFaixa = false;
-			play ();
+			pause ();
+			carregaTela(18,19);
 		}
 		else if (f == 2) {
 			GameObject faixaFase3 = GameObject.FindGameObjectWithTag("FaixaFase3");
@@ -791,9 +792,9 @@ public class StartGame : MonoBehaviour {
 			place2.GetComponent("SpriteRenderer").renderer.enabled = true;
 			(place1.GetComponent ("BoxCollider2D") as BoxCollider2D).enabled = true;
 			(place2.GetComponent ("BoxCollider2D") as BoxCollider2D).enabled = true;
-			//carregaTela(15,17);
 			mostrandoFaixa = false;
-			play ();
+			pause ();
+			carregaTela(15,17);
 		}
 		Time.timeScale = 1;
 	}
@@ -865,6 +866,7 @@ public class StartGame : MonoBehaviour {
 							if (waveSet < maxInserted[arrayPos,wave][actualSubWave]) {
 								if (fase == 0 && nivel == 0 && wave == 0 && actualSubWave == 0 && waveSet == 1) {
 									mostrandoFaixa = true;
+									GameObject.FindGameObjectWithTag("MenuInicial").audio.Stop();
 									GameObject faixaFase1 = GameObject.FindGameObjectWithTag("FaixaFase1");
 									if (!loadingGame) {
 										faixaFase1.audio.Play();
@@ -876,6 +878,7 @@ public class StartGame : MonoBehaviour {
 								if (fase == 1 && nivel == 0 && wave == 0 && actualSubWave == 0 && waveSet == 1) {
 									mostrandoFaixa = true;
 									GameObject faixaFase2 = GameObject.FindGameObjectWithTag("FaixaFase2");
+									GameObject.FindGameObjectWithTag("MenuInicial").audio.Stop();
 									GameObject.FindGameObjectWithTag("FaixaFase1").audio.Stop();
 									if (!loadingGame) {
 										faixaFase2.audio.Play();
@@ -889,6 +892,7 @@ public class StartGame : MonoBehaviour {
 									mostrandoFaixa = true;
 									(GameObject.FindGameObjectWithTag("BarraGordura").GetComponent ("SpriteRenderer") as SpriteRenderer).enabled = true;
 									GameObject faixaFase3 = GameObject.FindGameObjectWithTag("FaixaFase3");
+									GameObject.FindGameObjectWithTag("MenuInicial").audio.Stop();
 									GameObject.FindGameObjectWithTag("FaixaFase2").audio.Stop ();
 									if (!loadingGame) {
 										faixaFase3.audio.Play();
@@ -962,6 +966,7 @@ public class StartGame : MonoBehaviour {
 									}
 								}
 								else {
+									GameObject.FindGameObjectWithTag("MenuInicial").audio.Stop();
 									GameObject.FindGameObjectWithTag("FaixaFase3").audio.Stop();
 									GameObject.FindGameObjectWithTag("Hamburguer").audio.Play();
 									myTimer = 0;

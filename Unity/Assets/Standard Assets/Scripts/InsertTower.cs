@@ -180,7 +180,6 @@ public class InsertTower : MonoBehaviour {
 						dicaZimiTorres = true;
 						(GameObject.FindGameObjectWithTag("InfoFechar").GetComponent ("StartGame") as StartGame).dicasZimi (4,8);
 					}*/
-					Debug.Log ("Mastiga");
 					pos.y -= 0.21f;
 					if (toothPos > 3) {
 						qua = qua2;

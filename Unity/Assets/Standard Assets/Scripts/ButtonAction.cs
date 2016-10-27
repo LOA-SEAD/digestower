@@ -20,6 +20,7 @@ public class ButtonAction : MonoBehaviour {
 
 	public static void play() {
 		StartGame startGame = GameObject.FindGameObjectWithTag("StartButton").GetComponent ("StartGame") as StartGame;
+		//Nao da para acessar o type aqui, portanto nao tem como impedir o som comecar outra vez quando se inicia o jogo
 		if (StartGame.stoppedAudio) StartGame.PlayAllAudio ();
 		startGame.play();
 	}
@@ -479,9 +480,16 @@ public class ButtonAction : MonoBehaviour {
 				play ();
 			}
 			else {
+				Debug.Log ("Entrou uou");
 				StartGame.paused = 1;
 				if (StartGame.infoTela[0] == 1 && StartGame.infoTela[1] == 4)
 					(GameObject.FindGameObjectWithTag("StartButton").GetComponent ("StartGame") as StartGame).carregaTela (5,10);
+				else if (StartGame.infoTela[0] == 13 && StartGame.infoTela[1] == 14)
+					play ();
+				else if (StartGame.infoTela[0] == 15 && StartGame.infoTela[1] == 17)
+					play ();
+				else if (StartGame.infoTela[0] == 18 && StartGame.infoTela[1] == 19)
+					play ();
 				else if (StartGame.infoTela[0] == 20 && StartGame.infoTela[1] == 24)
 					(GameObject.FindGameObjectWithTag("StartButton").GetComponent ("StartGame") as StartGame).carregaTela (25,28);
 				else if (StartGame.infoTela[0] == 25 && StartGame.infoTela[1] == 28)
