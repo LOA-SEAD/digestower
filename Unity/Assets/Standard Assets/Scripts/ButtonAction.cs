@@ -33,7 +33,7 @@ public class ButtonAction : MonoBehaviour {
 	void OnMouseEnter()
 	{
 		SpriteCollection sprites = null;
-		if ((type > 0 && type < 10) || (type > 10 && type < 15) || type == 22 || type == 21 || type == 20 || (type >= 24 && type <= 30)) {
+		if ((type > 0 && type < 10) || (type > 10 && type < 15) || type == 22 || type == 21 || type == 20 || (type >= 24 && type <= 33)) {
 			bkp = (gameObject.GetComponent ("SpriteRenderer") as SpriteRenderer).sprite;
 			sprites = new SpriteCollection("Pressed");
 		}
@@ -57,11 +57,11 @@ public class ButtonAction : MonoBehaviour {
 			(gameObject.GetComponent ("SpriteRenderer") as SpriteRenderer).sprite = sprites.GetSprite ("MusicaPressionado");
 		else if (type == 8)
 			(gameObject.GetComponent ("SpriteRenderer") as SpriteRenderer).sprite = sprites.GetSprite ("SomPressionado");
-		else if (type == 12)
+		else if (type == 12 || type == 31)
 			(gameObject.GetComponent ("SpriteRenderer") as SpriteRenderer).sprite = sprites.GetSprite ("DireitaPressionado");
-		else if (type == 13)
+		else if (type == 13 || type == 32)
 			(gameObject.GetComponent ("SpriteRenderer") as SpriteRenderer).sprite = sprites.GetSprite ("EsquerdaPressionado");
-		else if (type == 14 || type == 22 || type == 26 ||  type == 21)
+		else if (type == 14 || type == 22 || type == 26 ||  type == 21 || type == 33)
 			(gameObject.GetComponent ("SpriteRenderer") as SpriteRenderer).sprite = sprites.GetSprite ("Fechar2Pressionado");
 		else if (type == 24)
 			(gameObject.GetComponent ("SpriteRenderer") as SpriteRenderer).sprite = sprites.GetSprite ("TorresPressionado");
@@ -79,7 +79,7 @@ public class ButtonAction : MonoBehaviour {
 	}
 	void OnMouseExit()
 	{
-		if ((type > 0 && type < 10) || (type > 10 && type < 15) || type == 22 || type == 21 || type == 20 || (type >= 24 && type <= 30)) {
+		if ((type > 0 && type < 10) || (type > 10 && type < 15) || type == 22 || type == 21 || type == 20 || (type >= 24 && type <= 33)) {
 			(gameObject.GetComponent ("SpriteRenderer") as SpriteRenderer).sprite = bkp;
 		}
 	}
@@ -480,20 +480,22 @@ public class ButtonAction : MonoBehaviour {
 				play ();
 			}
 			else {
-				Debug.Log ("Entrou uou");
 				StartGame.paused = 1;
 				if (StartGame.infoTela[0] == 1 && StartGame.infoTela[1] == 4)
 					(GameObject.FindGameObjectWithTag("StartButton").GetComponent ("StartGame") as StartGame).carregaTela (5,10);
 				else if (StartGame.infoTela[0] == 13 && StartGame.infoTela[1] == 14)
 					play ();
+					//(GameObject.FindGameObjectWithTag("StartButton").GetComponent ("StartGame") as StartGame).dicasZimi (11,11);
 				else if (StartGame.infoTela[0] == 15 && StartGame.infoTela[1] == 17)
 					play ();
 				else if (StartGame.infoTela[0] == 18 && StartGame.infoTela[1] == 19)
 					play ();
 				else if (StartGame.infoTela[0] == 20 && StartGame.infoTela[1] == 24)
 					(GameObject.FindGameObjectWithTag("StartButton").GetComponent ("StartGame") as StartGame).carregaTela (25,28);
-				else if (StartGame.infoTela[0] == 25 && StartGame.infoTela[1] == 28)
-					(GameObject.FindGameObjectWithTag("InfoFechar").GetComponent ("StartGame") as StartGame).dicasZimi (1,3);
+				else if (StartGame.infoTela[0] == 25 && StartGame.infoTela[1] == 28){
+					pause();
+					(GameObject.FindGameObjectWithTag("StartButton").GetComponent ("StartGame") as StartGame).dicasZimi (1,3);
+				}
 				else if (StartGame.infoTela[0] == 48 && StartGame.infoTela[1] == 52) {
 					CallSkill.firstUsePhysical = false;
 					//StartGame.playAfterClose = true;
@@ -795,6 +797,122 @@ public class ButtonAction : MonoBehaviour {
 		}
 		else if (type == 30) {//Creditos
 
+		}
+
+		//Sequencia dos botoes da Zimi, um dia tentar melhorar isso e ver se todo esse codigo eh necessario
+		else if (type == 31) {
+			AudioSource.PlayClipAtPoint(clip, transform.position);
+			if (StartGame.infoActive < StartGame.zimi[1]) {
+				Debug.Log (StartGame.infoActive + "..." + StartGame.zimi[1]);
+				SpriteCollection sprites = new SpriteCollection("Zimi");
+				GameObject tela = GameObject.FindGameObjectWithTag("DicasZimi");
+				(tela.GetComponent ("SpriteRenderer") as SpriteRenderer).sprite = sprites.GetSprite ("Zimi" + (++StartGame.infoActive));
+				sprites = null;
+			}
+			GameObject btnProx = GameObject.FindGameObjectWithTag ("InfoProxZimi");
+			GameObject btnAnt = GameObject.FindGameObjectWithTag ("InfoAntZimi");
+			if (StartGame.infoActive == StartGame.zimi[1]) {
+				btnProx.renderer.enabled = false;
+				btnProx.renderer.sortingOrder = 0;
+				(btnProx.GetComponent ("BoxCollider2D") as BoxCollider2D).enabled = false;
+			}
+			else {
+				btnProx.renderer.enabled = true;
+				btnProx.renderer.sortingOrder = 11;
+				(btnProx.GetComponent ("BoxCollider2D") as BoxCollider2D).enabled = true;
+			}
+			if (StartGame.infoActive == StartGame.zimi[0]) {
+				btnAnt.renderer.enabled = false;
+				btnAnt.renderer.sortingOrder = 0;
+				(btnAnt.GetComponent ("BoxCollider2D") as BoxCollider2D).enabled = false;
+			}
+			else {
+				btnAnt.renderer.enabled = true;
+				btnAnt.renderer.sortingOrder = 11;
+				(btnAnt.GetComponent ("BoxCollider2D") as BoxCollider2D).enabled = true;
+			}
+		}
+		else if (type == 32) {
+			AudioSource.PlayClipAtPoint(clip, transform.position);
+			if (StartGame.infoActive > StartGame.zimi[0]) {
+				SpriteCollection sprites = new SpriteCollection("Zimi");
+				GameObject tela = GameObject.FindGameObjectWithTag("DicasZimi");
+				(tela.GetComponent ("SpriteRenderer") as SpriteRenderer).sprite = sprites.GetSprite ("Zimi" + (--StartGame.infoActive));
+				sprites = null;
+			}
+			GameObject btnProx = GameObject.FindGameObjectWithTag ("InfoProxZimi");
+			GameObject btnAnt = GameObject.FindGameObjectWithTag ("InfoAntZimi");
+			if (StartGame.infoActive == StartGame.zimi[1]) {
+				btnProx.renderer.enabled = false;
+				btnProx.renderer.sortingOrder = 0;
+				(btnProx.GetComponent ("BoxCollider2D") as BoxCollider2D).enabled = false;
+			}
+			else {
+				btnProx.renderer.enabled = true;
+				btnProx.renderer.sortingOrder = 11;
+				(btnProx.GetComponent ("BoxCollider2D") as BoxCollider2D).enabled = true;
+			}
+			if (StartGame.infoActive == StartGame.zimi[0]) {
+				btnAnt.renderer.enabled = false;
+				btnAnt.renderer.sortingOrder = 0;
+				(btnAnt.GetComponent ("BoxCollider2D") as BoxCollider2D).enabled = false;
+			}
+			else {
+				btnAnt.renderer.enabled = true;
+				btnAnt.renderer.sortingOrder = 11;
+				(btnAnt.GetComponent ("BoxCollider2D") as BoxCollider2D).enabled = true;
+			}
+		}
+		else if (type == 33) {
+			GameObject tela = GameObject.FindGameObjectWithTag ("DicasZimi");
+			tela.renderer.enabled = false;
+			tela.renderer.sortingOrder = 0;
+			GameObject btnFechar = GameObject.FindGameObjectWithTag ("InfoFecharZimi");
+			GameObject btnProx = GameObject.FindGameObjectWithTag ("InfoProxZimi");
+			GameObject btnAnt = GameObject.FindGameObjectWithTag ("InfoAntZimi");
+			//GameObject personagem = GameObject.FindGameObjectWithTag ("Personagem" + StartGame.personagemAtivo);
+			btnFechar.renderer.enabled = false;
+			btnFechar.renderer.sortingOrder = 0;
+			btnProx.renderer.enabled = false;
+			btnProx.renderer.sortingOrder = 0;
+			btnAnt.renderer.enabled = false;
+			btnAnt.renderer.sortingOrder = 0;
+			//personagem.renderer.enabled = false;
+			//personagem.renderer.sortingOrder = 0;
+			
+			(btnFechar.GetComponent ("BoxCollider2D") as BoxCollider2D).enabled = false;
+			(btnProx.GetComponent ("BoxCollider2D") as BoxCollider2D).enabled = false;
+			(btnAnt.GetComponent ("BoxCollider2D") as BoxCollider2D).enabled = false;
+			//(personagem.GetComponent ("BoxCollider2D") as BoxCollider2D).enabled = false;
+			
+			GameObject telaEscura = GameObject.FindGameObjectWithTag ("TelaEscura");
+			telaEscura.renderer.enabled = false;
+			telaEscura.renderer.sortingOrder = 0;
+			(telaEscura.GetComponent ("BoxCollider2D") as BoxCollider2D).enabled = false;
+			if (StartGame.infoActive == 47 || StartGame.infoActive == 46 || StartGame.infoActive == 45 ||
+			    StartGame.infoActive == 37 || StartGame.infoActive == 36 || StartGame.infoActive == 35) {
+				StartGame.restartGame();
+				StartGame.infoActive = 0;
+				(GameObject.FindGameObjectWithTag("StartButton").GetComponent ("StartGame") as StartGame).GUITextStatus(true);
+				return;
+			}
+			StartGame.infoActive = 0;
+			Time.timeScale = 1;
+			if (StartGame.zimi[0] != 4 && StartGame.zimi[1] != 8){
+				(GameObject.FindGameObjectWithTag("StartButton").GetComponent ("StartGame") as StartGame).GUITextStatus(true);
+			}
+			if (StartGame.playAfterClose) {
+				play ();
+			}
+			else {
+				StartGame.paused = 1;
+				/*if (StartGame.zimi[0] == 1 && StartGame.zimi[1] == 4)
+					(GameObject.FindGameObjectWithTag("StartButton").GetComponent ("StartGame") as StartGame).dicasZimi (1,3);
+				else*/ if (StartGame.zimi[0] == 11 && StartGame.zimi[1] == 11)
+					play ();
+				else
+					StartGame.playAfterClose = true;
+			}
 		}
 	}
 

@@ -10,7 +10,6 @@ public class InsertTower : MonoBehaviour {
 	public int localFase = 0;
 	/*desconsiderar*/
 	public float percent = 70;
-	private bool dicaZimiTorres = false;
 	private const float distancePromixity = 3f;
 	public GameObject insertedTower = null, insertedTower2 = null;
 	private LineRenderer lineRenderer;
@@ -175,11 +174,6 @@ public class InsertTower : MonoBehaviour {
 				qua2 = Quaternion.AngleAxis(180, Vector3.forward);
 				
 				if (toothPos > 0) {
-					//Chama mais uma dica da Zimi
-					/*if (!dicaZimiTorres){
-						dicaZimiTorres = true;
-						(GameObject.FindGameObjectWithTag("InfoFechar").GetComponent ("StartGame") as StartGame).dicasZimi (4,8);
-					}*/
 					pos.y -= 0.21f;
 					if (toothPos > 3) {
 						qua = qua2;
@@ -218,6 +212,11 @@ public class InsertTower : MonoBehaviour {
 				}
 
 				if (toothPos > 0) {
+					//Chama mais uma dica da Zimi
+					if (activeTooth[0] == false && activeTooth[1] == false && activeTooth[2] == false && StartGame.started == false){
+						StartGame.playAfterClose = false;
+						(GameObject.FindGameObjectWithTag("StartButton").GetComponent ("StartGame") as StartGame).dicasZimi (4,8);
+					}
 					activeTooth[toothPos%3] = true;
 					if (toothPos > 3) {
 						pos.y += 0.9f;

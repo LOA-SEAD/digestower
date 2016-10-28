@@ -491,19 +491,21 @@ public class StartGame : MonoBehaviour {
 		sprites = null;
 		//(tela.GetComponent ("BoxCollider2D") as BoxCollider2D).enabled = true;
 		tela.renderer.sortingOrder = 10;
-		
-		GameObject btnProx = GameObject.FindGameObjectWithTag("InfoProx");
-		btnProx.GetComponent("SpriteRenderer").renderer.enabled = true;
-		//btnProx.GetComponent("SpriteRenderer").
-		btnProx.renderer.sortingOrder = 11;
+
+		if (start != end) {
+			GameObject btnProx = GameObject.FindGameObjectWithTag ("InfoProxZimi");
+			btnProx.GetComponent ("SpriteRenderer").renderer.enabled = true;
+			//btnProx.GetComponent("SpriteRenderer").
+			btnProx.renderer.sortingOrder = 11;
+			(btnProx.GetComponent ("BoxCollider2D") as BoxCollider2D).enabled = true;
+		}
 		//GameObject btnAnt = GameObject.FindGameObjectWithTag("InfoAnt");
 		//btnAnt.GetComponent("SpriteRenderer").renderer.enabled = true;
 		//btnAnt.renderer.sortingOrder = 11;
-		GameObject btnFechar = GameObject.FindGameObjectWithTag("InfoFechar");
+		GameObject btnFechar = GameObject.FindGameObjectWithTag("InfoFecharZimi");
 		btnFechar.GetComponent("SpriteRenderer").renderer.enabled = true;
 		btnFechar.renderer.sortingOrder = 11;
 		(btnFechar.GetComponent ("BoxCollider2D") as BoxCollider2D).enabled = true;
-		(btnProx.GetComponent ("BoxCollider2D") as BoxCollider2D).enabled = true;
 		//(btnAnt.GetComponent ("BoxCollider2D") as BoxCollider2D).enabled = true;
 	}
 
@@ -874,6 +876,7 @@ public class StartGame : MonoBehaviour {
 									else loadingGame = false;
 									faixaFase1.GetComponent("SpriteRenderer").renderer.enabled = true;
 									StartCoroutine(Pause(3, 0));
+									//(GameObject.FindGameObjectWithTag("StartButton").GetComponent ("StartGame") as StartGame).dicasZimi (11,11);
 								}
 								if (fase == 1 && nivel == 0 && wave == 0 && actualSubWave == 0 && waveSet == 1) {
 									mostrandoFaixa = true;
@@ -886,7 +889,7 @@ public class StartGame : MonoBehaviour {
 									else loadingGame = false;
 									faixaFase2.GetComponent("SpriteRenderer").renderer.enabled = true;
 									StartCoroutine(Pause(3, 1));
-									//(GameObject.FindGameObjectWithTag("InfoFechar").GetComponent ("StartGame") as StartGame).dicasZimi (14,16);
+									//(GameObject.FindGameObjectWithTag("StartButton").GetComponent ("StartGame") as StartGame).dicasZimi (14,16);
 								}
 								if (fase == 2 && nivel == 0 && wave == 0 && actualSubWave == 0 && waveSet == 1) {
 									mostrandoFaixa = true;
@@ -900,7 +903,7 @@ public class StartGame : MonoBehaviour {
 									else loadingGame = false;
 									faixaFase3.GetComponent("SpriteRenderer").renderer.enabled = true;
 									StartCoroutine(Pause(3, 2));
-									//(GameObject.FindGameObjectWithTag("InfoFechar").GetComponent ("StartGame") as StartGame).dicasZimi (19,22);
+									//(GameObject.FindGameObjectWithTag("StartButton").GetComponent ("StartGame") as StartGame).dicasZimi (19,22);
 								}
 								// if (insertTimeInterval > 0.5f) insertTimeInterval = 0.5f;
 								//Debug.Log (fase*3+nivel + ", " + wave + ", " + actualSubWave);
