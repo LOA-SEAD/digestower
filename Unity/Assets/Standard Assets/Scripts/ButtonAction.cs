@@ -484,12 +484,11 @@ public class ButtonAction : MonoBehaviour {
 				if (StartGame.infoTela[0] == 1 && StartGame.infoTela[1] == 4)
 					(GameObject.FindGameObjectWithTag("StartButton").GetComponent ("StartGame") as StartGame).carregaTela (5,10);
 				else if (StartGame.infoTela[0] == 13 && StartGame.infoTela[1] == 14)
-					play ();
-					//(GameObject.FindGameObjectWithTag("StartButton").GetComponent ("StartGame") as StartGame).dicasZimi (11,11);
+					(GameObject.FindGameObjectWithTag("StartButton").GetComponent ("StartGame") as StartGame).dicasZimi (9,12);
 				else if (StartGame.infoTela[0] == 15 && StartGame.infoTela[1] == 17)
-					play ();
+					(GameObject.FindGameObjectWithTag("StartButton").GetComponent ("StartGame") as StartGame).dicasZimi (19,23);
 				else if (StartGame.infoTela[0] == 18 && StartGame.infoTela[1] == 19)
-					play ();
+					(GameObject.FindGameObjectWithTag("StartButton").GetComponent ("StartGame") as StartGame).dicasZimi (14,17);
 				else if (StartGame.infoTela[0] == 20 && StartGame.infoTela[1] == 24)
 					(GameObject.FindGameObjectWithTag("StartButton").GetComponent ("StartGame") as StartGame).carregaTela (25,28);
 				else if (StartGame.infoTela[0] == 25 && StartGame.infoTela[1] == 28){
@@ -907,8 +906,16 @@ public class ButtonAction : MonoBehaviour {
 			else {
 				StartGame.paused = 1;
 				/*if (StartGame.zimi[0] == 1 && StartGame.zimi[1] == 4)
-					(GameObject.FindGameObjectWithTag("StartButton").GetComponent ("StartGame") as StartGame).dicasZimi (1,3);
-				else*/ if (StartGame.zimi[0] == 11 && StartGame.zimi[1] == 11)
+					(GameObject.FindGameObjectWithTag("StartButton").GetComponent ("StartGame") as StartGame).dicasZimi (1,3);*/
+				if (StartGame.zimi[0] == 9 && StartGame.zimi[1] == 12)
+					play ();
+				else if (StartGame.zimi[0] == 13 && StartGame.zimi[1] == 13)
+					play ();
+				else if (StartGame.zimi[0] == 14 && StartGame.zimi[1] == 17)
+					play ();
+				else if (StartGame.zimi[0] == 19 && StartGame.zimi[1] == 23)
+					play ();
+				else if (StartGame.zimi[0] == 25 && StartGame.zimi[1] == 25)
 					play ();
 				else
 					StartGame.playAfterClose = true;

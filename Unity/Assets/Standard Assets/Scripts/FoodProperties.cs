@@ -78,7 +78,11 @@ public class FoodProperties : MonoBehaviour {
 				FatPlace fatPlace = target[i].GetComponent<FatPlace>();
 				if (StartGame.fat >= fatPlace.minimalFat) {
 					GameObject.FindGameObjectWithTag((new string[3]{"TopFat", "RightFat", "LeftFat"})[fatPlace.fatPos]).renderer.enabled = true;
-					//(GameObject.FindGameObjectWithTag("StartButton").GetComponent ("StartGame") as StartGame).dicasZimi (25,25);
+					//Chama mais uma dica da Zimi
+					if (!StartGame.gorduraPrimeiraVez){
+						StartGame.gorduraPrimeiraVez = true;
+						(GameObject.FindGameObjectWithTag("StartButton").GetComponent ("StartGame") as StartGame).dicasZimi (25,25);
+					}
 					Debug.Log ("fat enabled" + (new string[3]{"TopFat", "RightFat", "LeftFat"})[fatPlace.fatPos] + ".." + fatPlace.fatPos);
 				}
 			}
@@ -266,11 +270,14 @@ public class FoodProperties : MonoBehaviour {
 			FollowWaypoints wayPoint = gameObject.GetComponent<FollowWaypoints>();
 			FollowWaypoints wayPointNew = inserted.AddComponent<FollowWaypoints>();
 			VitaminUp vita = inserted.GetComponent<VitaminUp>() as VitaminUp;
-			//Chama mais uma dica da Zimi
-			/*if (!dicaZimiVitamina){
-				dicaZimiVitamina = true;
-				(GameObject.FindGameObjectWithTag("StartButton").GetComponent ("StartGame") as StartGame).dicasZimi (11,11);
-			}*/
+
+			//Para o combo que diminui a indigestao
+			StartGame.killFood = StartGame.killFood + 1;
+			//Fez o combo digerindo 3 alimentos
+			if (!StartGame.comboPrimeiraVez && StartGame.killFood > 2){
+				StartGame.comboPrimeiraVez = true;
+				(GameObject.FindGameObjectWithTag("StartButton").GetComponent ("StartGame") as StartGame).dicasZimi (13,13);
+			}
 			/* ALTERACAO
 				 * valor de ganho da vitamina que sai de cada alimento
 				 */

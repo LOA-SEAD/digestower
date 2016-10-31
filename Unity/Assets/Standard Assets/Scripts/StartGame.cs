@@ -115,9 +115,17 @@ public class StartGame : MonoBehaviour {
 	public static bool almanaqueAberto = false;
 	public static bool playAfterClose = true;
 	public static bool stoppedAudio = false;
+	//Para controlar o trigger da uma fala da Zimi
+	public static bool gorduraPrimeiraVez = false;
+	//Para controlar os combos realizados no jogo (ingerir 3 alimentos
+	public static int killFood = 0;
+	//Para controlar o trigger de outra fala da Zimi
+	public static bool comboPrimeiraVez = false;
 	private static AudioSource[] allAudioSources;
 	private static bool[] audioPlaying;
 	private Sprite bkp;
+	//Timer para controlar o tempo da animacao do Capitao Banha
+	private float capBanha = 0.2f;
 
 	public AudioClip clip1; /* Gracas a isso que e possivel escolher um audio na tela do Unity.
 							  Para ele ser tocado, va no local que ele sera ativado e use o seguinte comando:
@@ -774,6 +782,7 @@ public class StartGame : MonoBehaviour {
 			(place2.GetComponent ("BoxCollider2D") as BoxCollider2D).enabled = false;
 			mostrandoFaixa = false;
 			pause ();
+			StartGame.playAfterClose = false;
 			carregaTela(13,14);
 		}
 		else if (f == 1) {
@@ -785,6 +794,7 @@ public class StartGame : MonoBehaviour {
 			(place2.GetComponent ("BoxCollider2D") as BoxCollider2D).enabled = true;
 			mostrandoFaixa = false;
 			pause ();
+			StartGame.playAfterClose = false;
 			carregaTela(18,19);
 		}
 		else if (f == 2) {
@@ -796,6 +806,7 @@ public class StartGame : MonoBehaviour {
 			(place2.GetComponent ("BoxCollider2D") as BoxCollider2D).enabled = true;
 			mostrandoFaixa = false;
 			pause ();
+			StartGame.playAfterClose = false;
 			carregaTela(15,17);
 		}
 		Time.timeScale = 1;
@@ -973,6 +984,8 @@ public class StartGame : MonoBehaviour {
 									GameObject.FindGameObjectWithTag("FaixaFase3").audio.Stop();
 									GameObject.FindGameObjectWithTag("Hamburguer").audio.Play();
 									myTimer = 0;
+
+
 								}
 								waveSet++;
 							}
@@ -983,6 +996,7 @@ public class StartGame : MonoBehaviour {
 								else {
 									actualSubWave++;
 									waveSet = 0;
+									killFood = 0;
 									myTimerInterWaves = 0.09f;
 
 								}
@@ -991,7 +1005,9 @@ public class StartGame : MonoBehaviour {
 						else {
 
 							//else {
-								actualSubWave = waveSet = 0;
+								actualSubWave = 0;
+								waveSet = 0;
+								killFood = 0;
 								
 								energyBkp = energy;
 								vitaminBkp = vitamin;
@@ -1021,7 +1037,10 @@ public class StartGame : MonoBehaviour {
 
 
 						if (wave > maxInsertedSize[numNivelEmFase[0]*(fase > 0?1:0)+numNivelEmFase[1]*(fase > 1?1:0)+nivel]) {
-							wave = actualSubWave = waveSet = 0;
+							wave = 0;
+							actualSubWave = 0;
+							waveSet = 0;
+							killFood = 0;
 							nivel++;
 							//msg ("Nivel: "+ (nivel+1));
 							// insertTimeInterval = 12.5f;
@@ -1033,7 +1052,11 @@ public class StartGame : MonoBehaviour {
 							//if (fase > 1) fase = 0;
 							fase++;
 
-							actualSubWave = waveSet = wave = nivel = 0;
+							actualSubWave = 0;
+							waveSet = 0;
+							wave = 0;
+							nivel = 0;
+							killFood = 0;
 							//energy = 1000;
 							//vitamin = 0;
 							//msg ("Fase: "+ (fase+1));
