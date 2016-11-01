@@ -124,8 +124,11 @@ public class StartGame : MonoBehaviour {
 	private static AudioSource[] allAudioSources;
 	private static bool[] audioPlaying;
 	private Sprite bkp;
-	//Timer para controlar o tempo da animacao do Capitao Banha
-	private float capBanha = 0.2f;
+
+	//Variaveis para controlar a animacao do Capitao Banha
+	private float capBanha = 0.1f;
+	private int loopCapBanha = 0;
+	private int frameCapBanha = 0;
 
 	public AudioClip clip1; /* Gracas a isso que e possivel escolher um audio na tela do Unity.
 							  Para ele ser tocado, va no local que ele sera ativado e use o seguinte comando:
@@ -985,7 +988,65 @@ public class StartGame : MonoBehaviour {
 									GameObject.FindGameObjectWithTag("Hamburguer").audio.Play();
 									myTimer = 0;
 
-
+									pause ();
+									GameObject capitaoBanha = GameObject.FindGameObjectWithTag("CapBanha");
+									capitaoBanha.GetComponent("SpriteRenderer").renderer.enabled = true;
+									while(loopCapBanha < 3){
+										while(frameCapBanha < 5){
+											capBanha -= Time.deltaTime;
+											if (capBanha < 0) {
+												try {
+													SpriteCollection sprites = new SpriteCollection("CapBanha");
+													GameObject.FindGameObjectWithTag ("CapBanha").GetComponent<SpriteRenderer>().sprite = sprites.GetSprite("CapBanha" + (frameCapBanha + 1));
+													sprites = null;
+													Debug.Log("entrou");
+												} catch (NullReferenceException) {
+													//Debug.LogError ("vitamina sumiu");
+												}
+												capBanha = 0.1f;
+												frameCapBanha = frameCapBanha + 1;
+												/*reverse++;
+												if (reverse == 11) {
+													reverse = 0;
+													SpriteCollection sprites = new SpriteCollection("Energy");
+													GameObject.FindGameObjectWithTag ("EnergyBar").GetComponent<SpriteRenderer>().sprite = sprites.GetSprite("Energia0");
+													sprites = null;
+													piscar = false;
+												}*/
+											}
+										}
+										while(frameCapBanha > 0){
+											capBanha -= Time.deltaTime;
+											if (capBanha < 0) {
+												try {
+													SpriteCollection sprites = new SpriteCollection("CapBanha");
+													GameObject.FindGameObjectWithTag ("CapBanha").GetComponent<SpriteRenderer>().sprite = sprites.GetSprite("CapBanha" + (frameCapBanha));
+													sprites = null;
+													Debug.Log("entrou2");
+												} catch (NullReferenceException) {
+													//Debug.LogError ("vitamina sumiu");
+												}
+												capBanha = 0.1f;
+												frameCapBanha = frameCapBanha - 1;
+												/*reverse++;
+												if (reverse == 11) {
+													reverse = 0;
+													SpriteCollection sprites = new SpriteCollection("Energy");
+													GameObject.FindGameObjectWithTag ("EnergyBar").GetComponent<SpriteRenderer>().sprite = sprites.GetSprite("Energia0");
+													sprites = null;
+													piscar = false;
+												}*/
+											}
+										}
+										loopCapBanha = loopCapBanha + 1;
+									}
+									//GameObject faixaFase2 = GameObject.FindGameObjectWithTag("FaixaFase2");
+									capitaoBanha.GetComponent("SpriteRenderer").renderer.enabled = false;
+									place1.GetComponent("SpriteRenderer").renderer.enabled = true;
+									place2.GetComponent("SpriteRenderer").renderer.enabled = true;
+									(place1.GetComponent ("BoxCollider2D") as BoxCollider2D).enabled = true;
+									(place2.GetComponent ("BoxCollider2D") as BoxCollider2D).enabled = true;
+									play ();
 								}
 								waveSet++;
 							}
