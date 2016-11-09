@@ -126,7 +126,7 @@ public class StartGame : MonoBehaviour {
 	private Sprite bkp;
 
 	//Variaveis para controlar a animacao do Capitao Banha
-	private float capBanha = 0.1f;
+	private float capBanha = 0.2f;
 	private int loopCapBanha = 0;
 	private int frameCapBanha = 0;
 
@@ -997,13 +997,13 @@ public class StartGame : MonoBehaviour {
 											if (capBanha < 0) {
 												try {
 													SpriteCollection sprites = new SpriteCollection("CapBanha");
-													GameObject.FindGameObjectWithTag ("CapBanha").GetComponent<SpriteRenderer>().sprite = sprites.GetSprite("CapBanha" + (frameCapBanha + 1));
+													capitaoBanha.GetComponent<SpriteRenderer>().sprite = sprites.GetSprite("CapBanha" + (frameCapBanha + 1));
 													sprites = null;
 													Debug.Log("entrou");
 												} catch (NullReferenceException) {
 													//Debug.LogError ("vitamina sumiu");
 												}
-												capBanha = 0.1f;
+												capBanha = 0.2f;
 												frameCapBanha = frameCapBanha + 1;
 												/*reverse++;
 												if (reverse == 11) {
@@ -1020,13 +1020,13 @@ public class StartGame : MonoBehaviour {
 											if (capBanha < 0) {
 												try {
 													SpriteCollection sprites = new SpriteCollection("CapBanha");
-													GameObject.FindGameObjectWithTag ("CapBanha").GetComponent<SpriteRenderer>().sprite = sprites.GetSprite("CapBanha" + (frameCapBanha));
+													capitaoBanha.GetComponent<SpriteRenderer>().sprite = sprites.GetSprite("CapBanha" + (frameCapBanha));
 													sprites = null;
 													Debug.Log("entrou2");
 												} catch (NullReferenceException) {
 													//Debug.LogError ("vitamina sumiu");
 												}
-												capBanha = 0.1f;
+												capBanha = 0.2f;
 												frameCapBanha = frameCapBanha - 1;
 												/*reverse++;
 												if (reverse == 11) {
