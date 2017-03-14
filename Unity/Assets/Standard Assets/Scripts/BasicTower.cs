@@ -162,14 +162,14 @@ public class BasicTower : MonoBehaviour {
 
 							bullet = GameObject.FindGameObjectWithTag ("bullet " + bullet_num);
 						}
-						GameObject newBullet = (GameObject)Instantiate(bullet.gameObject, transform.renderer.bounds.center, Quaternion.AngleAxis(angle, Vector3.forward));
+						GameObject newBullet = (GameObject)Instantiate(bullet.gameObject, transform.GetComponent<Renderer>().bounds.center, Quaternion.AngleAxis(angle, Vector3.forward));
 						newBullet.AddComponent<BulletAway>().towerShooter = gameObject;
 						life -= 1.5f;
 
 						//Debug.Log ("shooting.." + Vector3.Distance(target[closerTarget].transform.position, transform.position));
-						newBullet.rigidbody2D.AddForce (dir * bulletSpeed, ForceMode2D.Impulse);
+						newBullet.GetComponent<Rigidbody2D>().AddForce (dir * bulletSpeed, ForceMode2D.Impulse);
 
-						AudioSource aud = gameObject.AddComponent ("AudioSource") as AudioSource;
+						AudioSource aud = gameObject.AddComponent <AudioSource>() as AudioSource;
 						aud.playOnAwake = false;
 						if (bullet_num > 0 && bullet_num < 3)
 							aud.clip = Resources.Load("Audio/tiroSaliva") as AudioClip;
@@ -190,7 +190,7 @@ public class BasicTower : MonoBehaviour {
 							insertPlace.verifyTowerProximity(type, false);
 							// (target.GetComponent("InsertTower") as InsertTower).towerObjTag = towerObject.tag;
 							insertPlace.towerObj = null;
-							place.renderer.enabled = true;
+							place.GetComponent<Renderer>().enabled = true;
 							Destroy(gameObject);
 						}
 						//Destroy (newBullet, 2.0f);

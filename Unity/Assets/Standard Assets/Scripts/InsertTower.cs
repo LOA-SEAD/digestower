@@ -188,14 +188,14 @@ public class InsertTower : MonoBehaviour {
 				}
 
 				(insertedTower.GetComponent ("BoxCollider2D") as BoxCollider2D).enabled = true;
-				insertedTower.renderer.enabled = true;
-				insertedTower.renderer.sortingOrder = 4;
+				insertedTower.GetComponent<Renderer>().enabled = true;
+				insertedTower.GetComponent<Renderer>().sortingOrder = 4;
 
 				///
 				// towerObjTag = towerObject.tag;
 				///
 				Destroy(insertedTower.GetComponent("ChooseTower"));
-				insertedTower.AddComponent("BasicTower");
+				insertedTower.AddComponent<BasicTower>();
 				BasicTower towerProperties = insertedTower.GetComponent<BasicTower>();
 				towerProperties.towerType = (towerType < 1?1:towerType);
 				//Debug.Log ("INSERTED: " + towerProperties.towerType);
@@ -204,7 +204,7 @@ public class InsertTower : MonoBehaviour {
 				//(insertedTower.GetComponent("BoxCollider2D") as BoxCollider2D).size = new Vector2(1.78f, 2.01f);
 
 				if (!loadingGame) {
-					AudioSource aud = gameObject.AddComponent ("AudioSource") as AudioSource;
+					AudioSource aud = gameObject.AddComponent <AudioSource>() as AudioSource;
 					aud.playOnAwake = false;
 					aud.clip = Resources.Load("Audio/PosicionarTorres") as AudioClip;
 					aud.Play();
@@ -229,7 +229,7 @@ public class InsertTower : MonoBehaviour {
 					}
 					insertedTower2 = (GameObject)Instantiate (towerObj, pos, qua2);
 					Destroy(insertedTower2.GetComponent("ChooseTower"));
-					BasicTower towerProperties2 = insertedTower2.AddComponent("BasicTower") as BasicTower;
+					BasicTower towerProperties2 = insertedTower2.AddComponent<BasicTower>() as BasicTower;
 					towerProperties2.towerType = (towerType < 1?1:towerType);
 					//
 					//BasicTower towerProperties2 = insertedTower.GetComponent<BasicTower>();
@@ -242,10 +242,10 @@ public class InsertTower : MonoBehaviour {
 					//
 					//(target.GetComponent("InsertTower") as InsertTower).towerObjTag = towerObject.tag;
 					//
-					target.renderer.enabled = false;
+					target.GetComponent<Renderer>().enabled = false;
 					towerProperties2.place = target;
-					insertedTower2.renderer.enabled = true;
-					insertedTower2.renderer.sortingOrder = 4;
+					insertedTower2.GetComponent<Renderer>().enabled = true;
+					insertedTower2.GetComponent<Renderer>().sortingOrder = 4;
 					(insertedTower2.GetComponent ("BoxCollider2D") as BoxCollider2D).enabled = true;
 					insertedTower2.tag = "xDente"/* + (tag+(tag>3?-3:3))*/;
 					insertedTower.tag = "xDente";
@@ -294,7 +294,7 @@ public class InsertTower : MonoBehaviour {
 					}
 				}
 
-				gameObject.renderer.enabled = false;
+				gameObject.GetComponent<Renderer>().enabled = false;
 			}
 			else {
 				EnergyBar.piscar = true;

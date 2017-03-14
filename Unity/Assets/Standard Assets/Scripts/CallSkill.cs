@@ -63,7 +63,7 @@ public class CallSkill : MonoBehaviour {
 			for (int i = 0;i < target_fat.Length;i++) {
 				FatPlace fatPlace = target_fat[i].GetComponent<FatPlace>();
 				if (StartGame.fat < fatPlace.minimalFat) {
-					GameObject.FindGameObjectWithTag((new string[3]{"TopFat", "RightFat", "LeftFat"})[fatPlace.fatPos]).renderer.enabled = false;
+					GameObject.FindGameObjectWithTag((new string[3]{"TopFat", "RightFat", "LeftFat"})[fatPlace.fatPos]).GetComponent<Renderer>().enabled = false;
 				}
 			}
 

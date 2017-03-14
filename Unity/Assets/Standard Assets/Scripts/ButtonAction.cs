@@ -100,8 +100,8 @@ public class ButtonAction : MonoBehaviour {
 			storre8 = (torre8.GetComponent ("SpriteRenderer") as SpriteRenderer).sprite;
 		}
 
-		torre3.renderer.enabled = enabled;
-		torre3.renderer.sortingOrder = sortingOrder;
+		torre3.GetComponent<Renderer>().enabled = enabled;
+		torre3.GetComponent<Renderer>().sortingOrder = sortingOrder;
 		if (StartGame.fase < 1)
 			(torre3.GetComponent ("SpriteRenderer") as SpriteRenderer).sprite = 
 				(GameObject.FindGameObjectWithTag("Torre3Desabilitada").GetComponent ("SpriteRenderer") as SpriteRenderer).sprite;
@@ -109,8 +109,8 @@ public class ButtonAction : MonoBehaviour {
 			(torre3.GetComponent ("BoxCollider2D") as BoxCollider2D).enabled = enabled;
 			(torre3.GetComponent ("SpriteRenderer") as SpriteRenderer).sprite = storre3;
 		}
-		torre4.renderer.enabled = enabled;
-		torre4.renderer.sortingOrder = sortingOrder;
+		torre4.GetComponent<Renderer>().enabled = enabled;
+		torre4.GetComponent<Renderer>().sortingOrder = sortingOrder;
 		if (StartGame.fase < 1)
 			(torre4.GetComponent ("SpriteRenderer") as SpriteRenderer).sprite = 
 				(GameObject.FindGameObjectWithTag("Torre4Desabilitada").GetComponent ("SpriteRenderer") as SpriteRenderer).sprite;
@@ -118,8 +118,8 @@ public class ButtonAction : MonoBehaviour {
 			(torre4.GetComponent ("BoxCollider2D") as BoxCollider2D).enabled = enabled;
 			(torre4.GetComponent ("SpriteRenderer") as SpriteRenderer).sprite = storre4;
 		}
-		torre5.renderer.enabled = enabled;
-		torre5.renderer.sortingOrder = sortingOrder;
+		torre5.GetComponent<Renderer>().enabled = enabled;
+		torre5.GetComponent<Renderer>().sortingOrder = sortingOrder;
 		if (StartGame.fase < 2)
 			(torre5.GetComponent ("SpriteRenderer") as SpriteRenderer).sprite = 
 				(GameObject.FindGameObjectWithTag("Torre5Desabilitada").GetComponent ("SpriteRenderer") as SpriteRenderer).sprite;
@@ -127,8 +127,8 @@ public class ButtonAction : MonoBehaviour {
 			(torre5.GetComponent ("BoxCollider2D") as BoxCollider2D).enabled = enabled;
 			(torre5.GetComponent ("SpriteRenderer") as SpriteRenderer).sprite = storre5;
 		}
-		torre6.renderer.enabled = enabled;
-		torre6.renderer.sortingOrder = sortingOrder;
+		torre6.GetComponent<Renderer>().enabled = enabled;
+		torre6.GetComponent<Renderer>().sortingOrder = sortingOrder;
 		if (StartGame.fase < 2)
 			(torre6.GetComponent ("SpriteRenderer") as SpriteRenderer).sprite = 
 				(GameObject.FindGameObjectWithTag("Torre6Desabilitada").GetComponent ("SpriteRenderer") as SpriteRenderer).sprite;
@@ -136,8 +136,8 @@ public class ButtonAction : MonoBehaviour {
 			(torre6.GetComponent ("BoxCollider2D") as BoxCollider2D).enabled = enabled;
 			(torre6.GetComponent ("SpriteRenderer") as SpriteRenderer).sprite = storre6;
 		}
-		torre7.renderer.enabled = enabled;
-		torre7.renderer.sortingOrder = sortingOrder;
+		torre7.GetComponent<Renderer>().enabled = enabled;
+		torre7.GetComponent<Renderer>().sortingOrder = sortingOrder;
 		if (StartGame.fase < 1)
 			(torre7.GetComponent ("SpriteRenderer") as SpriteRenderer).sprite = 
 				(GameObject.FindGameObjectWithTag("Torre7Desabilitada").GetComponent ("SpriteRenderer") as SpriteRenderer).sprite;
@@ -145,8 +145,8 @@ public class ButtonAction : MonoBehaviour {
 			(torre7.GetComponent ("BoxCollider2D") as BoxCollider2D).enabled = enabled;
 			(torre7.GetComponent ("SpriteRenderer") as SpriteRenderer).sprite = storre7;
 		}
-		torre8.renderer.enabled = enabled;
-		torre8.renderer.sortingOrder = sortingOrder;
+		torre8.GetComponent<Renderer>().enabled = enabled;
+		torre8.GetComponent<Renderer>().sortingOrder = sortingOrder;
 		if (StartGame.fase < 2)
 			(torre8.GetComponent ("SpriteRenderer") as SpriteRenderer).sprite = 
 				(GameObject.FindGameObjectWithTag("Torre8Desabilitada").GetComponent ("SpriteRenderer") as SpriteRenderer).sprite;
@@ -180,19 +180,19 @@ public class ButtonAction : MonoBehaviour {
 				GameObject torre2 = GameObject.FindGameObjectWithTag ("Torre2");
 				GameObject dente = GameObject.FindGameObjectWithTag ("Dente");
 				
-				menuTorre.renderer.enabled = true;
-				menuTorre.renderer.sortingOrder = 5;
+				menuTorre.GetComponent<Renderer>().enabled = true;
+				menuTorre.GetComponent<Renderer>().sortingOrder = 5;
 				(menuTorre.GetComponent ("BoxCollider2D") as BoxCollider2D).enabled = true;
-				torre1.renderer.enabled = true;
-				torre1.renderer.sortingOrder = 6;
+				torre1.GetComponent<Renderer>().enabled = true;
+				torre1.GetComponent<Renderer>().sortingOrder = 6;
 				(torre1.GetComponent ("BoxCollider2D") as BoxCollider2D).enabled = true;
-				torre2.renderer.enabled = true;
-				torre2.renderer.sortingOrder = 6;
+				torre2.GetComponent<Renderer>().enabled = true;
+				torre2.GetComponent<Renderer>().sortingOrder = 6;
 				(torre2.GetComponent ("BoxCollider2D") as BoxCollider2D).enabled = true;
 				carregaTowers (true, 6);
 
-				dente.renderer.enabled = true;
-				dente.renderer.sortingOrder = 6;
+				dente.GetComponent<Renderer>().enabled = true;
+				dente.GetComponent<Renderer>().sortingOrder = 6;
 				(dente.GetComponent ("BoxCollider2D") as BoxCollider2D).enabled = true;
 
 				myTimerInt = 4.0f;
@@ -218,14 +218,14 @@ public class ButtonAction : MonoBehaviour {
 					sexercicio = (exercicio.GetComponent ("SpriteRenderer") as SpriteRenderer).sprite;
 				}
 
-				menuEspecial.renderer.enabled = true;
-				menuEspecial.renderer.sortingOrder = 5;
+				menuEspecial.GetComponent<Renderer>().enabled = true;
+				menuEspecial.GetComponent<Renderer>().sortingOrder = 5;
 				(menuEspecial.GetComponent ("BoxCollider2D") as BoxCollider2D).enabled = true;
-				saliva.renderer.enabled = true;
-				saliva.renderer.sortingOrder = 6;
+				saliva.GetComponent<Renderer>().enabled = true;
+				saliva.GetComponent<Renderer>().sortingOrder = 6;
 				(saliva.GetComponent ("BoxCollider2D") as BoxCollider2D).enabled = true;
-				acido.renderer.enabled = true;
-				acido.renderer.sortingOrder = 6;
+				acido.GetComponent<Renderer>().enabled = true;
+				acido.GetComponent<Renderer>().sortingOrder = 6;
 				Debug.Log ("actual: " + StartGame.fase);
 				if (StartGame.fase < 1)
 					(acido.GetComponent ("SpriteRenderer") as SpriteRenderer).sprite = 
@@ -235,8 +235,8 @@ public class ButtonAction : MonoBehaviour {
 					(acido.GetComponent ("BoxCollider2D") as BoxCollider2D).enabled = true;
 					(acido.GetComponent ("SpriteRenderer") as SpriteRenderer).sprite = sacido;
 				}
-				exercicio.renderer.enabled = true;
-				exercicio.renderer.sortingOrder = 6;
+				exercicio.GetComponent<Renderer>().enabled = true;
+				exercicio.GetComponent<Renderer>().sortingOrder = 6;
 				if (StartGame.fase < 2)
 					(exercicio.GetComponent ("SpriteRenderer") as SpriteRenderer).sprite = 
 						(GameObject.FindGameObjectWithTag ("AtividadeFisicaDesabilitado").GetComponent ("SpriteRenderer") as SpriteRenderer).sprite;
@@ -281,17 +281,17 @@ public class ButtonAction : MonoBehaviour {
 			//menuPause.renderer.enabled = true;
 			//menuPause.renderer.sortingOrder = 8;
 			//(menuEspecial.GetComponent ("BoxCollider2D") as BoxCollider2D).enabled = true;
-			save1.renderer.enabled = true;
-			save1.renderer.sortingOrder = 9;
+			save1.GetComponent<Renderer>().enabled = true;
+			save1.GetComponent<Renderer>().sortingOrder = 9;
 			(save1.GetComponent ("BoxCollider2D") as BoxCollider2D).enabled = true;
-			save2.renderer.enabled = true;
-			save2.renderer.sortingOrder = 9;
+			save2.GetComponent<Renderer>().enabled = true;
+			save2.GetComponent<Renderer>().sortingOrder = 9;
 			(save2.GetComponent ("BoxCollider2D") as BoxCollider2D).enabled = true;
-			save3.renderer.enabled = true;
-			save3.renderer.sortingOrder = 9;
+			save3.GetComponent<Renderer>().enabled = true;
+			save3.GetComponent<Renderer>().sortingOrder = 9;
 			(save3.GetComponent ("BoxCollider2D") as BoxCollider2D).enabled = true;
-			continu.renderer.enabled = true;
-			continu.renderer.sortingOrder = 9;
+			continu.GetComponent<Renderer>().enabled = true;
+			continu.GetComponent<Renderer>().sortingOrder = 9;
 			(continu.GetComponent ("BoxCollider2D") as BoxCollider2D).enabled = true;
 
 		} 
@@ -352,26 +352,26 @@ public class ButtonAction : MonoBehaviour {
 				GameObject sound = GameObject.FindGameObjectWithTag ("SoundButton");
 
 				GameObject telaEscura = GameObject.FindGameObjectWithTag ("TelaEscura");
-				telaEscura.renderer.enabled = true;
-				telaEscura.renderer.sortingOrder = 7;
+				telaEscura.GetComponent<Renderer>().enabled = true;
+				telaEscura.GetComponent<Renderer>().sortingOrder = 7;
 				(telaEscura.GetComponent ("BoxCollider2D") as BoxCollider2D).enabled = true;
-				menuPause.renderer.enabled = true;
-				menuPause.renderer.sortingOrder = 8;
+				menuPause.GetComponent<Renderer>().enabled = true;
+				menuPause.GetComponent<Renderer>().sortingOrder = 8;
 				//(menuEspecial.GetComponent ("BoxCollider2D") as BoxCollider2D).enabled = true;
-				save.renderer.enabled = true;
-				save.renderer.sortingOrder = 9;
+				save.GetComponent<Renderer>().enabled = true;
+				save.GetComponent<Renderer>().sortingOrder = 9;
 				(save.GetComponent ("BoxCollider2D") as BoxCollider2D).enabled = true;
-				load.renderer.enabled = true;
-				load.renderer.sortingOrder = 9;
+				load.GetComponent<Renderer>().enabled = true;
+				load.GetComponent<Renderer>().sortingOrder = 9;
 				(load.GetComponent ("BoxCollider2D") as BoxCollider2D).enabled = true;
-				continu.renderer.enabled = true;
-				continu.renderer.sortingOrder = 9;
+				continu.GetComponent<Renderer>().enabled = true;
+				continu.GetComponent<Renderer>().sortingOrder = 9;
 				(continu.GetComponent ("BoxCollider2D") as BoxCollider2D).enabled = true;
-				music.renderer.enabled = true;
-				music.renderer.sortingOrder = 9;
+				music.GetComponent<Renderer>().enabled = true;
+				music.GetComponent<Renderer>().sortingOrder = 9;
 				(music.GetComponent ("BoxCollider2D") as BoxCollider2D).enabled = true;
-				sound.renderer.enabled = true;
-				sound.renderer.sortingOrder = 9;
+				sound.GetComponent<Renderer>().enabled = true;
+				sound.GetComponent<Renderer>().sortingOrder = 9;
 				(sound.GetComponent ("BoxCollider2D") as BoxCollider2D).enabled = true;
 				
 				ButtonAction.activatedMenuPause = true;
@@ -389,23 +389,23 @@ public class ButtonAction : MonoBehaviour {
 			GameObject btnProx = GameObject.FindGameObjectWithTag ("InfoProx");
 			GameObject btnAnt = GameObject.FindGameObjectWithTag ("InfoAnt");
 			if (StartGame.infoActive == StartGame.infoTela[1]) {
-				btnProx.renderer.enabled = false;
-				btnProx.renderer.sortingOrder = 0;
+				btnProx.GetComponent<Renderer>().enabled = false;
+				btnProx.GetComponent<Renderer>().sortingOrder = 0;
 				(btnProx.GetComponent ("BoxCollider2D") as BoxCollider2D).enabled = false;
 			}
 			else {
-				btnProx.renderer.enabled = true;
-				btnProx.renderer.sortingOrder = 11;
+				btnProx.GetComponent<Renderer>().enabled = true;
+				btnProx.GetComponent<Renderer>().sortingOrder = 11;
 				(btnProx.GetComponent ("BoxCollider2D") as BoxCollider2D).enabled = true;
 			}
 			if (StartGame.infoActive == StartGame.infoTela[0]) {
-				btnAnt.renderer.enabled = false;
-				btnAnt.renderer.sortingOrder = 0;
+				btnAnt.GetComponent<Renderer>().enabled = false;
+				btnAnt.GetComponent<Renderer>().sortingOrder = 0;
 				(btnAnt.GetComponent ("BoxCollider2D") as BoxCollider2D).enabled = false;
 			}
 			else {
-				btnAnt.renderer.enabled = true;
-				btnAnt.renderer.sortingOrder = 11;
+				btnAnt.GetComponent<Renderer>().enabled = true;
+				btnAnt.GetComponent<Renderer>().sortingOrder = 11;
 				(btnAnt.GetComponent ("BoxCollider2D") as BoxCollider2D).enabled = true;
 			}
 		}
@@ -420,40 +420,40 @@ public class ButtonAction : MonoBehaviour {
 			GameObject btnProx = GameObject.FindGameObjectWithTag ("InfoProx");
 			GameObject btnAnt = GameObject.FindGameObjectWithTag ("InfoAnt");
 			if (StartGame.infoActive == StartGame.infoTela[1]) {
-				btnProx.renderer.enabled = false;
-				btnProx.renderer.sortingOrder = 0;
+				btnProx.GetComponent<Renderer>().enabled = false;
+				btnProx.GetComponent<Renderer>().sortingOrder = 0;
 				(btnProx.GetComponent ("BoxCollider2D") as BoxCollider2D).enabled = false;
 			}
 			else {
-				btnProx.renderer.enabled = true;
-				btnProx.renderer.sortingOrder = 11;
+				btnProx.GetComponent<Renderer>().enabled = true;
+				btnProx.GetComponent<Renderer>().sortingOrder = 11;
 				(btnProx.GetComponent ("BoxCollider2D") as BoxCollider2D).enabled = true;
 			}
 			if (StartGame.infoActive == StartGame.infoTela[0]) {
-				btnAnt.renderer.enabled = false;
-				btnAnt.renderer.sortingOrder = 0;
+				btnAnt.GetComponent<Renderer>().enabled = false;
+				btnAnt.GetComponent<Renderer>().sortingOrder = 0;
 				(btnAnt.GetComponent ("BoxCollider2D") as BoxCollider2D).enabled = false;
 			}
 			else {
-				btnAnt.renderer.enabled = true;
-				btnAnt.renderer.sortingOrder = 11;
+				btnAnt.GetComponent<Renderer>().enabled = true;
+				btnAnt.GetComponent<Renderer>().sortingOrder = 11;
 				(btnAnt.GetComponent ("BoxCollider2D") as BoxCollider2D).enabled = true;
 			}
 		}
 		else if (type == 14) {
 			GameObject tela = GameObject.FindGameObjectWithTag ("InfoTela");
-			tela.renderer.enabled = false;
-			tela.renderer.sortingOrder = 0;
+			tela.GetComponent<Renderer>().enabled = false;
+			tela.GetComponent<Renderer>().sortingOrder = 0;
 			GameObject btnFechar = GameObject.FindGameObjectWithTag ("InfoFechar");
 			GameObject btnProx = GameObject.FindGameObjectWithTag ("InfoProx");
 			GameObject btnAnt = GameObject.FindGameObjectWithTag ("InfoAnt");
 			//GameObject personagem = GameObject.FindGameObjectWithTag ("Personagem" + StartGame.personagemAtivo);
-			btnFechar.renderer.enabled = false;
-			btnFechar.renderer.sortingOrder = 0;
-			btnProx.renderer.enabled = false;
-			btnProx.renderer.sortingOrder = 0;
-			btnAnt.renderer.enabled = false;
-			btnAnt.renderer.sortingOrder = 0;
+			btnFechar.GetComponent<Renderer>().enabled = false;
+			btnFechar.GetComponent<Renderer>().sortingOrder = 0;
+			btnProx.GetComponent<Renderer>().enabled = false;
+			btnProx.GetComponent<Renderer>().sortingOrder = 0;
+			btnAnt.GetComponent<Renderer>().enabled = false;
+			btnAnt.GetComponent<Renderer>().sortingOrder = 0;
 			//personagem.renderer.enabled = false;
 			//personagem.renderer.sortingOrder = 0;
 
@@ -463,8 +463,8 @@ public class ButtonAction : MonoBehaviour {
 			//(personagem.GetComponent ("BoxCollider2D") as BoxCollider2D).enabled = false;
 
 			GameObject telaEscura = GameObject.FindGameObjectWithTag ("TelaEscura");
-			telaEscura.renderer.enabled = false;
-			telaEscura.renderer.sortingOrder = 0;
+			telaEscura.GetComponent<Renderer>().enabled = false;
+			telaEscura.GetComponent<Renderer>().sortingOrder = 0;
 			(telaEscura.GetComponent ("BoxCollider2D") as BoxCollider2D).enabled = false;
 			if (StartGame.infoActive == 47 || StartGame.infoActive == 46 || StartGame.infoActive == 45 ||
 			         StartGame.infoActive == 37 || StartGame.infoActive == 36 || StartGame.infoActive == 35) {
@@ -506,12 +506,12 @@ public class ButtonAction : MonoBehaviour {
 		}
 		else if (type == 15) {
 			GameObject personagem = GameObject.FindGameObjectWithTag ("Personagem" + StartGame.personagemAtivo);
-			personagem.renderer.enabled = false;
-			personagem.renderer.sortingOrder = 0;
+			personagem.GetComponent<Renderer>().enabled = false;
+			personagem.GetComponent<Renderer>().sortingOrder = 0;
 			(personagem.GetComponent ("BoxCollider2D") as BoxCollider2D).enabled = false;
 			GameObject personagem2 = GameObject.FindGameObjectWithTag ("Personagem" + (StartGame.personagemAtivo==1?2:1));
-			personagem2.renderer.enabled = true;
-			personagem2.renderer.sortingOrder = 11;
+			personagem2.GetComponent<Renderer>().enabled = true;
+			personagem2.GetComponent<Renderer>().sortingOrder = 11;
 			(personagem2.GetComponent ("BoxCollider2D") as BoxCollider2D).enabled = true;
 			StartGame.personagemAtivo = (StartGame.personagemAtivo==1?2:1);
 		}
@@ -536,36 +536,36 @@ public class ButtonAction : MonoBehaviour {
 		else if (type == 20) {
 			GameObject btnAbrirAlimento = GameObject.FindGameObjectWithTag("AbrirAlimentos");
 			(btnAbrirAlimento.GetComponent ("BoxCollider2D") as BoxCollider2D).enabled = false;
-			btnAbrirAlimento.GetComponent("SpriteRenderer").renderer.enabled = false;
-			btnAbrirAlimento.renderer.sortingOrder = 0;
+			btnAbrirAlimento.GetComponent("SpriteRenderer").GetComponent<Renderer>().enabled = false;
+			btnAbrirAlimento.GetComponent<Renderer>().sortingOrder = 0;
 			
 			GameObject btnAbrirTorre = GameObject.FindGameObjectWithTag("AbrirTorres");
 			(btnAbrirTorre.GetComponent ("BoxCollider2D") as BoxCollider2D).enabled = false;
-			btnAbrirTorre.GetComponent("SpriteRenderer").renderer.enabled = false;
-			btnAbrirTorre.renderer.sortingOrder = 0;
+			btnAbrirTorre.GetComponent("SpriteRenderer").GetComponent<Renderer>().enabled = false;
+			btnAbrirTorre.GetComponent<Renderer>().sortingOrder = 0;
 
 			GameObject menuTela = GameObject.FindGameObjectWithTag("MenuAlmanaque");
-			menuTela.GetComponent("SpriteRenderer").renderer.enabled = false;
-			menuTela.renderer.sortingOrder = 0;
+			menuTela.GetComponent("SpriteRenderer").GetComponent<Renderer>().enabled = false;
+			menuTela.GetComponent<Renderer>().sortingOrder = 0;
 			(menuTela.GetComponent ("BoxCollider2D") as BoxCollider2D).enabled = false;
 			
 			GameObject btnFecharA = GameObject.FindGameObjectWithTag("MenuAlmanaqueFechar");
-			btnFecharA.GetComponent("SpriteRenderer").renderer.enabled = false;
-			btnFecharA.renderer.sortingOrder = 0;
+			btnFecharA.GetComponent("SpriteRenderer").GetComponent<Renderer>().enabled = false;
+			btnFecharA.GetComponent<Renderer>().sortingOrder = 0;
 			(btnFecharA.GetComponent ("BoxCollider2D") as BoxCollider2D).enabled = false;
 
 			GameObject infoTela = GameObject.FindGameObjectWithTag("FundoAlmanaque");
-			infoTela.GetComponent("SpriteRenderer").renderer.enabled = true;
-			infoTela.renderer.sortingOrder = 10;
+			infoTela.GetComponent("SpriteRenderer").GetComponent<Renderer>().enabled = true;
+			infoTela.GetComponent<Renderer>().sortingOrder = 10;
 			(infoTela.GetComponent ("BoxCollider2D") as BoxCollider2D).enabled = true;
 
 			GameObject foodInfo = GameObject.FindGameObjectWithTag ("FoodInfo");
-			foodInfo.GetComponent("SpriteRenderer").renderer.enabled = true;
-			foodInfo.renderer.sortingOrder = 11;
+			foodInfo.GetComponent("SpriteRenderer").GetComponent<Renderer>().enabled = true;
+			foodInfo.GetComponent<Renderer>().sortingOrder = 11;
 
 			GameObject btnFechar = GameObject.FindGameObjectWithTag("AlmanaqueFechar");
-			btnFechar.GetComponent("SpriteRenderer").renderer.enabled = true;
-			btnFechar.renderer.sortingOrder = 11;
+			btnFechar.GetComponent("SpriteRenderer").GetComponent<Renderer>().enabled = true;
+			btnFechar.GetComponent<Renderer>().sortingOrder = 11;
 			(btnFechar.GetComponent ("BoxCollider2D") as BoxCollider2D).enabled = true;
 
 			Transform _places = GameObject.Find("ComidasAlmanaque").transform;
@@ -580,17 +580,17 @@ public class ButtonAction : MonoBehaviour {
 		}
 		else if (type == 21) {
 			GameObject infoTela = GameObject.FindGameObjectWithTag("FundoAlmanaque");
-			infoTela.GetComponent("SpriteRenderer").renderer.enabled = false;
-			infoTela.renderer.sortingOrder = 0;
+			infoTela.GetComponent("SpriteRenderer").GetComponent<Renderer>().enabled = false;
+			infoTela.GetComponent<Renderer>().sortingOrder = 0;
 			(infoTela.GetComponent ("BoxCollider2D") as BoxCollider2D).enabled = false;
 
 			GameObject foodInfo = GameObject.FindGameObjectWithTag("FoodInfo");
-			foodInfo.GetComponent("SpriteRenderer").renderer.enabled = false;
-			foodInfo.renderer.sortingOrder = 0;
+			foodInfo.GetComponent("SpriteRenderer").GetComponent<Renderer>().enabled = false;
+			foodInfo.GetComponent<Renderer>().sortingOrder = 0;
 			
 			GameObject btnFechar = GameObject.FindGameObjectWithTag("AlmanaqueFechar");
-			btnFechar.GetComponent("SpriteRenderer").renderer.enabled = false;
-			btnFechar.renderer.sortingOrder = 0;
+			btnFechar.GetComponent("SpriteRenderer").GetComponent<Renderer>().enabled = false;
+			btnFechar.GetComponent<Renderer>().sortingOrder = 0;
 			(btnFechar.GetComponent ("BoxCollider2D") as BoxCollider2D).enabled = false;
 			
 			Transform _places = GameObject.Find("ComidasAlmanaque").transform;
@@ -605,17 +605,17 @@ public class ButtonAction : MonoBehaviour {
 		}
 		else if (type == 22) {
 			GameObject infoTela = GameObject.FindGameObjectWithTag("FundoAlmanaqueTorres");
-			infoTela.GetComponent("SpriteRenderer").renderer.enabled = false;
-			infoTela.renderer.sortingOrder = 0;
+			infoTela.GetComponent("SpriteRenderer").GetComponent<Renderer>().enabled = false;
+			infoTela.GetComponent<Renderer>().sortingOrder = 0;
 			(infoTela.GetComponent ("BoxCollider2D") as BoxCollider2D).enabled = false;
 			
 			GameObject foodInfo = GameObject.FindGameObjectWithTag("TowerInfo");
-			foodInfo.GetComponent("SpriteRenderer").renderer.enabled = false;
-			foodInfo.renderer.sortingOrder = 0;
+			foodInfo.GetComponent("SpriteRenderer").GetComponent<Renderer>().enabled = false;
+			foodInfo.GetComponent<Renderer>().sortingOrder = 0;
 			
 			GameObject btnFechar = GameObject.FindGameObjectWithTag("AlmanaqueTorresFechar");
-			btnFechar.GetComponent("SpriteRenderer").renderer.enabled = false;
-			btnFechar.renderer.sortingOrder = 0;
+			btnFechar.GetComponent("SpriteRenderer").GetComponent<Renderer>().enabled = false;
+			btnFechar.GetComponent<Renderer>().sortingOrder = 0;
 			(btnFechar.GetComponent ("BoxCollider2D") as BoxCollider2D).enabled = false;
 			
 			Transform _places = GameObject.Find("TorresAlmanaque").transform;
@@ -642,36 +642,36 @@ public class ButtonAction : MonoBehaviour {
 		else if (type == 24) {
 			GameObject btnAbrirAlimento = GameObject.FindGameObjectWithTag("AbrirAlimentos");
 			(btnAbrirAlimento.GetComponent ("BoxCollider2D") as BoxCollider2D).enabled = false;
-			btnAbrirAlimento.GetComponent("SpriteRenderer").renderer.enabled = false;
-			btnAbrirAlimento.renderer.sortingOrder = 0;
+			btnAbrirAlimento.GetComponent("SpriteRenderer").GetComponent<Renderer>().enabled = false;
+			btnAbrirAlimento.GetComponent<Renderer>().sortingOrder = 0;
 
 			GameObject btnAbrirTorre = GameObject.FindGameObjectWithTag("AbrirTorres");
 			(btnAbrirTorre.GetComponent ("BoxCollider2D") as BoxCollider2D).enabled = false;
-			btnAbrirTorre.GetComponent("SpriteRenderer").renderer.enabled = false;
-			btnAbrirTorre.renderer.sortingOrder = 0;
+			btnAbrirTorre.GetComponent("SpriteRenderer").GetComponent<Renderer>().enabled = false;
+			btnAbrirTorre.GetComponent<Renderer>().sortingOrder = 0;
 
 			GameObject infoTelaA = GameObject.FindGameObjectWithTag("MenuAlmanaque");
-			infoTelaA.GetComponent("SpriteRenderer").renderer.enabled = false;
-			infoTelaA.renderer.sortingOrder = 0;
+			infoTelaA.GetComponent("SpriteRenderer").GetComponent<Renderer>().enabled = false;
+			infoTelaA.GetComponent<Renderer>().sortingOrder = 0;
 			(infoTelaA.GetComponent ("BoxCollider2D") as BoxCollider2D).enabled = false;
 			
 			GameObject btnFecharA = GameObject.FindGameObjectWithTag("MenuAlmanaqueFechar");
-			btnFecharA.GetComponent("SpriteRenderer").renderer.enabled = false;
-			btnFecharA.renderer.sortingOrder = 0;
+			btnFecharA.GetComponent("SpriteRenderer").GetComponent<Renderer>().enabled = false;
+			btnFecharA.GetComponent<Renderer>().sortingOrder = 0;
 			(btnFecharA.GetComponent ("BoxCollider2D") as BoxCollider2D).enabled = false;
 
 			GameObject infoTela = GameObject.FindGameObjectWithTag("FundoAlmanaqueTorres");
-			infoTela.GetComponent("SpriteRenderer").renderer.enabled = true;
-			infoTela.renderer.sortingOrder = 10;
+			infoTela.GetComponent("SpriteRenderer").GetComponent<Renderer>().enabled = true;
+			infoTela.GetComponent<Renderer>().sortingOrder = 10;
 			(infoTela.GetComponent ("BoxCollider2D") as BoxCollider2D).enabled = true;
 			
 			GameObject foodInfo = GameObject.FindGameObjectWithTag ("TowerInfo");
-			foodInfo.GetComponent("SpriteRenderer").renderer.enabled = true;
-			foodInfo.renderer.sortingOrder = 11;
+			foodInfo.GetComponent("SpriteRenderer").GetComponent<Renderer>().enabled = true;
+			foodInfo.GetComponent<Renderer>().sortingOrder = 11;
 			
 			GameObject btnFechar = GameObject.FindGameObjectWithTag("AlmanaqueTorresFechar");
-			btnFechar.GetComponent("SpriteRenderer").renderer.enabled = true;
-			btnFechar.renderer.sortingOrder = 11;
+			btnFechar.GetComponent("SpriteRenderer").GetComponent<Renderer>().enabled = true;
+			btnFechar.GetComponent<Renderer>().sortingOrder = 11;
 			(btnFechar.GetComponent ("BoxCollider2D") as BoxCollider2D).enabled = true;
 			
 			Transform _places = GameObject.Find("TorresAlmanaque").transform;
@@ -687,24 +687,24 @@ public class ButtonAction : MonoBehaviour {
 		else if (type == 25) {
 			AudioSource.PlayClipAtPoint(clip, transform.position);
 			GameObject infoTela = GameObject.FindGameObjectWithTag("MenuAlmanaque");
-			infoTela.GetComponent("SpriteRenderer").renderer.enabled = true;
-			infoTela.renderer.sortingOrder = 10;
+			infoTela.GetComponent("SpriteRenderer").GetComponent<Renderer>().enabled = true;
+			infoTela.GetComponent<Renderer>().sortingOrder = 10;
 			(infoTela.GetComponent ("BoxCollider2D") as BoxCollider2D).enabled = true;
 			
 			GameObject btnAbrirAlimento = GameObject.FindGameObjectWithTag("AbrirAlimentos");
 			(btnAbrirAlimento.GetComponent ("BoxCollider2D") as BoxCollider2D).enabled = true;
-			btnAbrirAlimento.GetComponent("SpriteRenderer").renderer.enabled = true;
-			btnAbrirAlimento.renderer.sortingOrder = 11;
+			btnAbrirAlimento.GetComponent("SpriteRenderer").GetComponent<Renderer>().enabled = true;
+			btnAbrirAlimento.GetComponent<Renderer>().sortingOrder = 11;
 
 			GameObject btnAbrirTorre = GameObject.FindGameObjectWithTag("AbrirTorres");
 			(btnAbrirTorre.GetComponent ("BoxCollider2D") as BoxCollider2D).enabled = true;
-			btnAbrirTorre.GetComponent("SpriteRenderer").renderer.enabled = true;
-			btnAbrirTorre.renderer.sortingOrder = 11;
+			btnAbrirTorre.GetComponent("SpriteRenderer").GetComponent<Renderer>().enabled = true;
+			btnAbrirTorre.GetComponent<Renderer>().sortingOrder = 11;
 
 			GameObject btnFechar = GameObject.FindGameObjectWithTag("MenuAlmanaqueFechar");
-			btnFechar.GetComponent("SpriteRenderer").renderer.enabled = true;
+			btnFechar.GetComponent("SpriteRenderer").GetComponent<Renderer>().enabled = true;
 			(btnFechar.GetComponent ("BoxCollider2D") as BoxCollider2D).enabled = true;
-			btnFechar.renderer.sortingOrder = 11;
+			btnFechar.GetComponent<Renderer>().sortingOrder = 11;
 			
 			Time.timeScale = 0;
 			StartGame.almanaqueAberto = true;
@@ -713,24 +713,24 @@ public class ButtonAction : MonoBehaviour {
 		}
 		else if (type == 26) {
 			GameObject infoTela = GameObject.FindGameObjectWithTag("MenuAlmanaque");
-			infoTela.GetComponent("SpriteRenderer").renderer.enabled = false;
-			infoTela.renderer.sortingOrder = 0;
+			infoTela.GetComponent("SpriteRenderer").GetComponent<Renderer>().enabled = false;
+			infoTela.GetComponent<Renderer>().sortingOrder = 0;
 			(infoTela.GetComponent ("BoxCollider2D") as BoxCollider2D).enabled = false;
 			
 			GameObject btnFechar = GameObject.FindGameObjectWithTag("MenuAlmanaqueFechar");
-			btnFechar.GetComponent("SpriteRenderer").renderer.enabled = false;
-			btnFechar.renderer.sortingOrder = 0;
+			btnFechar.GetComponent("SpriteRenderer").GetComponent<Renderer>().enabled = false;
+			btnFechar.GetComponent<Renderer>().sortingOrder = 0;
 			(btnFechar.GetComponent ("BoxCollider2D") as BoxCollider2D).enabled = false;
 
 			GameObject btnAbrirAlimento = GameObject.FindGameObjectWithTag("AbrirAlimentos");
 			(btnAbrirAlimento.GetComponent ("BoxCollider2D") as BoxCollider2D).enabled = false;
-			btnAbrirAlimento.GetComponent("SpriteRenderer").renderer.enabled = false;
-			btnAbrirAlimento.renderer.sortingOrder = 11;
+			btnAbrirAlimento.GetComponent("SpriteRenderer").GetComponent<Renderer>().enabled = false;
+			btnAbrirAlimento.GetComponent<Renderer>().sortingOrder = 11;
 			
 			GameObject btnAbrirTorre = GameObject.FindGameObjectWithTag("AbrirTorres");
 			(btnAbrirTorre.GetComponent ("BoxCollider2D") as BoxCollider2D).enabled = false;
-			btnAbrirTorre.GetComponent("SpriteRenderer").renderer.enabled = false;
-			btnAbrirTorre.renderer.sortingOrder = 11;
+			btnAbrirTorre.GetComponent("SpriteRenderer").GetComponent<Renderer>().enabled = false;
+			btnAbrirTorre.GetComponent<Renderer>().sortingOrder = 11;
 
 			StartGame.almanaqueAberto = false;
 			Time.timeScale = 1;
@@ -771,27 +771,27 @@ public class ButtonAction : MonoBehaviour {
 			GameObject continu = GameObject.FindGameObjectWithTag ("Continue2Button");
 
 			GameObject menuPause = GameObject.FindGameObjectWithTag ("MenuPause");
-			menuPause.renderer.enabled = true;
-			menuPause.renderer.sortingOrder = 13;
+			menuPause.GetComponent<Renderer>().enabled = true;
+			menuPause.GetComponent<Renderer>().sortingOrder = 13;
 			GameObject telaEscura = GameObject.FindGameObjectWithTag ("TelaEscura");
-			telaEscura.renderer.enabled = true;
-			telaEscura.renderer.sortingOrder = 12;
+			telaEscura.GetComponent<Renderer>().enabled = true;
+			telaEscura.GetComponent<Renderer>().sortingOrder = 12;
 			(telaEscura.GetComponent ("BoxCollider2D") as BoxCollider2D).enabled = true;
 
 			//menuPause.renderer.enabled = true;
 			//menuPause.renderer.sortingOrder = 8;
 			//(menuEspecial.GetComponent ("BoxCollider2D") as BoxCollider2D).enabled = true;
-			save1.renderer.enabled = true;
-			save1.renderer.sortingOrder = 14;
+			save1.GetComponent<Renderer>().enabled = true;
+			save1.GetComponent<Renderer>().sortingOrder = 14;
 			(save1.GetComponent ("BoxCollider2D") as BoxCollider2D).enabled = true;
-			save2.renderer.enabled = true;
-			save2.renderer.sortingOrder = 14;
+			save2.GetComponent<Renderer>().enabled = true;
+			save2.GetComponent<Renderer>().sortingOrder = 14;
 			(save2.GetComponent ("BoxCollider2D") as BoxCollider2D).enabled = true;
-			save3.renderer.enabled = true;
-			save3.renderer.sortingOrder = 14;
+			save3.GetComponent<Renderer>().enabled = true;
+			save3.GetComponent<Renderer>().sortingOrder = 14;
 			(save3.GetComponent ("BoxCollider2D") as BoxCollider2D).enabled = true;
-			continu.renderer.enabled = true;
-			continu.renderer.sortingOrder = 14;
+			continu.GetComponent<Renderer>().enabled = true;
+			continu.GetComponent<Renderer>().sortingOrder = 14;
 			(continu.GetComponent ("BoxCollider2D") as BoxCollider2D).enabled = true;
 		}
 		else if (type == 30) {//Creditos
@@ -811,23 +811,23 @@ public class ButtonAction : MonoBehaviour {
 			GameObject btnProx = GameObject.FindGameObjectWithTag ("InfoProxZimi");
 			GameObject btnAnt = GameObject.FindGameObjectWithTag ("InfoAntZimi");
 			if (StartGame.infoActive == StartGame.zimi[1]) {
-				btnProx.renderer.enabled = false;
-				btnProx.renderer.sortingOrder = 0;
+				btnProx.GetComponent<Renderer>().enabled = false;
+				btnProx.GetComponent<Renderer>().sortingOrder = 0;
 				(btnProx.GetComponent ("BoxCollider2D") as BoxCollider2D).enabled = false;
 			}
 			else {
-				btnProx.renderer.enabled = true;
-				btnProx.renderer.sortingOrder = 11;
+				btnProx.GetComponent<Renderer>().enabled = true;
+				btnProx.GetComponent<Renderer>().sortingOrder = 11;
 				(btnProx.GetComponent ("BoxCollider2D") as BoxCollider2D).enabled = true;
 			}
 			if (StartGame.infoActive == StartGame.zimi[0]) {
-				btnAnt.renderer.enabled = false;
-				btnAnt.renderer.sortingOrder = 0;
+				btnAnt.GetComponent<Renderer>().enabled = false;
+				btnAnt.GetComponent<Renderer>().sortingOrder = 0;
 				(btnAnt.GetComponent ("BoxCollider2D") as BoxCollider2D).enabled = false;
 			}
 			else {
-				btnAnt.renderer.enabled = true;
-				btnAnt.renderer.sortingOrder = 11;
+				btnAnt.GetComponent<Renderer>().enabled = true;
+				btnAnt.GetComponent<Renderer>().sortingOrder = 11;
 				(btnAnt.GetComponent ("BoxCollider2D") as BoxCollider2D).enabled = true;
 			}
 		}
@@ -842,40 +842,40 @@ public class ButtonAction : MonoBehaviour {
 			GameObject btnProx = GameObject.FindGameObjectWithTag ("InfoProxZimi");
 			GameObject btnAnt = GameObject.FindGameObjectWithTag ("InfoAntZimi");
 			if (StartGame.infoActive == StartGame.zimi[1]) {
-				btnProx.renderer.enabled = false;
-				btnProx.renderer.sortingOrder = 0;
+				btnProx.GetComponent<Renderer>().enabled = false;
+				btnProx.GetComponent<Renderer>().sortingOrder = 0;
 				(btnProx.GetComponent ("BoxCollider2D") as BoxCollider2D).enabled = false;
 			}
 			else {
-				btnProx.renderer.enabled = true;
-				btnProx.renderer.sortingOrder = 11;
+				btnProx.GetComponent<Renderer>().enabled = true;
+				btnProx.GetComponent<Renderer>().sortingOrder = 11;
 				(btnProx.GetComponent ("BoxCollider2D") as BoxCollider2D).enabled = true;
 			}
 			if (StartGame.infoActive == StartGame.zimi[0]) {
-				btnAnt.renderer.enabled = false;
-				btnAnt.renderer.sortingOrder = 0;
+				btnAnt.GetComponent<Renderer>().enabled = false;
+				btnAnt.GetComponent<Renderer>().sortingOrder = 0;
 				(btnAnt.GetComponent ("BoxCollider2D") as BoxCollider2D).enabled = false;
 			}
 			else {
-				btnAnt.renderer.enabled = true;
-				btnAnt.renderer.sortingOrder = 11;
+				btnAnt.GetComponent<Renderer>().enabled = true;
+				btnAnt.GetComponent<Renderer>().sortingOrder = 11;
 				(btnAnt.GetComponent ("BoxCollider2D") as BoxCollider2D).enabled = true;
 			}
 		}
 		else if (type == 33) {
 			GameObject tela = GameObject.FindGameObjectWithTag ("DicasZimi");
-			tela.renderer.enabled = false;
-			tela.renderer.sortingOrder = 0;
+			tela.GetComponent<Renderer>().enabled = false;
+			tela.GetComponent<Renderer>().sortingOrder = 0;
 			GameObject btnFechar = GameObject.FindGameObjectWithTag ("InfoFecharZimi");
 			GameObject btnProx = GameObject.FindGameObjectWithTag ("InfoProxZimi");
 			GameObject btnAnt = GameObject.FindGameObjectWithTag ("InfoAntZimi");
 			//GameObject personagem = GameObject.FindGameObjectWithTag ("Personagem" + StartGame.personagemAtivo);
-			btnFechar.renderer.enabled = false;
-			btnFechar.renderer.sortingOrder = 0;
-			btnProx.renderer.enabled = false;
-			btnProx.renderer.sortingOrder = 0;
-			btnAnt.renderer.enabled = false;
-			btnAnt.renderer.sortingOrder = 0;
+			btnFechar.GetComponent<Renderer>().enabled = false;
+			btnFechar.GetComponent<Renderer>().sortingOrder = 0;
+			btnProx.GetComponent<Renderer>().enabled = false;
+			btnProx.GetComponent<Renderer>().sortingOrder = 0;
+			btnAnt.GetComponent<Renderer>().enabled = false;
+			btnAnt.GetComponent<Renderer>().sortingOrder = 0;
 			//personagem.renderer.enabled = false;
 			//personagem.renderer.sortingOrder = 0;
 			
@@ -885,8 +885,8 @@ public class ButtonAction : MonoBehaviour {
 			//(personagem.GetComponent ("BoxCollider2D") as BoxCollider2D).enabled = false;
 			
 			GameObject telaEscura = GameObject.FindGameObjectWithTag ("TelaEscura");
-			telaEscura.renderer.enabled = false;
-			telaEscura.renderer.sortingOrder = 0;
+			telaEscura.GetComponent<Renderer>().enabled = false;
+			telaEscura.GetComponent<Renderer>().sortingOrder = 0;
 			(telaEscura.GetComponent ("BoxCollider2D") as BoxCollider2D).enabled = false;
 			if (StartGame.infoActive == 47 || StartGame.infoActive == 46 || StartGame.infoActive == 45 ||
 			    StartGame.infoActive == 37 || StartGame.infoActive == 36 || StartGame.infoActive == 35) {
@@ -937,14 +937,14 @@ public class ButtonAction : MonoBehaviour {
 			GameObject torre8 = GameObject.FindGameObjectWithTag ("Torre8");*/
 			GameObject dente = GameObject.FindGameObjectWithTag ("Dente");
 			
-			menuTorre.renderer.enabled = false;
-			menuTorre.renderer.sortingOrder = 0;
+			menuTorre.GetComponent<Renderer>().enabled = false;
+			menuTorre.GetComponent<Renderer>().sortingOrder = 0;
 			(menuTorre.GetComponent ("BoxCollider2D") as BoxCollider2D).enabled = false;
-			torre1.renderer.enabled = false;
-			torre1.renderer.sortingOrder = 0;
+			torre1.GetComponent<Renderer>().enabled = false;
+			torre1.GetComponent<Renderer>().sortingOrder = 0;
 			(torre1.GetComponent ("BoxCollider2D") as BoxCollider2D).enabled = false;
-			torre2.renderer.enabled = false;
-			torre2.renderer.sortingOrder = 0;
+			torre2.GetComponent<Renderer>().enabled = false;
+			torre2.GetComponent<Renderer>().sortingOrder = 0;
 			(torre2.GetComponent ("BoxCollider2D") as BoxCollider2D).enabled = false;
 			/*torre3.renderer.enabled = false;
 			torre3.renderer.sortingOrder = 0;
@@ -966,8 +966,8 @@ public class ButtonAction : MonoBehaviour {
 			(torre8.GetComponent ("BoxCollider2D") as BoxCollider2D).enabled = false;
 			*/
 			carregaTowers (false, 0);
-			dente.renderer.enabled = false;
-			dente.renderer.sortingOrder = 0;
+			dente.GetComponent<Renderer>().enabled = false;
+			dente.GetComponent<Renderer>().sortingOrder = 0;
 			(dente.GetComponent ("BoxCollider2D") as BoxCollider2D).enabled = false;
 			ButtonAction.activatedMenuTorres = false;
 		}
@@ -977,17 +977,17 @@ public class ButtonAction : MonoBehaviour {
 			GameObject acido = GameObject.FindGameObjectWithTag ("AcidoCaller");
 			GameObject exercicio = GameObject.FindGameObjectWithTag ("ExerciseCaller");
 			
-			menuEspeciais.renderer.enabled = false;
-			menuEspeciais.renderer.sortingOrder = 0;
+			menuEspeciais.GetComponent<Renderer>().enabled = false;
+			menuEspeciais.GetComponent<Renderer>().sortingOrder = 0;
 			(menuEspeciais.GetComponent ("BoxCollider2D") as BoxCollider2D).enabled = false;
-			saliva.renderer.enabled = false;
-			saliva.renderer.sortingOrder = 0;
+			saliva.GetComponent<Renderer>().enabled = false;
+			saliva.GetComponent<Renderer>().sortingOrder = 0;
 			(saliva.GetComponent ("BoxCollider2D") as BoxCollider2D).enabled = false;
-			acido.renderer.enabled = false;
-			acido.renderer.sortingOrder = 0;
+			acido.GetComponent<Renderer>().enabled = false;
+			acido.GetComponent<Renderer>().sortingOrder = 0;
 			(acido.GetComponent ("BoxCollider2D") as BoxCollider2D).enabled = false;
-			exercicio.renderer.enabled = false;
-			exercicio.renderer.sortingOrder = 0;
+			exercicio.GetComponent<Renderer>().enabled = false;
+			exercicio.GetComponent<Renderer>().sortingOrder = 0;
 			(exercicio.GetComponent ("BoxCollider2D") as BoxCollider2D).enabled = false;
 			ButtonAction.activatedMenuEspeciais = false;
 		}
@@ -1001,28 +1001,28 @@ public class ButtonAction : MonoBehaviour {
 			
 			if (!activatedMenuSaveLoad) {
 				GameObject menuPause = GameObject.FindGameObjectWithTag ("MenuPause");
-				menuPause.renderer.enabled = false;
-				menuPause.renderer.sortingOrder = 0;
+				menuPause.GetComponent<Renderer>().enabled = false;
+				menuPause.GetComponent<Renderer>().sortingOrder = 0;
 				GameObject telaEscura = GameObject.FindGameObjectWithTag ("TelaEscura");
-				telaEscura.renderer.enabled = false;
-				telaEscura.renderer.sortingOrder = 0;
+				telaEscura.GetComponent<Renderer>().enabled = false;
+				telaEscura.GetComponent<Renderer>().sortingOrder = 0;
 				(telaEscura.GetComponent ("BoxCollider2D") as BoxCollider2D).enabled = false;
 			}
 			//(menuEspecial.GetComponent ("BoxCollider2D") as BoxCollider2D).enabled = true;
-			save.renderer.enabled = false;
-			save.renderer.sortingOrder = 0;
+			save.GetComponent<Renderer>().enabled = false;
+			save.GetComponent<Renderer>().sortingOrder = 0;
 			(save.GetComponent ("BoxCollider2D") as BoxCollider2D).enabled = false;
-			load.renderer.enabled = false;
-			load.renderer.sortingOrder = 0;
+			load.GetComponent<Renderer>().enabled = false;
+			load.GetComponent<Renderer>().sortingOrder = 0;
 			(load.GetComponent ("BoxCollider2D") as BoxCollider2D).enabled = false;
-			continu.renderer.enabled = false;
-			continu.renderer.sortingOrder = 0;
+			continu.GetComponent<Renderer>().enabled = false;
+			continu.GetComponent<Renderer>().sortingOrder = 0;
 			(continu.GetComponent ("BoxCollider2D") as BoxCollider2D).enabled = false;
-			music.renderer.enabled = false;
-			music.renderer.sortingOrder = 0;
+			music.GetComponent<Renderer>().enabled = false;
+			music.GetComponent<Renderer>().sortingOrder = 0;
 			(music.GetComponent ("BoxCollider2D") as BoxCollider2D).enabled = false;
-			sound.renderer.enabled = false;
-			sound.renderer.sortingOrder = 0;
+			sound.GetComponent<Renderer>().enabled = false;
+			sound.GetComponent<Renderer>().sortingOrder = 0;
 			(sound.GetComponent ("BoxCollider2D") as BoxCollider2D).enabled = false;
 
 			activatedMenuPause = false;
@@ -1036,23 +1036,23 @@ public class ButtonAction : MonoBehaviour {
 			GameObject continu = GameObject.FindGameObjectWithTag ("Continue2Button");
 
 			GameObject telaEscura = GameObject.FindGameObjectWithTag ("TelaEscura");
-			telaEscura.renderer.enabled = false;
-			telaEscura.renderer.sortingOrder = 0;
+			telaEscura.GetComponent<Renderer>().enabled = false;
+			telaEscura.GetComponent<Renderer>().sortingOrder = 0;
 			(telaEscura.GetComponent ("BoxCollider2D") as BoxCollider2D).enabled = false;
-			menuPause.renderer.enabled = false;
-			menuPause.renderer.sortingOrder = 0;
+			menuPause.GetComponent<Renderer>().enabled = false;
+			menuPause.GetComponent<Renderer>().sortingOrder = 0;
 			//(menuEspecial.GetComponent ("BoxCollider2D") as BoxCollider2D).enabled = true;
-			save1.renderer.enabled = false;
-			save1.renderer.sortingOrder = 0;
+			save1.GetComponent<Renderer>().enabled = false;
+			save1.GetComponent<Renderer>().sortingOrder = 0;
 			(save1.GetComponent ("BoxCollider2D") as BoxCollider2D).enabled = false;
-			save2.renderer.enabled = false;
-			save2.renderer.sortingOrder = 0;
+			save2.GetComponent<Renderer>().enabled = false;
+			save2.GetComponent<Renderer>().sortingOrder = 0;
 			(save2.GetComponent ("BoxCollider2D") as BoxCollider2D).enabled = false;
-			save3.renderer.enabled = false;
-			save3.renderer.sortingOrder = 0;
+			save3.GetComponent<Renderer>().enabled = false;
+			save3.GetComponent<Renderer>().sortingOrder = 0;
 			(save3.GetComponent ("BoxCollider2D") as BoxCollider2D).enabled = false;
-			continu.renderer.enabled = false;
-			continu.renderer.sortingOrder = 0;
+			continu.GetComponent<Renderer>().enabled = false;
+			continu.GetComponent<Renderer>().sortingOrder = 0;
 			(continu.GetComponent ("BoxCollider2D") as BoxCollider2D).enabled = false;
 			activatedMenuSaveLoad = false;
 		}

@@ -37,7 +37,7 @@ public class AcidoEspecial : MonoBehaviour {
 					wayPoint.oldTag = "Acido";
 
 					saiu = true;
-					audio.Play ();
+					GetComponent<AudioSource>().Play ();
 					nFood = 0;
 					CallSkill.creatingAcido = false;
 				}

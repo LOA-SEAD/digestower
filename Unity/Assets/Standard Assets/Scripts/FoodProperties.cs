@@ -77,7 +77,7 @@ public class FoodProperties : MonoBehaviour {
 			for (int i = 0;i < target.Length;i++) {
 				FatPlace fatPlace = target[i].GetComponent<FatPlace>();
 				if (StartGame.fat >= fatPlace.minimalFat) {
-					GameObject.FindGameObjectWithTag((new string[3]{"TopFat", "RightFat", "LeftFat"})[fatPlace.fatPos]).renderer.enabled = true;
+					GameObject.FindGameObjectWithTag((new string[3]{"TopFat", "RightFat", "LeftFat"})[fatPlace.fatPos]).GetComponent<Renderer>().enabled = true;
 					//Chama mais uma dica da Zimi
 					if (!StartGame.gorduraPrimeiraVez){
 						StartGame.gorduraPrimeiraVez = true;

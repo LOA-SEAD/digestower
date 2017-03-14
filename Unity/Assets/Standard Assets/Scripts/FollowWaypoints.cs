@@ -87,7 +87,7 @@ public class FollowWaypoints : MonoBehaviour
 		else
 		{
 			// Walk towards waypoint
-			rigidbody2D.AddForce(new Vector2(movementNormal.x, movementNormal.y) * movementSpeed);
+			GetComponent<Rigidbody2D>().AddForce(new Vector2(movementNormal.x, movementNormal.y) * movementSpeed);
 		}
 
 		float targetAngle;

@@ -16,14 +16,14 @@ public class FatPlace : MonoBehaviour {
 	
 	// Use this for initialization
 	void Start () {
-		gameObject.renderer.enabled = false;
-		GameObject.FindGameObjectWithTag ((new string[3]{"TopFat", "RightFat", "LeftFat"})[fatPos]).renderer.enabled = false;
+		gameObject.GetComponent<Renderer>().enabled = false;
+		GameObject.FindGameObjectWithTag ((new string[3]{"TopFat", "RightFat", "LeftFat"})[fatPos]).GetComponent<Renderer>().enabled = false;
 		//StartGame.numberOfFatPlaceObjectsAlive++;
 	}
 
 	void OnTriggerEnter2D(Collider2D col){
 		//Debug.Log ("entrou: " + col.tag);
-		if (GameObject.FindGameObjectWithTag((new string[3]{"TopFat", "RightFat", "LeftFat"})[fatPos]).renderer.enabled && col.gameObject.tag.Length > 13 && col.gameObject.tag.Substring(0,14) == "ComidaInserida") {
+		if (GameObject.FindGameObjectWithTag((new string[3]{"TopFat", "RightFat", "LeftFat"})[fatPos]).GetComponent<Renderer>().enabled && col.gameObject.tag.Length > 13 && col.gameObject.tag.Substring(0,14) == "ComidaInserida") {
 			FoodProperties foodProp = col.gameObject.GetComponent<FoodProperties>();
 			try {
 				foodProp.timerFatAffectMovement(affectMovementConstant);

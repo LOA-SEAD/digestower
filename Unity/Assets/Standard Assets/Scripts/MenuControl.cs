@@ -5,7 +5,7 @@ public class MenuControl : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		gameObject.renderer.enabled = false;
+		gameObject.GetComponent<Renderer>().enabled = false;
 	}
 
 	// Update is called once per frame

@@ -31,8 +31,8 @@ public class ScaleFont : MonoBehaviour {
 	}
 	void OnGUI(){
 		float finalSize = (float)Screen.width/ratio;
-		guiText.fontSize = (int)finalSize;
-		guiText.pixelOffset = new Vector2( offset.x * Screen.width, offset.y * Screen.height);
+		GetComponent<GUIText>().fontSize = (int)finalSize;
+		GetComponent<GUIText>().pixelOffset = new Vector2( offset.x * Screen.width, offset.y * Screen.height);
 	}
 	
 	

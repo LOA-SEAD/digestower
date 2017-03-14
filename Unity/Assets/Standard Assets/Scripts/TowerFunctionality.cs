@@ -44,7 +44,7 @@ public class TowerFunctionality : MonoBehaviour {
 			Destroy(tower);
 			// (target.GetComponent("InsertTower") as InsertTower).towerObjTag = towerObject.tag;
 			insertPlace.towerObj = null;
-			place.renderer.enabled = true;
+			place.GetComponent<Renderer>().enabled = true;
 			
 			/*if (insertPlace.tag.Substring (0, 5) == "Dente") {
 				int tag = int.Parse(insertPlace.tag.Substring (5, 1));

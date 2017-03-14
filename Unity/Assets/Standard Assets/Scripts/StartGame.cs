@@ -204,7 +204,7 @@ public class StartGame : MonoBehaviour {
 		/* ALTERACAO
 		 * Fase,nivel,wave e waveSet inciais
 		 */
-		fase = 0; /*0, 1, 2*/
+		fase = 2; /*0, 1, 2*/
 		nivel = 0; /*0, 1, 2*/
 		wave = 0; /*0:8, 1:7, 2:5*/
 		actualSubWave = 0;
@@ -406,32 +406,32 @@ public class StartGame : MonoBehaviour {
 	public void menuInicial(bool ativ) {
 		activatedMenuInicial = ativ;
 		GameObject Tela = GameObject.FindGameObjectWithTag("MenuInicial");
-		Tela.GetComponent("SpriteRenderer").renderer.enabled = ativ;
-		if (ativ) Tela.renderer.sortingOrder = 10;
-		else Tela.renderer.sortingOrder = 0;
+		Tela.GetComponent("SpriteRenderer").GetComponent<Renderer>().enabled = ativ;
+		if (ativ) Tela.GetComponent<Renderer>().sortingOrder = 10;
+		else Tela.GetComponent<Renderer>().sortingOrder = 0;
 		(Tela.GetComponent ("BoxCollider2D") as BoxCollider2D).enabled = ativ;
 		
-		//GameObject btnAjuda = GameObject.FindGameObjectWithTag("AjudaButton");
-		//btnAjuda.GetComponent("SpriteRenderer").renderer.enabled = ativ;
-		//btnAjuda.renderer.sortingOrder = 11;
-		//(btnAjuda.GetComponent ("BoxCollider2D") as BoxCollider2D).enabled = ativ;
+		GameObject btnAjuda = GameObject.FindGameObjectWithTag("AjudaButton");
+		btnAjuda.GetComponent("SpriteRenderer").GetComponent<Renderer>().enabled = ativ;
+		btnAjuda.GetComponent<Renderer>().sortingOrder = 11;
+		(btnAjuda.GetComponent ("BoxCollider2D") as BoxCollider2D).enabled = ativ;
 		
 		GameObject btnIniciar = GameObject.FindGameObjectWithTag("IniciarButton");
 		(btnIniciar.GetComponent ("BoxCollider2D") as BoxCollider2D).enabled = ativ;
-		btnIniciar.GetComponent("SpriteRenderer").renderer.enabled = ativ;
-		btnIniciar.renderer.sortingOrder = 11;
+		btnIniciar.GetComponent("SpriteRenderer").GetComponent<Renderer>().enabled = ativ;
+		btnIniciar.GetComponent<Renderer>().sortingOrder = 11;
 
-		//GameObject btnCreditos = GameObject.FindGameObjectWithTag("CreditosButton");
-		//(btnCreditos.GetComponent ("BoxCollider2D") as BoxCollider2D).enabled = ativ;
-		//btnCreditos.GetComponent("SpriteRenderer").renderer.enabled = ativ;
-		//btnCreditos.renderer.sortingOrder = 11;
+		GameObject btnCreditos = GameObject.FindGameObjectWithTag("CreditosButton");
+		(btnCreditos.GetComponent ("BoxCollider2D") as BoxCollider2D).enabled = ativ;
+		btnCreditos.GetComponent("SpriteRenderer").GetComponent<Renderer>().enabled = ativ;
+		btnCreditos.GetComponent<Renderer>().sortingOrder = 11;
 
 		GameObject btnCarregar = GameObject.FindGameObjectWithTag("CarregarInicialButton");
 		(btnCarregar.GetComponent ("BoxCollider2D") as BoxCollider2D).enabled = ativ;
-		btnCarregar.GetComponent("SpriteRenderer").renderer.enabled = ativ;
-		btnCarregar.renderer.sortingOrder = 11;
+		btnCarregar.GetComponent("SpriteRenderer").GetComponent<Renderer>().enabled = ativ;
+		btnCarregar.GetComponent<Renderer>().sortingOrder = 11;
 
-		GameObject.FindGameObjectWithTag("MenuInicial").audio.Play();
+		GameObject.FindGameObjectWithTag("MenuInicial").GetComponent<AudioSource>().Play();
 	}
 	
 	// Update is called once per frame
@@ -460,28 +460,28 @@ public class StartGame : MonoBehaviour {
 		paused = 2;
 		GameObject tela = GameObject.FindGameObjectWithTag("InfoTela");
 		Debug.Log (GameObject.FindGameObjectWithTag ("InfoTela").name);
-		tela.GetComponent("SpriteRenderer").renderer.enabled = true;
+		tela.GetComponent("SpriteRenderer").GetComponent<Renderer>().enabled = true;
 		(tela.GetComponent ("SpriteRenderer") as SpriteRenderer).sprite = sprites.GetSprite ("Tela" + start);
 		sprites = null;
 		//(tela.GetComponent ("BoxCollider2D") as BoxCollider2D).enabled = true;
-		tela.renderer.sortingOrder = 10;
+		tela.GetComponent<Renderer>().sortingOrder = 10;
 
 		GameObject btnProx = GameObject.FindGameObjectWithTag("InfoProx");
-		btnProx.GetComponent("SpriteRenderer").renderer.enabled = true;
-		btnProx.renderer.sortingOrder = 11;
+		btnProx.GetComponent("SpriteRenderer").GetComponent<Renderer>().enabled = true;
+		btnProx.GetComponent<Renderer>().sortingOrder = 11;
 		//GameObject btnAnt = GameObject.FindGameObjectWithTag("InfoAnt");
 		//btnAnt.GetComponent("SpriteRenderer").renderer.enabled = true;
 		//btnAnt.renderer.sortingOrder = 11;
 		GameObject btnFechar = GameObject.FindGameObjectWithTag("InfoFechar");
-		btnFechar.GetComponent("SpriteRenderer").renderer.enabled = true;
-		btnFechar.renderer.sortingOrder = 11;
+		btnFechar.GetComponent("SpriteRenderer").GetComponent<Renderer>().enabled = true;
+		btnFechar.GetComponent<Renderer>().sortingOrder = 11;
 		(btnFechar.GetComponent ("BoxCollider2D") as BoxCollider2D).enabled = true;
 		(btnProx.GetComponent ("BoxCollider2D") as BoxCollider2D).enabled = true;
 		//(btnAnt.GetComponent ("BoxCollider2D") as BoxCollider2D).enabled = true;
 
 		GameObject telaEscura = GameObject.FindGameObjectWithTag ("TelaEscura");
-		telaEscura.renderer.enabled = true;
-		telaEscura.renderer.sortingOrder = 7;
+		telaEscura.GetComponent<Renderer>().enabled = true;
+		telaEscura.GetComponent<Renderer>().sortingOrder = 7;
 		(telaEscura.GetComponent ("BoxCollider2D") as BoxCollider2D).enabled = true;
 	}
 
@@ -496,26 +496,26 @@ public class StartGame : MonoBehaviour {
 		GUITextStatus(false);
 		paused = 2;
 		GameObject tela = GameObject.FindGameObjectWithTag("DicasZimi");
-		tela.GetComponent("SpriteRenderer").renderer.enabled = true;
+		tela.GetComponent("SpriteRenderer").GetComponent<Renderer>().enabled = true;
 		//Para carregar o que sera utilizado naquele momento
 		(tela.GetComponent ("SpriteRenderer") as SpriteRenderer).sprite = sprites.GetSprite ("Zimi" + start);
 		sprites = null;
 		//(tela.GetComponent ("BoxCollider2D") as BoxCollider2D).enabled = true;
-		tela.renderer.sortingOrder = 10;
+		tela.GetComponent<Renderer>().sortingOrder = 10;
 
 		if (start != end) {
 			GameObject btnProx = GameObject.FindGameObjectWithTag ("InfoProxZimi");
-			btnProx.GetComponent ("SpriteRenderer").renderer.enabled = true;
+			btnProx.GetComponent ("SpriteRenderer").GetComponent<Renderer>().enabled = true;
 			//btnProx.GetComponent("SpriteRenderer").
-			btnProx.renderer.sortingOrder = 11;
+			btnProx.GetComponent<Renderer>().sortingOrder = 11;
 			(btnProx.GetComponent ("BoxCollider2D") as BoxCollider2D).enabled = true;
 		}
 		//GameObject btnAnt = GameObject.FindGameObjectWithTag("InfoAnt");
 		//btnAnt.GetComponent("SpriteRenderer").renderer.enabled = true;
 		//btnAnt.renderer.sortingOrder = 11;
 		GameObject btnFechar = GameObject.FindGameObjectWithTag("InfoFecharZimi");
-		btnFechar.GetComponent("SpriteRenderer").renderer.enabled = true;
-		btnFechar.renderer.sortingOrder = 11;
+		btnFechar.GetComponent("SpriteRenderer").GetComponent<Renderer>().enabled = true;
+		btnFechar.GetComponent<Renderer>().sortingOrder = 11;
 		(btnFechar.GetComponent ("BoxCollider2D") as BoxCollider2D).enabled = true;
 		//(btnAnt.GetComponent ("BoxCollider2D") as BoxCollider2D).enabled = true;
 	}
@@ -526,7 +526,7 @@ public class StartGame : MonoBehaviour {
 			//Para tocar o trompete
 			if (!started) {
 				started = true;
-				audio.Play ();
+				GetComponent<AudioSource>().Play ();
 			}
 			GUITextStatus(true);
 			//if (paused < 2) {
@@ -778,9 +778,9 @@ public class StartGame : MonoBehaviour {
 
 		if (f == 0) {
 			GameObject faixaFase1 = GameObject.FindGameObjectWithTag("FaixaFase1");
-			faixaFase1.GetComponent("SpriteRenderer").renderer.enabled = false;
-			place1.GetComponent("SpriteRenderer").renderer.enabled = false;
-			place2.GetComponent("SpriteRenderer").renderer.enabled = false;
+			faixaFase1.GetComponent("SpriteRenderer").GetComponent<Renderer>().enabled = false;
+			place1.GetComponent("SpriteRenderer").GetComponent<Renderer>().enabled = false;
+			place2.GetComponent("SpriteRenderer").GetComponent<Renderer>().enabled = false;
 			(place1.GetComponent ("BoxCollider2D") as BoxCollider2D).enabled = false;
 			(place2.GetComponent ("BoxCollider2D") as BoxCollider2D).enabled = false;
 			mostrandoFaixa = false;
@@ -790,9 +790,9 @@ public class StartGame : MonoBehaviour {
 		}
 		else if (f == 1) {
 			GameObject faixaFase2 = GameObject.FindGameObjectWithTag("FaixaFase2");
-			faixaFase2.GetComponent("SpriteRenderer").renderer.enabled = false;
-			place1.GetComponent("SpriteRenderer").renderer.enabled = true;
-			place2.GetComponent("SpriteRenderer").renderer.enabled = true;
+			faixaFase2.GetComponent("SpriteRenderer").GetComponent<Renderer>().enabled = false;
+			place1.GetComponent("SpriteRenderer").GetComponent<Renderer>().enabled = true;
+			place2.GetComponent("SpriteRenderer").GetComponent<Renderer>().enabled = true;
 			(place1.GetComponent ("BoxCollider2D") as BoxCollider2D).enabled = true;
 			(place2.GetComponent ("BoxCollider2D") as BoxCollider2D).enabled = true;
 			mostrandoFaixa = false;
@@ -802,9 +802,9 @@ public class StartGame : MonoBehaviour {
 		}
 		else if (f == 2) {
 			GameObject faixaFase3 = GameObject.FindGameObjectWithTag("FaixaFase3");
-			faixaFase3.GetComponent("SpriteRenderer").renderer.enabled = false;
-			place1.GetComponent("SpriteRenderer").renderer.enabled = true;
-			place2.GetComponent("SpriteRenderer").renderer.enabled = true;
+			faixaFase3.GetComponent("SpriteRenderer").GetComponent<Renderer>().enabled = false;
+			place1.GetComponent("SpriteRenderer").GetComponent<Renderer>().enabled = true;
+			place2.GetComponent("SpriteRenderer").GetComponent<Renderer>().enabled = true;
 			(place1.GetComponent ("BoxCollider2D") as BoxCollider2D).enabled = true;
 			(place2.GetComponent ("BoxCollider2D") as BoxCollider2D).enabled = true;
 			mostrandoFaixa = false;
@@ -882,26 +882,26 @@ public class StartGame : MonoBehaviour {
 							if (waveSet < maxInserted[arrayPos,wave][actualSubWave]) {
 								if (fase == 0 && nivel == 0 && wave == 0 && actualSubWave == 0 && waveSet == 1) {
 									mostrandoFaixa = true;
-									GameObject.FindGameObjectWithTag("MenuInicial").audio.Stop();
+									GameObject.FindGameObjectWithTag("MenuInicial").GetComponent<AudioSource>().Stop();
 									GameObject faixaFase1 = GameObject.FindGameObjectWithTag("FaixaFase1");
 									if (!loadingGame) {
-										faixaFase1.audio.Play();
+										faixaFase1.GetComponent<AudioSource>().Play();
 									}
 									else loadingGame = false;
-									faixaFase1.GetComponent("SpriteRenderer").renderer.enabled = true;
+									faixaFase1.GetComponent("SpriteRenderer").GetComponent<Renderer>().enabled = true;
 									StartCoroutine(Pause(3, 0));
 									//(GameObject.FindGameObjectWithTag("StartButton").GetComponent ("StartGame") as StartGame).dicasZimi (11,11);
 								}
 								if (fase == 1 && nivel == 0 && wave == 0 && actualSubWave == 0 && waveSet == 1) {
 									mostrandoFaixa = true;
 									GameObject faixaFase2 = GameObject.FindGameObjectWithTag("FaixaFase2");
-									GameObject.FindGameObjectWithTag("MenuInicial").audio.Stop();
-									GameObject.FindGameObjectWithTag("FaixaFase1").audio.Stop();
+									GameObject.FindGameObjectWithTag("MenuInicial").GetComponent<AudioSource>().Stop();
+									GameObject.FindGameObjectWithTag("FaixaFase1").GetComponent<AudioSource>().Stop();
 									if (!loadingGame) {
-										faixaFase2.audio.Play();
+										faixaFase2.GetComponent<AudioSource>().Play();
 									}
 									else loadingGame = false;
-									faixaFase2.GetComponent("SpriteRenderer").renderer.enabled = true;
+									faixaFase2.GetComponent("SpriteRenderer").GetComponent<Renderer>().enabled = true;
 									StartCoroutine(Pause(3, 1));
 									//(GameObject.FindGameObjectWithTag("StartButton").GetComponent ("StartGame") as StartGame).dicasZimi (14,16);
 								}
@@ -909,13 +909,13 @@ public class StartGame : MonoBehaviour {
 									mostrandoFaixa = true;
 									(GameObject.FindGameObjectWithTag("BarraGordura").GetComponent ("SpriteRenderer") as SpriteRenderer).enabled = true;
 									GameObject faixaFase3 = GameObject.FindGameObjectWithTag("FaixaFase3");
-									GameObject.FindGameObjectWithTag("MenuInicial").audio.Stop();
-									GameObject.FindGameObjectWithTag("FaixaFase2").audio.Stop ();
+									GameObject.FindGameObjectWithTag("MenuInicial").GetComponent<AudioSource>().Stop();
+									GameObject.FindGameObjectWithTag("FaixaFase2").GetComponent<AudioSource>().Stop ();
 									if (!loadingGame) {
-										faixaFase3.audio.Play();
+										faixaFase3.GetComponent<AudioSource>().Play();
 									}
 									else loadingGame = false;
-									faixaFase3.GetComponent("SpriteRenderer").renderer.enabled = true;
+									faixaFase3.GetComponent("SpriteRenderer").GetComponent<Renderer>().enabled = true;
 									StartCoroutine(Pause(3, 2));
 									//(GameObject.FindGameObjectWithTag("StartButton").GetComponent ("StartGame") as StartGame).dicasZimi (19,22);
 								}
@@ -983,14 +983,14 @@ public class StartGame : MonoBehaviour {
 									}
 								}
 								else {
-									GameObject.FindGameObjectWithTag("MenuInicial").audio.Stop();
-									GameObject.FindGameObjectWithTag("FaixaFase3").audio.Stop();
-									GameObject.FindGameObjectWithTag("Hamburguer").audio.Play();
+									GameObject.FindGameObjectWithTag("MenuInicial").GetComponent<AudioSource>().Stop();
+									GameObject.FindGameObjectWithTag("FaixaFase3").GetComponent<AudioSource>().Stop();
+									GameObject.FindGameObjectWithTag("Hamburguer").GetComponent<AudioSource>().Play();
 									myTimer = 0;
 
 									pause ();
 									GameObject capitaoBanha = GameObject.FindGameObjectWithTag("CapBanha");
-									capitaoBanha.GetComponent("SpriteRenderer").renderer.enabled = true;
+									capitaoBanha.GetComponent("SpriteRenderer").GetComponent<Renderer>().enabled = true;
 									while(loopCapBanha < 3){
 										while(frameCapBanha < 5){
 											capBanha -= Time.deltaTime;
@@ -1041,9 +1041,9 @@ public class StartGame : MonoBehaviour {
 										loopCapBanha = loopCapBanha + 1;
 									}
 									//GameObject faixaFase2 = GameObject.FindGameObjectWithTag("FaixaFase2");
-									capitaoBanha.GetComponent("SpriteRenderer").renderer.enabled = false;
-									place1.GetComponent("SpriteRenderer").renderer.enabled = true;
-									place2.GetComponent("SpriteRenderer").renderer.enabled = true;
+									capitaoBanha.GetComponent("SpriteRenderer").GetComponent<Renderer>().enabled = false;
+									place1.GetComponent("SpriteRenderer").GetComponent<Renderer>().enabled = true;
+									place2.GetComponent("SpriteRenderer").GetComponent<Renderer>().enabled = true;
 									(place1.GetComponent ("BoxCollider2D") as BoxCollider2D).enabled = true;
 									(place2.GetComponent ("BoxCollider2D") as BoxCollider2D).enabled = true;
 									play ();

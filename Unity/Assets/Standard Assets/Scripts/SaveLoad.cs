@@ -179,7 +179,7 @@ public class SaveLoad : MonoBehaviour {
 			GameObject[] target_fat = GameObject.FindGameObjectsWithTag ("FatPlace");
 			for (int i = 0;i < target_fat.Length;i++) {
 				FatPlace fatPlace = target_fat[i].GetComponent<FatPlace>();
-				GameObject.FindGameObjectWithTag((new string[3]{"TopFat", "RightFat", "LeftFat"})[fatPlace.fatPos]).renderer.enabled = (StartGame.fat >= fatPlace.minimalFat);
+				GameObject.FindGameObjectWithTag((new string[3]{"TopFat", "RightFat", "LeftFat"})[fatPlace.fatPos]).GetComponent<Renderer>().enabled = (StartGame.fat >= fatPlace.minimalFat);
 			}
 
 			//BasicTower bTower = tower.GetComponent("BasicTower") as BasicTower;
@@ -257,7 +257,7 @@ public class SaveLoad : MonoBehaviour {
 				if (PlayerPrefs.GetString(slot + "place" + i) == "xDente" && !InsertTower.activeTooth[(i<14?13:16)-i]) {
 					//Debug.Log ("i do dente: " + i + "..." + ((i<15?14:17)-i));
 					//if () {
-					_places.GetChild(i).renderer.enabled = true;
+					_places.GetChild(i).GetComponent<Renderer>().enabled = true;
 					//}
 				}
 
@@ -266,7 +266,7 @@ public class SaveLoad : MonoBehaviour {
 					//Debug.Log("restoring pos " + i + "..." );
 				}
 				else {
-					(_places.GetChild(i).GetComponent("InsertTower") as InsertTower).renderer.enabled = true;
+					(_places.GetChild(i).GetComponent("InsertTower") as InsertTower).GetComponent<Renderer>().enabled = true;
 				}
 			}
 			StartGame.loose = false;
@@ -278,8 +278,8 @@ public class SaveLoad : MonoBehaviour {
 			StartGame.ClearAllAudio();
 			StartGame.loadingGame = true;
 			(GameObject.FindGameObjectWithTag("StartButton").GetComponent ("StartGame") as StartGame).myTimer = 149.423f;
-			if (StartGame.fase < 3) GameObject.FindGameObjectWithTag("FaixaFase" + (StartGame.fase + 1)).audio.Play();
-			else GameObject.FindGameObjectWithTag("Hamburguer").audio.Play();
+			if (StartGame.fase < 3) GameObject.FindGameObjectWithTag("FaixaFase" + (StartGame.fase + 1)).GetComponent<AudioSource>().Play();
+			else GameObject.FindGameObjectWithTag("Hamburguer").GetComponent<AudioSource>().Play();
 			if (!StartGame.started) StartGame.StopAllAudio();
 			StartGame startGame = GameObject.FindGameObjectWithTag("StartButton").GetComponent ("StartGame") as StartGame;
 			if (StartGame.activatedMenuInicial) {

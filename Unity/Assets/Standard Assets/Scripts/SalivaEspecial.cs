@@ -40,7 +40,7 @@ public class SalivaEspecial : MonoBehaviour {
 					wayPoint.oldTag = "Saliva";
 					
 					saiu = true;
-					audio.Play ();
+					GetComponent<AudioSource>().Play ();
 					nFood = 0;
 					CallSkill.creatingSaliva = false;
 				}
