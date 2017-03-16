@@ -22,7 +22,7 @@ public class DestroyTowerMenu : MonoBehaviour {
 	#endif
 	void OnPointerUpAsButton() {*/
 	void onMouseDown() {
-		this.DestroyT ();
+		DestroyT ();
 	}
 
 	void OnDestroy() {

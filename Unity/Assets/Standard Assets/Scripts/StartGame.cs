@@ -15,7 +15,8 @@ public class StartGame : MonoBehaviour {
 	// public GameObject activeTower;
 	public static bool activatedMenuInicial = false;
 
-	public GUIText indigestText, energyText, fatText, vitaminText;
+	//Textos com o valor de quanto estah cada barra
+	//public GUIText indigestText, energyText, fatText, vitaminText;
 	public static float energy;
 	public static float vitamin;
 	public static float fat;
@@ -204,7 +205,7 @@ public class StartGame : MonoBehaviour {
 		/* ALTERACAO
 		 * Fase,nivel,wave e waveSet inciais
 		 */
-		fase = 2; /*0, 1, 2*/
+		fase = 0; /*0, 1, 2*/
 		nivel = 0; /*0, 1, 2*/
 		wave = 0; /*0:8, 1:7, 2:5*/
 		actualSubWave = 0;
@@ -750,8 +751,9 @@ public class StartGame : MonoBehaviour {
 		}
 	}
 
+	//Textos com o valor de quanto estah cada barra
 	public void GUITextStatus(bool enable) {
-		(GameObject.FindGameObjectWithTag ("IndigestText").GetComponent ("GUIText") as GUIText).enabled = enable;
+		/*(GameObject.FindGameObjectWithTag ("IndigestText").GetComponent ("GUIText") as GUIText).enabled = enable;
 		(GameObject.FindGameObjectWithTag ("EnergyText").GetComponent ("GUIText") as GUIText).enabled = enable;
 		(GameObject.FindGameObjectWithTag ("VitaminText").GetComponent ("GUIText") as GUIText).enabled = enable;
 		if (enable) {
@@ -761,7 +763,7 @@ public class StartGame : MonoBehaviour {
 				(GameObject.FindGameObjectWithTag("FatText").GetComponent ("GUIText") as GUIText).enabled = false;
 		}
 		else
-			(GameObject.FindGameObjectWithTag("FatText").GetComponent ("GUIText") as GUIText).enabled = enable;
+			(GameObject.FindGameObjectWithTag("FatText").GetComponent ("GUIText") as GUIText).enabled = enable;*/
 	}
 
 	private IEnumerator Pause(int p, int f)
@@ -776,6 +778,7 @@ public class StartGame : MonoBehaviour {
 		}
 		//Time.timeScale = 0;
 
+		//A sequencia pause/StartGame/CarregaTela eh para abrir as telas de informacao, apenas descomente-as para que elas voltem a aparecer e comente de volta o play
 		if (f == 0) {
 			GameObject faixaFase1 = GameObject.FindGameObjectWithTag("FaixaFase1");
 			faixaFase1.GetComponent("SpriteRenderer").GetComponent<Renderer>().enabled = false;
@@ -784,9 +787,10 @@ public class StartGame : MonoBehaviour {
 			(place1.GetComponent ("BoxCollider2D") as BoxCollider2D).enabled = false;
 			(place2.GetComponent ("BoxCollider2D") as BoxCollider2D).enabled = false;
 			mostrandoFaixa = false;
-			pause ();
-			StartGame.playAfterClose = false;
-			carregaTela(13,14);
+			//pause ();
+			//StartGame.playAfterClose = false;
+			//carregaTela(13,14);
+			play ();
 		}
 		else if (f == 1) {
 			GameObject faixaFase2 = GameObject.FindGameObjectWithTag("FaixaFase2");
@@ -796,9 +800,10 @@ public class StartGame : MonoBehaviour {
 			(place1.GetComponent ("BoxCollider2D") as BoxCollider2D).enabled = true;
 			(place2.GetComponent ("BoxCollider2D") as BoxCollider2D).enabled = true;
 			mostrandoFaixa = false;
-			pause ();
-			StartGame.playAfterClose = false;
-			carregaTela(18,19);
+			//pause ();
+			//StartGame.playAfterClose = false;
+			//carregaTela(18,19);
+			play ();
 		}
 		else if (f == 2) {
 			GameObject faixaFase3 = GameObject.FindGameObjectWithTag("FaixaFase3");
@@ -808,9 +813,10 @@ public class StartGame : MonoBehaviour {
 			(place1.GetComponent ("BoxCollider2D") as BoxCollider2D).enabled = true;
 			(place2.GetComponent ("BoxCollider2D") as BoxCollider2D).enabled = true;
 			mostrandoFaixa = false;
-			pause ();
-			StartGame.playAfterClose = false;
-			carregaTela(15,17);
+			//pause ();
+			//StartGame.playAfterClose = false;
+			//carregaTela(15,17);
+			play ();
 		}
 		Time.timeScale = 1;
 	}
