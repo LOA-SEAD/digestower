@@ -18,9 +18,10 @@ public class MouseMoveCamera : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		if (StartGame.paused != 2) {
+			//Altera a velocidade do scroll da bolinha do mouse
 			if(Input.GetAxis ("Mouse ScrollWheel") < 0/* || (Input.GetMouseButton(0) && Input.mousePosition.y <= (Screen.height * 0.1))*/)
 			{
-				float posY = Mathf.Clamp (Camera.main.transform.position.y - (1 * speed), minimumY, maximumY);
+				float posY = Mathf.Clamp (Camera.main.transform.position.y - (2 * speed), minimumY, maximumY);
 				//Debug.Log (posY);
 				DestroyTowerMenu.DestroyT();
 				if ((StartGame.fase == 0 && posY > -2.42) || (StartGame.fase == 1 && posY > -5.37) || StartGame.fase > 1)
@@ -28,7 +29,7 @@ public class MouseMoveCamera : MonoBehaviour {
 			}
 			else if(Input.GetAxis ("Mouse ScrollWheel") > 0/* || (Input.GetMouseButton(0) && Input.mousePosition.y >= (Screen.height * 0.9))*/)
 			{
-				float posY = Mathf.Clamp (Camera.main.transform.position.y + (1 * speed), minimumY, maximumY);
+				float posY = Mathf.Clamp (Camera.main.transform.position.y + (2 * speed), minimumY, maximumY);
 				DestroyTowerMenu.DestroyT();
 				Camera.main.transform.position = new Vector3(Camera.main.transform.position.x, posY, Camera.main.transform.position.z);
 			}

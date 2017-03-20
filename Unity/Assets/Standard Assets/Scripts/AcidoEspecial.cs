@@ -43,7 +43,7 @@ public class AcidoEspecial : MonoBehaviour {
 				}
 				else {
 					reverse++;
-					timer = 0.5f;
+					timer = 0.25f;
 				}
 			}
 			//if (timer2 < 0) {
