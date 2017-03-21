@@ -460,6 +460,25 @@ public class StartGame : MonoBehaviour {
 		GUITextStatus(false);
 		paused = 2;
 		GameObject tela = GameObject.FindGameObjectWithTag("InfoTela");
+
+		//Para tocar as musicas de vitoria ou derrota
+		if (start == 35){
+			GameObject.FindGameObjectWithTag("MenuInicial").GetComponent<AudioSource>().Stop();
+			GameObject.FindGameObjectWithTag("FaixaFase1").GetComponent<AudioSource>().Stop();
+			GameObject.FindGameObjectWithTag("FaixaFase2").GetComponent<AudioSource>().Stop();
+			GameObject.FindGameObjectWithTag("FaixaFase3").GetComponent<AudioSource>().Stop();
+			GameObject.FindGameObjectWithTag("CapBanha").GetComponent<AudioSource>().Stop();
+			GameObject.FindGameObjectWithTag("MusicaDerrota").GetComponent<AudioSource>().Play();
+		}
+		if (start == 45){
+			GameObject.FindGameObjectWithTag("MenuInicial").GetComponent<AudioSource>().Stop();
+			GameObject.FindGameObjectWithTag("FaixaFase1").GetComponent<AudioSource>().Stop();
+			GameObject.FindGameObjectWithTag("FaixaFase2").GetComponent<AudioSource>().Stop();
+			GameObject.FindGameObjectWithTag("FaixaFase3").GetComponent<AudioSource>().Stop();
+			GameObject.FindGameObjectWithTag("CapBanha").GetComponent<AudioSource>().Stop();
+			GameObject.FindGameObjectWithTag("MusicaVitoria").GetComponent<AudioSource>().Play();
+		}
+
 		Debug.Log (GameObject.FindGameObjectWithTag ("InfoTela").name);
 		tela.GetComponent("SpriteRenderer").GetComponent<Renderer>().enabled = true;
 		(tela.GetComponent ("SpriteRenderer") as SpriteRenderer).sprite = sprites.GetSprite ("Tela" + start);
