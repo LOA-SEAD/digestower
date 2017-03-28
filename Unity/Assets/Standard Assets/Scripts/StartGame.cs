@@ -432,7 +432,9 @@ public class StartGame : MonoBehaviour {
 		btnCarregar.GetComponent("SpriteRenderer").GetComponent<Renderer>().enabled = ativ;
 		btnCarregar.GetComponent<Renderer>().sortingOrder = 11;
 
-		GameObject.FindGameObjectWithTag("MenuInicial").GetComponent<AudioSource>().Play();
+		if (ativ){
+			GameObject.FindGameObjectWithTag("MenuInicial").GetComponent<AudioSource>().Play();
+		}
 	}
 	
 	// Update is called once per frame
@@ -449,6 +451,20 @@ public class StartGame : MonoBehaviour {
 		sprites = null;
 		
 		paused = pauseId;
+	}
+
+	public void creditos() {
+		GUITextStatus(false);
+		paused = 2;
+
+		GameObject telaCreditos = GameObject.FindGameObjectWithTag("TelaCreditos");
+		telaCreditos.GetComponent("SpriteRenderer").GetComponent<Renderer>().enabled = true;
+		telaCreditos.GetComponent<Renderer>().sortingOrder = 10;
+
+		GameObject btnVoltar = GameObject.FindGameObjectWithTag("VoltarCreditos");
+		btnVoltar.GetComponent("SpriteRenderer").GetComponent<Renderer>().enabled = true;
+		btnVoltar.GetComponent<Renderer>().sortingOrder = 11;
+		(btnVoltar.GetComponent ("BoxCollider2D") as BoxCollider2D).enabled = true;
 	}
 
 	public void carregaTela(int start, int end) {
@@ -720,7 +736,6 @@ public class StartGame : MonoBehaviour {
 			//}
 
 			if (loose) {
-				//Como esta tudo na mesma tela, nao da para deixar duas musicas, portanto nao tem como tocar musica no final
 				carregaTela (35,37);
 				//GUI.Label(new Rect(10, 10, 500, 20), "Voce perdeu o jogo!!! Carregue novamente para voltar de onde havia salvo.");
 			}

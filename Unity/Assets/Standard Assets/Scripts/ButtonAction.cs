@@ -12,7 +12,6 @@ public class ButtonAction : MonoBehaviour {
 	public AudioClip clip; /* Gracas a isso que e possivel escolher um audio na tela do Unity.
 							  Para ele ser tocado, va no local que ele sera ativado e use o seguinte comando:
 	                          AudioSource.PlayClipAtPoint(clip, transform.position);*/
-	//public AudioClip clip2;
 	// Use this for initialization
 	void Start () {
 
@@ -33,7 +32,7 @@ public class ButtonAction : MonoBehaviour {
 	void OnMouseEnter()
 	{
 		SpriteCollection sprites = null;
-		if ((type > 0 && type < 10) || (type > 10 && type < 15) || type == 22 || type == 21 || type == 20 || (type >= 24 && type <= 33)) {
+		if ((type > 0 && type < 10) || (type > 10 && type < 15) || type == 22 || type == 21 || type == 20 || (type >= 24 && type <= 34)) {
 			bkp = (gameObject.GetComponent ("SpriteRenderer") as SpriteRenderer).sprite;
 			sprites = new SpriteCollection("Pressed");
 		}
@@ -59,7 +58,7 @@ public class ButtonAction : MonoBehaviour {
 			(gameObject.GetComponent ("SpriteRenderer") as SpriteRenderer).sprite = sprites.GetSprite ("SomPressionado");
 		else if (type == 12 || type == 31)
 			(gameObject.GetComponent ("SpriteRenderer") as SpriteRenderer).sprite = sprites.GetSprite ("DireitaPressionado");
-		else if (type == 13 || type == 32)
+		else if (type == 13 || type == 32 || type == 34)
 			(gameObject.GetComponent ("SpriteRenderer") as SpriteRenderer).sprite = sprites.GetSprite ("EsquerdaPressionado");
 		else if (type == 14 || type == 22 || type == 26 ||  type == 21 || type == 33)
 			(gameObject.GetComponent ("SpriteRenderer") as SpriteRenderer).sprite = sprites.GetSprite ("Fechar2Pressionado");
@@ -795,7 +794,12 @@ public class ButtonAction : MonoBehaviour {
 			(continu.GetComponent ("BoxCollider2D") as BoxCollider2D).enabled = true;
 		}
 		else if (type == 30) {//Creditos
+			(GameObject.FindGameObjectWithTag("StartButton").GetComponent ("StartGame") as StartGame).menuInicial(false);
+			
+			(GameObject.FindGameObjectWithTag("StartButton").GetComponent ("StartGame") as StartGame).creditos();
 
+			//Para nao ativar a barra de energia
+			StartGame.infoActive = 1;
 		}
 
 		//Sequencia dos botoes da Zimi, um dia tentar melhorar isso e ver se todo esse codigo eh necessario
@@ -920,6 +924,21 @@ public class ButtonAction : MonoBehaviour {
 				else
 					StartGame.playAfterClose = true;
 			}
+		}
+		else if (type == 34) {
+			GameObject tela = GameObject.FindGameObjectWithTag("TelaCreditos");
+			tela.GetComponent("SpriteRenderer").GetComponent<Renderer>().enabled = false;
+			tela.GetComponent<Renderer>().sortingOrder = 0;
+
+			GameObject btnVoltar = GameObject.FindGameObjectWithTag("VoltarCreditos");
+			btnVoltar.GetComponent("SpriteRenderer").GetComponent<Renderer>().enabled = false;
+			btnVoltar.GetComponent<Renderer>().sortingOrder = 0;
+			(btnVoltar.GetComponent ("BoxCollider2D") as BoxCollider2D).enabled = false;
+
+			//Volta valor original
+			StartGame.infoActive = 0;
+
+			(GameObject.FindGameObjectWithTag("StartButton").GetComponent ("StartGame") as StartGame).menuInicial(true);
 		}
 	}
 
