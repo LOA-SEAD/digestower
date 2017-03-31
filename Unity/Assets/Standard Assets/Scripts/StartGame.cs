@@ -216,14 +216,14 @@ public class StartGame : MonoBehaviour {
 
 		/**/
 
-		maxInserted[0,0] = new int[1]{5};	
-		maxInserted[0,1] = new int[1]{5};
-		maxInserted[0,2] = new int[1]{5};
-		maxInserted[0,3] = new int[1]{5};
-		maxInserted[0,4] = new int[1]{5};
-		maxInserted[0,5] = new int[1]{5};
-		maxInserted[0,6] = new int[1]{5};
-		maxInserted[0,7] = new int[1]{5};
+		maxInserted[0,0] = new int[1]{3};	
+		maxInserted[0,1] = new int[1]{3};
+		maxInserted[0,2] = new int[1]{3};
+		maxInserted[0,3] = new int[1]{3};
+		maxInserted[0,4] = new int[1]{3};
+		maxInserted[0,5] = new int[1]{3};
+		maxInserted[0,6] = new int[1]{3};
+		maxInserted[0,7] = new int[1]{3};
 		maxInsertedSize [0] = 7;
 
 		/*
@@ -238,25 +238,34 @@ public class StartGame : MonoBehaviour {
 		maxInsertedSize [1] = 7;
 		*/
 
-		maxInserted[1,0] = new int[4]{3, 3, 4, 4};
+		/*maxInserted[1,0] = new int[4]{3, 3, 4, 4};
 		maxInserted[1,1] = new int[4]{3, 4, 3, 4};
 		maxInserted[1,2] = new int[4]{3, 3, 4, 2};
-		maxInserted[1,3] = new int[4]{3, 4, 3, 2};
-		maxInserted[1,4] = new int[5]{2, 3, 3, 2, 4};
-		maxInserted[1,5] = new int[5]{2, 3, 2, 3, 3};
-		maxInserted[1,6] = new int[6]{2, 2, 3, 2, 1, 3};
-		maxInserted[1,7] = new int[7]{1, 3, 1, 1, 2, 2, 3};
-		maxInsertedSize [1] = 7;
+		maxInserted[1,3] = new int[4]{3, 4, 3, 2};*/
+		maxInserted[1,0] = new int[5]{2, 3, 3, 2, 4};
+		maxInserted[1,1] = new int[5]{2, 3, 2, 3, 3};
+		maxInserted[1,2] = new int[6]{2, 2, 3, 2, 1, 3};
+		maxInserted[1,3] = new int[7]{1, 3, 1, 1, 2, 2, 3};
+		maxInsertedSize [1] = 3;
 		numNivelEmFase[0] = 2;
 		
-		maxInserted[2,0] = new int[6]{2, 3, 2, 3, 4, 3};
-		maxInserted[2,1] = new int[6]{3, 3, 3, 2, 4, 5};
-		maxInserted[2,2] = new int[6]{4, 4, 4, 4, 5, 4};
-		maxInserted[2,3] = new int[6]{3, 3, 4, 4, 3, 3};
-		maxInserted[2,4] = new int[6]{4, 3, 4, 3, 3, 3};
-		maxInserted[2,5] = new int[7]{3, 4, 3, 4, 3, 2, 2};
-		maxInserted[2,6] = new int[9]{3, 2, 3, 3, 2, 3, 4, 3, 2};
-		maxInsertedSize [2] = 6;
+		maxInserted[2,0] = new int[1]{4};
+		maxInserted[2,1] = new int[1]{4};
+		maxInserted[2,2] = new int[1]{4};
+		maxInserted[2,3] = new int[1]{4};
+		maxInserted[2,4] = new int[1]{4};
+		maxInserted[2,5] = new int[1]{4};
+		maxInsertedSize [2] = 5;
+
+		maxInserted[3,0] = new int[4]{2, 3, 4, 3};
+		maxInserted[3,1] = new int[4]{3, 2, 4, 5};
+		maxInserted[3,2] = new int[4]{4, 4, 4, 4};
+		maxInserted[3,3] = new int[4]{3, 4, 3, 3};
+		maxInserted[3,4] = new int[4]{4, 3, 3, 3};
+		maxInserted[3,5] = new int[7]{3, 4, 3, 4, 3, 2, 2};
+		maxInserted[3,6] = new int[9]{3, 2, 3, 3, 2, 3, 4, 3, 2};
+		maxInsertedSize [3] = 6;
+		numNivelEmFase[1] = 2;
 
 		/*
 		maxInserted[4,0] = new int[7]{3, 4, 3, 4, 3, 3, 5};
@@ -269,21 +278,11 @@ public class StartGame : MonoBehaviour {
 		maxInsertedSize [4] = 6;
 		*/
 
-		maxInserted[3,0] = new int[12]{3, 4, 4, 4, 4, 4, 4, 3, 3, 4, 3, 3};
-		maxInserted[3,1] = new int[12]{3, 4, 4, 4, 4, 4, 3, 4, 4, 3, 2, 2};
-		maxInserted[3,2] = new int[12]{5, 3, 4, 4, 5, 3, 4, 3, 4, 5, 4, 3};
-		maxInserted[3,3] = new int[13]{5, 3, 3, 4, 3, 4, 4, 4, 4, 4, 4, 4, 4};
-		maxInserted[3,4] = new int[12]{5, 5, 5, 4, 4, 3, 4, 4, 3, 4, 4, 2};
-		maxInserted[3,5] = new int[13]{5, 3, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 3};
-		maxInserted[3,6] = new int[13]{5, 4, 4, 4, 4, 4, 4, 4, 3, 4, 3, 3, 5};
-		maxInsertedSize [3] = 6;
-		numNivelEmFase[1] = 2;
-
-		maxInserted[4,0] = new int[8]{4, 4, 3, 2, 4, 2, 3, 3};
-		maxInserted[4,1] = new int[10]{3, 4, 4, 4, 4, 4, 4, 4, 3, 3};
-		maxInserted[4,2] = new int[11]{4, 4, 4, 4, 3, 2, 3, 3, 5, 3, 3};
-		maxInserted[4,3] = new int[13]{5, 5, 4, 4, 3, 4, 4, 3, 4, 5, 3, 3, 3};
-		maxInserted[4,4] = new int[11]{5, 2, 3, 4, 4, 5, 3, 4, 4, 3, 3};
+		maxInserted[4,0] = new int[2]{5, 5};
+		maxInserted[4,1] = new int[2]{5, 5};
+		maxInserted[4,2] = new int[2]{5, 5};
+		maxInserted[4,3] = new int[2]{5, 5};
+		maxInserted[4,4] = new int[2]{5, 5};
 		maxInsertedSize [4] = 4;
 
 		maxInserted[5,0] = new int[14]{5, 3, 4, 4, 4, 4, 4, 4, 4, 4, 3, 3, 5, 4};
@@ -292,17 +291,10 @@ public class StartGame : MonoBehaviour {
 		maxInserted[5,3] = new int[16]{5, 4, 4, 4, 5, 4, 3, 4, 3, 5, 3, 2, 3, 3, 2, 3};
 		maxInserted[5,4] = new int[15]{5, 5, 5, 5, 2, 3, 3, 5, 5, 3, 4, 3, 3, 4, 5};
 		maxInsertedSize [5] = 4;
-
-		maxInserted[6,0] = new int[10]{5, 4, 4, 4, 4, 4, 5, 2, 3, 2};
-		maxInserted[6,1] = new int[12]{4, 2, 4, 4, 3, 4, 5, 3, 2, 3, 3, 2};
-		maxInserted[6,2] = new int[15]{4, 5, 4, 5, 2, 2, 3, 3, 3, 3, 3, 2, 3, 5, 3};
-		maxInserted[6,3] = new int[16]{4, 4, 4, 4, 1, 4, 3, 3, 2, 2, 2, 3, 4, 4, 1, 3};
-		maxInserted[6,4] = new int[16]{5, 5, 5, 5, 5, 2, 3, 3, 3, 3, 3, 2, 3, 5, 4, 3};
-		maxInsertedSize [6] = 4;
 		numNivelEmFase[2] = 3;
 
-		maxInserted[7,0] = new int[1]{1};
-		maxInsertedSize [7] = 0;
+		maxInserted[6,0] = new int[1]{1};
+		maxInsertedSize [6] = 0;
 		numNivelEmFase[3] = 1;
 		
 		tags[0,0] = new string[1]{"Batata"};
@@ -325,22 +317,29 @@ public class StartGame : MonoBehaviour {
 		tags[1,7] = new string[4]{"Banana", "Pao", "PaoIntegral","Cereal"};
 		*/
 		
-		tags[1,0] = new string[4]{"Banana", "Arroz", "PaoIntegral", "Vagem"};
+		/*tags[1,0] = new string[4]{"Banana", "Arroz", "PaoIntegral", "Vagem"};
 		tags[1,1] = new string[4]{"Pao", "Mel", "Cereal", "Batata"};
 		tags[1,2] = new string[4]{"Banana", "Arroz", "PaoIntegral", "Mel"};
-		tags[1,3] = new string[4]{"Pao", "Mel", "Cereal", "Vagem"};
-		tags[1,4] = new string[5]{"Arroz", "PaoIntegral", "Mel", "Pao", "Batata"};
-		tags[1,5] = new string[5]{"Pao", "PaoIntegral", "Mel", "Cereal","Banana"};
-		tags[1,6] = new string[6]{"Banana", "Arroz", "PaoIntegral", "Pao", "Mel", "Vagem"};
-		tags[1,7] = new string[7]{"PaoIntegral", "Cereal", "Arroz", "Banana", "Pao", "Mel", "Batata"};
+		tags[1,3] = new string[4]{"Pao", "Mel", "Cereal", "Vagem"};*/
+		tags[1,0] = new string[5]{"Arroz", "PaoIntegral", "Mel", "Pao", "Batata"};
+		tags[1,1] = new string[5]{"Pao", "PaoIntegral", "Mel", "Cereal","Banana"};
+		tags[1,2] = new string[6]{"Banana", "Arroz", "PaoIntegral", "Pao", "Mel", "Vagem"};
+		tags[1,3] = new string[7]{"PaoIntegral", "Cereal", "Arroz", "Banana", "Pao", "Mel", "Batata"};
 
-		tags[2,0] = new string[6]{"Pao", "PaoIntegral", "Mel", "Cereal", "Vagem", "Lentilha"};
-		tags[2,1] = new string[6]{"Arroz", "PaoIntegral", "Mel", "Pao", "Banana", "Peixe"};
-		tags[2,2] = new string[6]{"Banana","Arroz","PaoIntegral","Pao", "Batata", "Queijo"};
-		tags[2,3] = new string[6]{"PaoIntegral","Cereal","Banana","Pao","Mel","Mortadela"};
-		tags[2,4] = new string[6]{"Banana","Arroz","PaoIntegral","Pao","Mel","Soja"};
-		tags[2,5] = new string[7]{"Pao","Mel","Cereal","Banana","Queijo","Mortadela","Peixe"};
-		tags[2,6] = new string[9]{"Vagem","Arroz","PaoIntegral","Mel","Pao","Banana","Lentilha","Carne", "Soja"};
+		tags[2,0] = new string[1]{"Lentilha"};
+		tags[2,1] = new string[1]{"Peixe"};
+		tags[2,2] = new string[1]{"Queijo"};
+		tags[2,3] = new string[1]{"Mortadela"};
+		tags[2,4] = new string[1]{"Soja"};
+		tags[2,5] = new string[1]{"Carne"};
+
+		tags[3,0] = new string[4]{"Mel", "Cereal", "Vagem", "Lentilha"};
+		tags[3,1] = new string[4]{"Arroz", "Pao", "Banana", "Peixe"};
+		tags[3,2] = new string[4]{"Arroz","PaoIntegral", "Batata", "Queijo"};
+		tags[3,3] = new string[4]{"Cereal","Pao","Mel","Mortadela"};
+		tags[3,4] = new string[4]{"Banana","Arroz","Lentilha","Soja"};
+		tags[3,5] = new string[7]{"Pao","Mel","Cereal","Banana","Queijo","Mortadela","Peixe"};
+		tags[3,6] = new string[9]{"Vagem","Arroz","PaoIntegral","Mel","Pao","Banana","Lentilha","Carne", "Soja"};
 
 		/*
 		tags[4,0] = new string[7]{"Pao","Mel","Cereal","Banana","Queijo","Mortadela","Lentilha"};
@@ -351,34 +350,20 @@ public class StartGame : MonoBehaviour {
 		tags[4,5] = new string[9]{"Banana","Arroz","PaoIntegral","Mel","Cereal","Queijo","Carne","Lentilha","Mortadela"};
 		tags[4,6] = new string[12]{"Batata","Arroz","PaoIntegral","Mel","Cereal","Banana","Lentilha","Carne","Peixe","Soja", "Peixe", "Queijo"};
 		*/
-
-		tags[3,0] = new string[12]{"Batata", "Banana", "Arroz","PaoIntegral","Mel","Cereal","Queijo","Carne","Lentilha","Mortadela","Soja","Peixe"};
-		tags[3,1] = new string[12]{"Vagem","Cereal","Mel","Pao","Arroz","Banana","PaoIntegral","Lentilha","Mortadela","Queijo","Carne","Peixe"};
-		tags[3,2] = new string[12]{"Batata", "Arroz","PaoIntegral","Mel","Cereal","Banana","Lentilha","Carne","Peixe","Soja","Queijo","Mortadela"};
-		tags[3,3] = new string[13]{"Vagem","Banana","PaoIntegral","Arroz","Cereal","Pao","Mel","Soja","Peixe","Carne","Mortadela","Lentilha","Queijo"};
-		tags[3,4] = new string[12]{"Cereal","Mel","Pao","Arroz","Banana","PaoIntegral","Lentilha","Mortadela","Queijo","Carne","Peixe","Soja"};
-		tags[3,5] = new string[13]{"Batata","Mel","Cereal","Pao","Arroz","Banana","PaoIntegral","Lentilha","Peixe","Queijo","Mortadela","Soja","Carne"};
-		tags[3,6] = new string[13]{"Vagem","Banana","Arroz","PaoIntegral","Mel","Cereal","Pao","Queijo","Lentilha","Mortadela","Soja","Peixe","Carne"};
-		
-		tags[4,0] = new string[8]{"Arroz", "Banana", "PaoIntegral", "Lentilha", "Mortadela", "Soja", "Margarina", "Maionese"};
-		tags[4,1] = new string[10]{"Mel", "Cereal", "Arroz", "Batata", "Lentilha", "Peixe", "Queijo", "Mortadela", "Coco", "Abacate"};
-		tags[4,2] = new string[11]{"Vagem", "Arroz", "PaoIntegral", "Pao", "Queijo", "Lentilha", "Soja", "Peixe", "Carne", "Chocolate", "Chips"};
-		tags[4,3] = new string[13]{"Cereal", "Pao", "Arroz", "Batata", "Banana", "Lentilha", "Mortadela", "Queijo", "Peixe", "Soja", "Bolo", "Ovo", "Amendoim"};
-		tags[4,4] = new string[11]{"Vagem","Batata", "Banana", "Mel", "Queijo", "Peixe", "Lentilha", "Soja", "Carne", "Leite", "Pastel"};
 	
+		tags[4,0] = new string[2]{"Abacate", "Coco"};
+		tags[4,1] = new string[2]{"Ovo", "Margarina"};
+		tags[4,2] = new string[2]{"Amendoim", "Chips"};
+		tags[4,3] = new string[2]{"Leite", "Bolo"};
+		tags[4,4] = new string[2]{"Maionese", "Pastel"};
+
 		tags[5,0] = new string[14]{"Vagem", "Mel", "Pao", "Banana", "PaoIntegral", "Lentilha", "Peixe", "Queijo", "Mortadela", "Soja", "Carne", "Chocolate", "Abacate", "Coco"};
-		tags[5,1] = new string[15]{"Batata", "Banana", "Mel", "Cereal", "Pao", "Queijo", "Mortadela", "Soja", "Peixe", "Carne", "Soja", "Chips", "Margarina", "Coco", "Bolo"};
+		tags[5,1] = new string[15]{"Batata", "Maionese", "Mel", "Cereal", "Pao", "Queijo", "Mortadela", "Soja", "Peixe", "Carne", "Soja", "Chips", "Margarina", "Coco", "Bolo"};
 		tags[5,2] = new string[15]{"Vagem", "Banana", "Cereal", "Arroz", "PaoIntegral", "Queijo", "Lentilha", "Soja", "Peixe", "Carne", "Abacate", "Ovo", "Leite", "Margarina", "Chips"};
-		tags[5,3] = new string[16]{"Batata", "Banana", "Arroz", "PaoIntegral", "Mel", "Queijo", "Lentilha", "Mortadela", "Soja", "Carne", "Coco", "Margarina", "Leite", "Ovo", "Bolo", "Amendoim"};
+		tags[5,3] = new string[16]{"Batata", "Maionese", "Arroz", "PaoIntegral", "Mel", "Queijo", "Lentilha", "Mortadela", "Soja", "Carne", "Coco", "Margarina", "Leite", "Ovo", "Bolo", "Amendoim"};
 		tags[5,4] = new string[15]{"Vagem", "Banana", "Batata", "Cereal", "Queijo", "Lentilha", "Soja", "Peixe", "Carne", "Abacate", "Leite", "Ovo", "Bolo", "Pastel", "Amendoim"};
-	
-		tags[6,0] = new string[10]{"Vagem", "Banana", "Arroz", "PaoIntegral", "Queijo", "Lentilha", "Mortadela", "Abacate", "Coco", "Margarina"};
-		tags[6,1] = new string[12]{"Pao", "Batata", "Mel", "Cereal", "Soja", "Peixe", "Carne", "Coco", "Margarina", "Leite", "Ovo", "Abacate"};
-		tags[6,2] = new string[15]{"Vagem", "Cereal", "Batata", "PaoIntegral", "Pao", "Queijo", "Lentilha", "Soja", "Peixe", "Carne", "Abacate", "Ovo", "Leite", "Maionese", "Bolo"};
-		tags[6,3] = new string[16]{"Banana","Mel","Cereal", "Batata", "Queijo", "Mortadela", "Soja", "Peixe", "Soja", "Chips", "Margarina", "Coco", "Bolo", "Coco", "Pastel", "Amendoim"};
-		tags[6,4] = new string[16]{"Vagem", "Batata", "Banana", "Cereal", "PaoIntegral", "Queijo", "Lentilha", "Soja", "Peixe", "Carne", "Abacate", "Ovo", "Leite", "Margarina", "Pastel", "Chocolate"};
 
-		tags[7,0] = new string[1]{"Hamburguer"};
+		tags[6,0] = new string[1]{"Hamburguer"};
 
 		energyBkp = energy;
 		vitaminBkp = vitamin;
