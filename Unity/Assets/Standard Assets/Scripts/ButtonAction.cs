@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.Audio;
 
 public class ButtonAction : MonoBehaviour {
 	public int type = 0;
@@ -12,6 +13,8 @@ public class ButtonAction : MonoBehaviour {
 	public AudioClip clip; /* Gracas a isso que e possivel escolher um audio na tela do Unity.
 							  Para ele ser tocado, va no local que ele sera ativado e use o seguinte comando:
 	                          AudioSource.PlayClipAtPoint(clip, transform.position);*/
+	public AudioMixer audioEditor;
+	private float volumeAtual;
 	// Use this for initialization
 	void Start () {
 
@@ -28,6 +31,16 @@ public class ButtonAction : MonoBehaviour {
 		StartGame startGame = GameObject.FindGameObjectWithTag("StartButton").GetComponent ("StartGame") as StartGame;
 		startGame.pause(2);
 	}
+
+	public float getVolume(string nome){
+        float value;
+        bool result = audioEditor.GetFloat(nome, out value);
+        if(result){
+            return value;
+       	}else{
+            return 0.0f;
+        }
+    }
 
 	void OnMouseEnter()
 	{
@@ -295,10 +308,20 @@ public class ButtonAction : MonoBehaviour {
 
 		} 
 		else if (type == 7) {
-			AudioSource.PlayClipAtPoint (clip, transform.position);
+			if (getVolume("soundVol") < 0.0f){
+				audioEditor.SetFloat ("soundVol", 0.0f);
+			}
+			else{
+				audioEditor.SetFloat ("soundVol", -80.0f);
+			}
 		} 
 		else if (type == 8) {
-			AudioSource.PlayClipAtPoint (clip, transform.position);
+			if (getVolume("musicVol") < 0.0f){
+				audioEditor.SetFloat ("musicVol", 0.0f);
+			}
+			else{
+				audioEditor.SetFloat ("musicVol", -80.0f);
+			}
 		}
 		else if (type == 9) {
 			AudioSource.PlayClipAtPoint (clip, transform.position);
