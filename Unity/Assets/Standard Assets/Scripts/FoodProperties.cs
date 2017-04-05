@@ -57,7 +57,9 @@ public class FoodProperties : MonoBehaviour {
 			float indigestDenominator = ((health > 0?1:0) + (health2 > 0?1:0) + (health3 > 0?1:0));
 			float indigestPoints = (health + health2 + health3)/(indigestDenominator<1?1:indigestDenominator);
 			StartGame.indigest += indigestPoints;
-			AudioSource.PlayClipAtPoint (clip, transform.position);
+			//2 linhas para disparar o som
+			GameObject disparaSom = GameObject.FindGameObjectWithTag("Batata");
+			disparaSom.GetComponent<AudioSource>().Play();
 			if (StartGame.fase > 1) {
 				if ((StartGame.fat - fat) <= StartGame.maxFat)
 				{

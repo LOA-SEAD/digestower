@@ -24,7 +24,16 @@ public class VitaminUp : MonoBehaviour {
 				StartGame.vitamin += vitaminUp * 50;
 			else
 				StartGame.vitamin = StartGame.maxVitamin;
-			AudioSource.PlayClipAtPoint(clip, transform.position);
+			if (vitaminUp == 20){
+				//2 linhas para disparar o som
+				GameObject disparaSom = GameObject.FindGameObjectWithTag("Vitamina");
+				disparaSom.GetComponent<AudioSource>().Play();
+			}
+			else{
+				//2 linhas para disparar o som
+				GameObject disparaSom = GameObject.FindGameObjectWithTag("Vitamina2");
+				disparaSom.GetComponent<AudioSource>().Play();
+			}
 			GameObject.Destroy (gameObject);
 		}
 		// Debug.Log ("destruiu");

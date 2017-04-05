@@ -28,7 +28,9 @@ public class TowerFunctionality : MonoBehaviour {
 			float recoveryEnergy = InsertTower.energyNeeded[bTower.type-1]*(bTower.life/bTower.maxLife);
 			if ((StartGame.energy + recoveryEnergy) <= StartGame.maxEnergy){
 				StartGame.energy += recoveryEnergy;
-				AudioSource.PlayClipAtPoint (clip, transform.position);
+				//2 linhas para disparar o som
+				GameObject disparaSom = GameObject.FindGameObjectWithTag("Destruir");
+				disparaSom.GetComponent<AudioSource>().Play();
 			}
 			else
 				StartGame.energy = StartGame.maxEnergy;

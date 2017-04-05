@@ -205,7 +205,7 @@ public class StartGame : MonoBehaviour {
 		/* ALTERACAO
 		 * Fase,nivel,wave e waveSet inciais
 		 */
-		fase = 0; /*0, 1, 2*/
+		fase = 2; /*0, 1, 2*/
 		nivel = 0; /*0, 1, 2*/
 		wave = 0; /*0:8, 1:7, 2:5*/
 		actualSubWave = 0;

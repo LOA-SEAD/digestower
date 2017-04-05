@@ -68,7 +68,10 @@ public class SaveLoad : MonoBehaviour {
 	#endif
 	void OnPointerUpAsButton() {*/
 	void OnMouseDown() {
-		AudioSource.PlayClipAtPoint (clip, transform.position);
+		//2 linhas para disparar o som
+		GameObject disparaSom = GameObject.FindGameObjectWithTag("Save1Button");
+		disparaSom.GetComponent<AudioSource>().Play();
+		//AudioSource.PlayClipAtPoint (clip, transform.position);
 		if (type) {
 			if (StartGame.started) {
 				Debug.Log("saving");

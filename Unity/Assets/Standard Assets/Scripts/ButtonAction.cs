@@ -173,7 +173,9 @@ public class ButtonAction : MonoBehaviour {
 	void OnPointerUpAsButton() {*/
 	void OnMouseDown() {
 		if (type == 1 && !activatedMenuPause) {
-			AudioSource.PlayClipAtPoint (clip, transform.position);
+			//2 linhas para disparar o som
+			GameObject disparaSom = GameObject.FindGameObjectWithTag("AbreTorre");
+			disparaSom.GetComponent<AudioSource>().Play();
 			if (activatedMenuTorres) {
 				DisableMenu (1);
 				if (StartGame.started) {
@@ -211,7 +213,9 @@ public class ButtonAction : MonoBehaviour {
 				activatedMenuTorres = true;
 			}
 		} else if (type == 2 && StartGame.started && !activatedMenuPause && !activatedMenuSaveLoad) {
-			AudioSource.PlayClipAtPoint (clip, transform.position);
+			//2 linhas para disparar o som
+			GameObject disparaSom = GameObject.FindGameObjectWithTag("AbreEspeciais");
+			disparaSom.GetComponent<AudioSource>().Play();
 			//StartGame.indigest = 0;
 			//StartGame.energy = StartGame.maxEnergy;
 			if (activatedMenuEspeciais) {
@@ -260,9 +264,14 @@ public class ButtonAction : MonoBehaviour {
 				activatedMenuEspeciais = true;
 			}
 		} else if (type == 3) {
+			//2 linhas para disparar o som
+			GameObject disparaSom = GameObject.FindGameObjectWithTag("FechaJogo");
+			disparaSom.GetComponent<AudioSource>().Play();
 			StartGame.restartGame ();
 		} else if (type == 4) {
-			AudioSource.PlayClipAtPoint (clip, transform.position);
+			//2 linhas para disparar o som
+			GameObject disparaSom = GameObject.FindGameObjectWithTag("ContinueButton");
+			disparaSom.GetComponent<AudioSource>().Play();
 			DisableMenu (3);
 			if (StartGame.started)
 				play ();
@@ -271,7 +280,9 @@ public class ButtonAction : MonoBehaviour {
 				(GameObject.FindGameObjectWithTag ("StartButton").GetComponent ("StartGame") as StartGame).GUITextStatus (true);
 			}
 		} else if (type == 5 || type == 6) {
-			AudioSource.PlayClipAtPoint (clip, transform.position);
+			//2 linhas para disparar o som
+			GameObject disparaSom = GameObject.FindGameObjectWithTag("LoadButton");
+			disparaSom.GetComponent<AudioSource>().Play();
 			activatedMenuSaveLoad = true;
 			DisableMenu (3);
 			// GameObject menuPause = GameObject.FindGameObjectWithTag ("MenuPause");
@@ -308,6 +319,9 @@ public class ButtonAction : MonoBehaviour {
 
 		} 
 		else if (type == 7) {
+			//2 linhas para disparar o som
+			GameObject disparaSom = GameObject.FindGameObjectWithTag("MusicButton");
+			disparaSom.GetComponent<AudioSource>().Play();
 			if (getVolume("soundVol") < 0.0f){
 				audioEditor.SetFloat ("soundVol", 0.0f);
 			}
@@ -322,9 +336,14 @@ public class ButtonAction : MonoBehaviour {
 			else{
 				audioEditor.SetFloat ("musicVol", -80.0f);
 			}
+			//2 linhas para disparar o som
+			GameObject disparaSom = GameObject.FindGameObjectWithTag("SoundButton");
+			disparaSom.GetComponent<AudioSource>().Play();
 		}
 		else if (type == 9) {
-			AudioSource.PlayClipAtPoint (clip, transform.position);
+			//2 linhas para disparar o som
+			GameObject disparaSom = GameObject.FindGameObjectWithTag("Continue2Button");
+			disparaSom.GetComponent<AudioSource>().Play();
 			DisableMenu(4);
 			if (StartGame.started) play ();
 			if (StartGame.paused == 2) {
@@ -359,7 +378,9 @@ public class ButtonAction : MonoBehaviour {
 		}
 		else if (type == 11) {
 			if (StartGame.paused < 2 && !ButtonAction.activatedMenuPause) {
-				AudioSource.PlayClipAtPoint(clip, transform.position);
+				//2 linhas para disparar o som
+				GameObject disparaSom = GameObject.FindGameObjectWithTag("AbreOpcoes");
+				disparaSom.GetComponent<AudioSource>().Play();
 				pause ();
 				
 				ButtonAction.DisableMenu (1);
@@ -400,7 +421,9 @@ public class ButtonAction : MonoBehaviour {
 			}
 		}
 		else if (type == 12) {
-			AudioSource.PlayClipAtPoint(clip, transform.position);
+			//2 linhas para disparar o som
+			GameObject disparaSom = GameObject.FindGameObjectWithTag("InfoProx");
+			disparaSom.GetComponent<AudioSource>().Play();
 			if (StartGame.infoActive < StartGame.infoTela[1]) {
 				Debug.Log (StartGame.infoActive + "..." + StartGame.infoTela[1]);
 				SpriteCollection sprites = new SpriteCollection("Telas");
@@ -432,7 +455,9 @@ public class ButtonAction : MonoBehaviour {
 			}
 		}
 		else if (type == 13) {
-			AudioSource.PlayClipAtPoint(clip, transform.position);
+			//2 linhas para disparar o som
+			GameObject disparaSom = GameObject.FindGameObjectWithTag("InfoAnt");
+			disparaSom.GetComponent<AudioSource>().Play();
 			if (StartGame.infoActive > StartGame.infoTela[0]) {
 				SpriteCollection sprites = new SpriteCollection("Telas");
 				GameObject tela = GameObject.FindGameObjectWithTag("InfoTela");
@@ -463,6 +488,9 @@ public class ButtonAction : MonoBehaviour {
 			}
 		}
 		else if (type == 14) {
+			//2 linhas para disparar o som
+			GameObject disparaSom = GameObject.FindGameObjectWithTag("InfoFechar");
+			disparaSom.GetComponent<AudioSource>().Play();
 			GameObject tela = GameObject.FindGameObjectWithTag ("InfoTela");
 			tela.GetComponent<Renderer>().enabled = false;
 			tela.GetComponent<Renderer>().sortingOrder = 0;
@@ -601,6 +629,9 @@ public class ButtonAction : MonoBehaviour {
 			(GameObject.FindGameObjectWithTag("StartButton").GetComponent ("StartGame") as StartGame).GUITextStatus(false);
 		}
 		else if (type == 21) {
+			//2 linhas para disparar o som
+			GameObject disparaSom = GameObject.FindGameObjectWithTag("AlmanaqueFechar");
+			disparaSom.GetComponent<AudioSource>().Play();
 			GameObject infoTela = GameObject.FindGameObjectWithTag("FundoAlmanaque");
 			infoTela.GetComponent("SpriteRenderer").GetComponent<Renderer>().enabled = false;
 			infoTela.GetComponent<Renderer>().sortingOrder = 0;
@@ -707,7 +738,9 @@ public class ButtonAction : MonoBehaviour {
 			(GameObject.FindGameObjectWithTag("StartButton").GetComponent ("StartGame") as StartGame).GUITextStatus(false);
 		}
 		else if (type == 25) {
-			AudioSource.PlayClipAtPoint(clip, transform.position);
+			//2 linhas para disparar o som
+			GameObject disparaSom = GameObject.FindGameObjectWithTag("AbreAlmanaque");
+			disparaSom.GetComponent<AudioSource>().Play();
 			GameObject infoTela = GameObject.FindGameObjectWithTag("MenuAlmanaque");
 			infoTela.GetComponent("SpriteRenderer").GetComponent<Renderer>().enabled = true;
 			infoTela.GetComponent<Renderer>().sortingOrder = 10;
@@ -827,7 +860,9 @@ public class ButtonAction : MonoBehaviour {
 
 		//Sequencia dos botoes da Zimi, um dia tentar melhorar isso e ver se todo esse codigo eh necessario
 		else if (type == 31) {
-			AudioSource.PlayClipAtPoint(clip, transform.position);
+			//2 linhas para disparar o som
+			GameObject disparaSom = GameObject.FindGameObjectWithTag("InfoProxZimi");
+			disparaSom.GetComponent<AudioSource>().Play();
 			if (StartGame.infoActive < StartGame.zimi[1]) {
 				Debug.Log (StartGame.infoActive + "..." + StartGame.zimi[1]);
 				SpriteCollection sprites = new SpriteCollection("Zimi");
@@ -859,7 +894,9 @@ public class ButtonAction : MonoBehaviour {
 			}
 		}
 		else if (type == 32) {
-			AudioSource.PlayClipAtPoint(clip, transform.position);
+			//2 linhas para disparar o som
+			GameObject disparaSom = GameObject.FindGameObjectWithTag("InfoAntZimi");
+			disparaSom.GetComponent<AudioSource>().Play();
 			if (StartGame.infoActive > StartGame.zimi[0]) {
 				SpriteCollection sprites = new SpriteCollection("Zimi");
 				GameObject tela = GameObject.FindGameObjectWithTag("DicasZimi");
@@ -890,6 +927,9 @@ public class ButtonAction : MonoBehaviour {
 			}
 		}
 		else if (type == 33) {
+			//2 linhas para disparar o som
+			GameObject disparaSom = GameObject.FindGameObjectWithTag("InfoFecharZimi");
+			disparaSom.GetComponent<AudioSource>().Play();
 			GameObject tela = GameObject.FindGameObjectWithTag ("DicasZimi");
 			tela.GetComponent<Renderer>().enabled = false;
 			tela.GetComponent<Renderer>().sortingOrder = 0;
@@ -949,6 +989,9 @@ public class ButtonAction : MonoBehaviour {
 			}
 		}
 		else if (type == 34) {
+			//2 linhas para disparar o som
+			GameObject disparaSom = GameObject.FindGameObjectWithTag("VoltarCreditos");
+			disparaSom.GetComponent<AudioSource>().Play();
 			GameObject tela = GameObject.FindGameObjectWithTag("TelaCreditos");
 			tela.GetComponent("SpriteRenderer").GetComponent<Renderer>().enabled = false;
 			tela.GetComponent<Renderer>().sortingOrder = 0;
