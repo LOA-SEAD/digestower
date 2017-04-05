@@ -278,11 +278,11 @@ public class StartGame : MonoBehaviour {
 		maxInsertedSize [4] = 6;
 		*/
 
-		maxInserted[4,0] = new int[2]{5, 5};
-		maxInserted[4,1] = new int[2]{5, 5};
-		maxInserted[4,2] = new int[2]{5, 5};
-		maxInserted[4,3] = new int[2]{5, 5};
-		maxInserted[4,4] = new int[2]{5, 5};
+		maxInserted[4,0] = new int[2]{3, 3};
+		maxInserted[4,1] = new int[2]{3, 3};
+		maxInserted[4,2] = new int[2]{3, 3};
+		maxInserted[4,3] = new int[2]{3, 3};
+		maxInserted[4,4] = new int[2]{3, 3};
 		maxInsertedSize [4] = 4;
 
 		maxInserted[5,0] = new int[14]{5, 3, 4, 4, 4, 4, 4, 4, 4, 4, 3, 3, 5, 4};
