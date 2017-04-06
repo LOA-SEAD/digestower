@@ -204,11 +204,9 @@ public class InsertTower : MonoBehaviour {
 				//(insertedTower.GetComponent("BoxCollider2D") as BoxCollider2D).size = new Vector2(1.78f, 2.01f);
 
 				if (!loadingGame) {
-					AudioSource aud = gameObject.AddComponent <AudioSource>() as AudioSource;
-					aud.playOnAwake = false;
-					aud.clip = Resources.Load("Audio/PosicionarTorres") as AudioClip;
-					aud.Play();
-					aud = null;
+					//2 linhas para disparar o som
+					GameObject disparaSom = GameObject.FindGameObjectWithTag("Dente");
+					disparaSom.GetComponent<AudioSource>().Play();
 				}
 
 				if (toothPos > 0) {

@@ -169,16 +169,18 @@ public class BasicTower : MonoBehaviour {
 						//Debug.Log ("shooting.." + Vector3.Distance(target[closerTarget].transform.position, transform.position));
 						newBullet.GetComponent<Rigidbody2D>().AddForce (dir * bulletSpeed, ForceMode2D.Impulse);
 
-						AudioSource aud = gameObject.AddComponent <AudioSource>() as AudioSource;
-						aud.playOnAwake = false;
-						if (bullet_num > 0 && bullet_num < 3)
-							aud.clip = Resources.Load("Audio/tiroSaliva") as AudioClip;
-						if (bullet_num > 2 && bullet_num < 5)
-							aud.clip = Resources.Load("Audio/tiroAcido") as AudioClip;
-						if (bullet_num > 4 && bullet_num < 7)
-							aud.clip = Resources.Load("Audio/tiroBase") as AudioClip;
-						aud.Play();
-						aud = null;
+						if (bullet_num > 0 && bullet_num < 3){
+							GameObject disparaSom = GameObject.FindGameObjectWithTag("bullet 1");
+							disparaSom.GetComponent<AudioSource>().Play();
+						}
+						if ((bullet_num > 2 && bullet_num < 5) || bullet_num == 7){
+							GameObject disparaSom = GameObject.FindGameObjectWithTag("bullet 3");
+							disparaSom.GetComponent<AudioSource>().Play();
+						}
+						if ((bullet_num > 4 && bullet_num < 7) || bullet_num == 8){
+							GameObject disparaSom = GameObject.FindGameObjectWithTag("bullet 5");
+							disparaSom.GetComponent<AudioSource>().Play();
+						}
 						if (life <= 0) {
 							Transform _places = GameObject.Find("TowerPosition").transform;
 							for (int i=0;i<_places.childCount;i++) {

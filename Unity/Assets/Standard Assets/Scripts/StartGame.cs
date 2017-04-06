@@ -205,7 +205,7 @@ public class StartGame : MonoBehaviour {
 		/* ALTERACAO
 		 * Fase,nivel,wave e waveSet inciais
 		 */
-		fase = 2; /*0, 1, 2*/
+		fase = 0; /*0, 1, 2*/
 		nivel = 0; /*0, 1, 2*/
 		wave = 0; /*0:8, 1:7, 2:5*/
 		actualSubWave = 0;
@@ -616,6 +616,8 @@ public class StartGame : MonoBehaviour {
 		if (paused > 0) {
 			//Audio do play
 			if (started) {
+				/*Nao sei qual eh esse audio, suspeito ser o do 
+				Main Camera/Buttons/TelaPrincipal/StartButton (clip som_play)*/
 				AudioSource.PlayClipAtPoint(clip1, transform.position);
 			}
 			play();
