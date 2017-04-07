@@ -56,7 +56,7 @@ public class ButtonAction : MonoBehaviour {
 		else if (type == 2)
 			(gameObject.GetComponent ("SpriteRenderer") as SpriteRenderer).sprite = sprites.GetSprite ("EspeciaisPressionado");
 		else if (type == 3)
-			(gameObject.GetComponent ("SpriteRenderer") as SpriteRenderer).sprite = sprites.GetSprite ("FecharPressionado");
+			(gameObject.GetComponent ("SpriteRenderer") as SpriteRenderer).sprite = sprites.GetSprite ("SairPressionado");
 		else if (type == 11)
 			(gameObject.GetComponent ("SpriteRenderer") as SpriteRenderer).sprite = sprites.GetSprite ("OpcoesPressionado");
 		else if (type == 4 || type == 9)
@@ -65,10 +65,14 @@ public class ButtonAction : MonoBehaviour {
 			(gameObject.GetComponent ("SpriteRenderer") as SpriteRenderer).sprite = sprites.GetSprite ("SalvarPressionado");
 		else if (type == 6)
 			(gameObject.GetComponent ("SpriteRenderer") as SpriteRenderer).sprite = sprites.GetSprite ("CarregarPressionado");
-		else if (type == 7)
+		else if (type == 7 && getVolume("musicVol") == 0.0f)
 			(gameObject.GetComponent ("SpriteRenderer") as SpriteRenderer).sprite = sprites.GetSprite ("MusicaPressionado");
-		else if (type == 8)
+		else if (type == 7 && getVolume("musicVol") == -80.0f)
+			(gameObject.GetComponent ("SpriteRenderer") as SpriteRenderer).sprite = sprites.GetSprite ("MusicaCancelPressionado");
+		else if (type == 8 && getVolume("soundVol") == 0.0f)
 			(gameObject.GetComponent ("SpriteRenderer") as SpriteRenderer).sprite = sprites.GetSprite ("SomPressionado");
+		else if (type == 8 && getVolume("soundVol") == -80.0f)
+			(gameObject.GetComponent ("SpriteRenderer") as SpriteRenderer).sprite = sprites.GetSprite ("SomCancelPressionado");
 		else if (type == 12 || type == 31)
 			(gameObject.GetComponent ("SpriteRenderer") as SpriteRenderer).sprite = sprites.GetSprite ("DireitaPressionado");
 		else if (type == 13 || type == 32 || type == 34)
@@ -319,26 +323,36 @@ public class ButtonAction : MonoBehaviour {
 
 		} 
 		else if (type == 7) {
+			SpriteCollection sprites = new SpriteCollection("Music");
+			GameObject botao = GameObject.FindGameObjectWithTag("MusicButton");
 			//2 linhas para disparar o som
 			GameObject disparaSom = GameObject.FindGameObjectWithTag("MusicButton");
 			disparaSom.GetComponent<AudioSource>().Play();
-			if (getVolume("soundVol") < 0.0f){
-				audioEditor.SetFloat ("soundVol", 0.0f);
-			}
-			else{
-				audioEditor.SetFloat ("soundVol", -80.0f);
-			}
-		} 
-		else if (type == 8) {
 			if (getVolume("musicVol") < 0.0f){
 				audioEditor.SetFloat ("musicVol", 0.0f);
+				(botao.GetComponent ("SpriteRenderer") as SpriteRenderer).sprite = sprites.GetSprite ("Botao musica");
 			}
 			else{
 				audioEditor.SetFloat ("musicVol", -80.0f);
+				(botao.GetComponent ("SpriteRenderer") as SpriteRenderer).sprite = sprites.GetSprite ("Botao musica vermelho");
+			}
+			bkp = (botao.GetComponent ("SpriteRenderer") as SpriteRenderer).sprite;
+		} 
+		else if (type == 8) {
+			SpriteCollection sprites = new SpriteCollection("Music");
+			GameObject botao = GameObject.FindGameObjectWithTag("SoundButton");
+			if (getVolume("soundVol") < 0.0f){
+				audioEditor.SetFloat ("soundVol", 0.0f);
+				(botao.GetComponent ("SpriteRenderer") as SpriteRenderer).sprite = sprites.GetSprite ("Botao som");
+			}
+			else{
+				audioEditor.SetFloat ("soundVol", -80.0f);
+				(botao.GetComponent ("SpriteRenderer") as SpriteRenderer).sprite = sprites.GetSprite ("Botao som vermelho");
 			}
 			//2 linhas para disparar o som
 			GameObject disparaSom = GameObject.FindGameObjectWithTag("SoundButton");
 			disparaSom.GetComponent<AudioSource>().Play();
+			bkp = (botao.GetComponent ("SpriteRenderer") as SpriteRenderer).sprite;
 		}
 		else if (type == 9) {
 			//2 linhas para disparar o som
@@ -391,6 +405,7 @@ public class ButtonAction : MonoBehaviour {
 				GameObject save = GameObject.FindGameObjectWithTag ("SaveButton");
 				GameObject load = GameObject.FindGameObjectWithTag ("LoadButton");
 				GameObject continu = GameObject.FindGameObjectWithTag ("ContinueButton");
+				GameObject sair = GameObject.FindGameObjectWithTag ("FechaJogo");
 				GameObject music = GameObject.FindGameObjectWithTag ("MusicButton");
 				GameObject sound = GameObject.FindGameObjectWithTag ("SoundButton");
 
@@ -410,6 +425,9 @@ public class ButtonAction : MonoBehaviour {
 				continu.GetComponent<Renderer>().enabled = true;
 				continu.GetComponent<Renderer>().sortingOrder = 9;
 				(continu.GetComponent ("BoxCollider2D") as BoxCollider2D).enabled = true;
+				sair.GetComponent<Renderer>().enabled = true;
+				sair.GetComponent<Renderer>().sortingOrder = 9;
+				(sair.GetComponent ("BoxCollider2D") as BoxCollider2D).enabled = true;
 				music.GetComponent<Renderer>().enabled = true;
 				music.GetComponent<Renderer>().sortingOrder = 9;
 				(music.GetComponent ("BoxCollider2D") as BoxCollider2D).enabled = true;
@@ -544,6 +562,9 @@ public class ButtonAction : MonoBehaviour {
 				else if (StartGame.infoTela[0] == 25 && StartGame.infoTela[1] == 28){
 					pause();
 					(GameObject.FindGameObjectWithTag("StartButton").GetComponent ("StartGame") as StartGame).dicasZimi (1,3);
+				}
+				else if (StartGame.infoTela[0] == 30 || StartGame.infoTela[0] == 31 ||StartGame.infoTela[0] == 32){
+					play ();
 				}
 				else if (StartGame.infoTela[0] == 48 && StartGame.infoTela[1] == 52) {
 					CallSkill.firstUsePhysical = false;
@@ -1081,6 +1102,7 @@ public class ButtonAction : MonoBehaviour {
 			GameObject save = GameObject.FindGameObjectWithTag ("SaveButton");
 			GameObject load = GameObject.FindGameObjectWithTag ("LoadButton");
 			GameObject continu = GameObject.FindGameObjectWithTag ("ContinueButton");
+			GameObject sair = GameObject.FindGameObjectWithTag ("FechaJogo");
 			GameObject music = GameObject.FindGameObjectWithTag ("MusicButton");
 			GameObject sound = GameObject.FindGameObjectWithTag ("SoundButton");
 			
@@ -1103,6 +1125,9 @@ public class ButtonAction : MonoBehaviour {
 			continu.GetComponent<Renderer>().enabled = false;
 			continu.GetComponent<Renderer>().sortingOrder = 0;
 			(continu.GetComponent ("BoxCollider2D") as BoxCollider2D).enabled = false;
+			sair.GetComponent<Renderer>().enabled = false;
+			sair.GetComponent<Renderer>().sortingOrder = 0;
+			(sair.GetComponent ("BoxCollider2D") as BoxCollider2D).enabled = false;
 			music.GetComponent<Renderer>().enabled = false;
 			music.GetComponent<Renderer>().sortingOrder = 0;
 			(music.GetComponent ("BoxCollider2D") as BoxCollider2D).enabled = false;

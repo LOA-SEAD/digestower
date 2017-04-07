@@ -487,9 +487,12 @@ public class StartGame : MonoBehaviour {
 		//(tela.GetComponent ("BoxCollider2D") as BoxCollider2D).enabled = true;
 		tela.GetComponent<Renderer>().sortingOrder = 10;
 
-		GameObject btnProx = GameObject.FindGameObjectWithTag("InfoProx");
-		btnProx.GetComponent("SpriteRenderer").GetComponent<Renderer>().enabled = true;
-		btnProx.GetComponent<Renderer>().sortingOrder = 11;
+		if (start != end) {
+			GameObject btnProx = GameObject.FindGameObjectWithTag("InfoProx");
+			btnProx.GetComponent("SpriteRenderer").GetComponent<Renderer>().enabled = true;
+			btnProx.GetComponent<Renderer>().sortingOrder = 11;
+			(btnProx.GetComponent ("BoxCollider2D") as BoxCollider2D).enabled = true;
+		}
 		//GameObject btnAnt = GameObject.FindGameObjectWithTag("InfoAnt");
 		//btnAnt.GetComponent("SpriteRenderer").renderer.enabled = true;
 		//btnAnt.renderer.sortingOrder = 11;
@@ -497,7 +500,6 @@ public class StartGame : MonoBehaviour {
 		btnFechar.GetComponent("SpriteRenderer").GetComponent<Renderer>().enabled = true;
 		btnFechar.GetComponent<Renderer>().sortingOrder = 11;
 		(btnFechar.GetComponent ("BoxCollider2D") as BoxCollider2D).enabled = true;
-		(btnProx.GetComponent ("BoxCollider2D") as BoxCollider2D).enabled = true;
 		//(btnAnt.GetComponent ("BoxCollider2D") as BoxCollider2D).enabled = true;
 
 		GameObject telaEscura = GameObject.FindGameObjectWithTag ("TelaEscura");
@@ -799,7 +801,7 @@ public class StartGame : MonoBehaviour {
 		}
 		//Time.timeScale = 0;
 
-		//A sequencia pause/StartGame/CarregaTela eh para abrir as telas de informacao, apenas descomente-as para que elas voltem a aparecer e comente de volta o play
+		//Versao das criancas eh o primeiro carregaTela, versao dos tecnicos eh o segundo carregaTela
 		if (f == 0) {
 			GameObject faixaFase1 = GameObject.FindGameObjectWithTag("FaixaFase1");
 			faixaFase1.GetComponent("SpriteRenderer").GetComponent<Renderer>().enabled = false;
@@ -808,10 +810,10 @@ public class StartGame : MonoBehaviour {
 			(place1.GetComponent ("BoxCollider2D") as BoxCollider2D).enabled = false;
 			(place2.GetComponent ("BoxCollider2D") as BoxCollider2D).enabled = false;
 			mostrandoFaixa = false;
-			//pause ();
-			//StartGame.playAfterClose = false;
+			pause ();
+			StartGame.playAfterClose = false;
+			carregaTela(30,30);
 			//carregaTela(13,14);
-			play ();
 		}
 		else if (f == 1) {
 			GameObject faixaFase2 = GameObject.FindGameObjectWithTag("FaixaFase2");
@@ -821,10 +823,10 @@ public class StartGame : MonoBehaviour {
 			(place1.GetComponent ("BoxCollider2D") as BoxCollider2D).enabled = true;
 			(place2.GetComponent ("BoxCollider2D") as BoxCollider2D).enabled = true;
 			mostrandoFaixa = false;
-			//pause ();
-			//StartGame.playAfterClose = false;
+			pause ();
+			StartGame.playAfterClose = false;
+			carregaTela(31,31);
 			//carregaTela(18,19);
-			play ();
 		}
 		else if (f == 2) {
 			GameObject faixaFase3 = GameObject.FindGameObjectWithTag("FaixaFase3");
@@ -834,10 +836,11 @@ public class StartGame : MonoBehaviour {
 			(place1.GetComponent ("BoxCollider2D") as BoxCollider2D).enabled = true;
 			(place2.GetComponent ("BoxCollider2D") as BoxCollider2D).enabled = true;
 			mostrandoFaixa = false;
-			//pause ();
-			//StartGame.playAfterClose = false;
+			pause ();
+			StartGame.playAfterClose = false;
+			carregaTela(32,32);
 			//carregaTela(15,17);
-			play ();
+			//play ();
 		}
 		Time.timeScale = 1;
 	}
