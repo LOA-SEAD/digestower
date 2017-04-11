@@ -289,12 +289,15 @@ public class StartGame : MonoBehaviour {
 		maxInserted[5,1] = new int[15]{5, 3, 4, 4, 4, 1, 4, 3, 3, 5, 1, 2, 2, 3, 4};
 		maxInserted[5,2] = new int[15]{5, 4, 5, 4, 5, 2, 3, 3, 3, 3, 3, 2, 3, 5, 4};
 		maxInserted[5,3] = new int[16]{5, 4, 4, 4, 5, 4, 3, 4, 3, 5, 3, 2, 3, 3, 2, 3};
-		maxInserted[5,4] = new int[15]{5, 5, 5, 5, 2, 3, 3, 5, 5, 3, 4, 3, 3, 4, 5};
+		maxInserted[5,4] = new int[8]{5, 5, 5, 5, 2, 3, 3, 5};
 		maxInsertedSize [5] = 4;
+
+		maxInserted[6,0] = new int[7]{5, 3, 4, 3, 3, 4, 5};
+		maxInsertedSize [6] = 0;
 		numNivelEmFase[2] = 3;
 
-		maxInserted[6,0] = new int[1]{1};
-		maxInsertedSize [6] = 0;
+		maxInserted[7,0] = new int[1]{1};
+		maxInsertedSize [7] = 0;
 		numNivelEmFase[3] = 1;
 		
 		tags[0,0] = new string[1]{"Batata"};
@@ -361,9 +364,11 @@ public class StartGame : MonoBehaviour {
 		tags[5,1] = new string[15]{"Batata", "Maionese", "Mel", "Cereal", "Pao", "Queijo", "Mortadela", "Soja", "Peixe", "Carne", "Soja", "Chips", "Margarina", "Coco", "Bolo"};
 		tags[5,2] = new string[15]{"Vagem", "Banana", "Cereal", "Arroz", "PaoIntegral", "Queijo", "Lentilha", "Soja", "Peixe", "Carne", "Abacate", "Ovo", "Leite", "Margarina", "Chips"};
 		tags[5,3] = new string[16]{"Batata", "Maionese", "Arroz", "PaoIntegral", "Mel", "Queijo", "Lentilha", "Mortadela", "Soja", "Carne", "Coco", "Margarina", "Leite", "Ovo", "Bolo", "Amendoim"};
-		tags[5,4] = new string[15]{"Vagem", "Banana", "Batata", "Cereal", "Queijo", "Lentilha", "Soja", "Peixe", "Carne", "Abacate", "Leite", "Ovo", "Bolo", "Pastel", "Amendoim"};
+		tags[5,4] = new string[8]{"Vagem", "Banana", "Batata", "Cereal", "Queijo", "Lentilha", "Soja", "Peixe"};
 
-		tags[6,0] = new string[1]{"Hamburguer"};
+		tags[6,0] = new string[7]{"Carne", "Abacate", "Leite", "Ovo", "Bolo", "Pastel", "Amendoim"};
+
+		tags[7,0] = new string[1]{"Hamburguer"};
 
 		energyBkp = energy;
 		vitaminBkp = vitamin;
@@ -1161,6 +1166,7 @@ public class StartGame : MonoBehaviour {
 						insertedLast++;*/
 					}
 				}
+				Debug.Log ("Fase: "+ fase + " Nivel: "+ nivel + " Wave: " + wave);
 
 			} else {
 				//Debug.Log ("FINISHING INSERTION");
