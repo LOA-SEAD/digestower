@@ -457,6 +457,42 @@ public class StartGame : MonoBehaviour {
 		(btnVoltar.GetComponent ("BoxCollider2D") as BoxCollider2D).enabled = true;
 	}
 
+	public void ajuda(int start, int end) {
+		GUITextStatus(false);
+		paused = 2;
+
+		GameObject telaAjuda = GameObject.FindGameObjectWithTag("TelaAjuda");
+		telaAjuda.GetComponent("SpriteRenderer").GetComponent<Renderer>().enabled = true;
+		telaAjuda.GetComponent<Renderer>().sortingOrder = 10;
+
+		SpriteCollection sprites = new SpriteCollection("Zimi");
+		zimi = new int[2]{start, end};
+		infoActive = start;
+
+		GameObject tela = GameObject.FindGameObjectWithTag("ZimiAjuda");
+		tela.GetComponent("SpriteRenderer").GetComponent<Renderer>().enabled = true;
+		//Para carregar o que sera utilizado naquele momento
+		(tela.GetComponent ("SpriteRenderer") as SpriteRenderer).sprite = sprites.GetSprite ("Zimi" + start);
+		sprites = null;
+		//(tela.GetComponent ("BoxCollider2D") as BoxCollider2D).enabled = true;
+		tela.GetComponent<Renderer>().sortingOrder = 10;
+
+		/*GameObject btnVoltar = GameObject.FindGameObjectWithTag("AntAjuda");
+		btnVoltar.GetComponent("SpriteRenderer").GetComponent<Renderer>().enabled = true;
+		btnVoltar.GetComponent<Renderer>().sortingOrder = 11;
+		(btnVoltar.GetComponent ("BoxCollider2D") as BoxCollider2D).enabled = true;*/
+
+		GameObject btnAvancar = GameObject.FindGameObjectWithTag("ProxAjuda");
+		btnAvancar.GetComponent("SpriteRenderer").GetComponent<Renderer>().enabled = true;
+		btnAvancar.GetComponent<Renderer>().sortingOrder = 11;
+		(btnAvancar.GetComponent ("BoxCollider2D") as BoxCollider2D).enabled = true;
+
+		GameObject btnFechar = GameObject.FindGameObjectWithTag("FecharAjuda");
+		btnFechar.GetComponent("SpriteRenderer").GetComponent<Renderer>().enabled = true;
+		btnFechar.GetComponent<Renderer>().sortingOrder = 11;
+		(btnFechar.GetComponent ("BoxCollider2D") as BoxCollider2D).enabled = true;
+	}
+
 	public void carregaTela(int start, int end) {
 		SpriteCollection sprites = new SpriteCollection("Telas");
 		infoTela = new int[2]{start,end};

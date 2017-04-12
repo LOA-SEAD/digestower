@@ -45,7 +45,7 @@ public class ButtonAction : MonoBehaviour {
 	void OnMouseEnter()
 	{
 		SpriteCollection sprites = null;
-		if ((type > 0 && type < 10) || (type > 10 && type < 15) || type == 22 || type == 21 || type == 20 || (type >= 24 && type <= 34)) {
+		if ((type > 0 && type < 10) || (type > 10 && type < 15) || type == 22 || type == 21 || type == 20 || (type >= 24 && type <= 37)) {
 			bkp = (gameObject.GetComponent ("SpriteRenderer") as SpriteRenderer).sprite;
 			sprites = new SpriteCollection("Pressed");
 		}
@@ -73,11 +73,11 @@ public class ButtonAction : MonoBehaviour {
 			(gameObject.GetComponent ("SpriteRenderer") as SpriteRenderer).sprite = sprites.GetSprite ("SomPressionado");
 		else if (type == 8 && getVolume("soundVol") == -80.0f)
 			(gameObject.GetComponent ("SpriteRenderer") as SpriteRenderer).sprite = sprites.GetSprite ("SomCancelPressionado");
-		else if (type == 12 || type == 31)
+		else if (type == 12 || type == 31 || type == 35)
 			(gameObject.GetComponent ("SpriteRenderer") as SpriteRenderer).sprite = sprites.GetSprite ("DireitaPressionado");
-		else if (type == 13 || type == 32 || type == 34)
+		else if (type == 13 || type == 32 || type == 34 || type == 36)
 			(gameObject.GetComponent ("SpriteRenderer") as SpriteRenderer).sprite = sprites.GetSprite ("EsquerdaPressionado");
-		else if (type == 14 || type == 22 || type == 26 ||  type == 21 || type == 33)
+		else if (type == 14 || type == 22 || type == 26 ||  type == 21 || type == 33 || type == 37)
 			(gameObject.GetComponent ("SpriteRenderer") as SpriteRenderer).sprite = sprites.GetSprite ("Fechar2Pressionado");
 		else if (type == 24)
 			(gameObject.GetComponent ("SpriteRenderer") as SpriteRenderer).sprite = sprites.GetSprite ("TorresPressionado");
@@ -95,7 +95,7 @@ public class ButtonAction : MonoBehaviour {
 	}
 	void OnMouseExit()
 	{
-		if ((type > 0 && type < 10) || (type > 10 && type < 15) || type == 22 || type == 21 || type == 20 || (type >= 24 && type <= 33)) {
+		if ((type > 0 && type < 10) || (type > 10 && type < 15) || type == 22 || type == 21 || type == 20 || (type >= 24 && type <= 37)) {
 			(gameObject.GetComponent ("SpriteRenderer") as SpriteRenderer).sprite = bkp;
 		}
 	}
@@ -825,6 +825,12 @@ public class ButtonAction : MonoBehaviour {
 			(GameObject.FindGameObjectWithTag("StartButton").GetComponent ("StartGame") as StartGame).carregaTela (20, 24);
 		}
 		else if (type == 28) {//Ajuda
+			(GameObject.FindGameObjectWithTag("StartButton").GetComponent ("StartGame") as StartGame).menuInicial(false);
+			
+			(GameObject.FindGameObjectWithTag("StartButton").GetComponent ("StartGame") as StartGame).ajuda(1, 25);
+
+			//Para nao ativar a barra de energia
+			StartGame.infoActive = 1;
 
 		}
 		else if (type == 29) {//Carregar
@@ -1021,6 +1027,104 @@ public class ButtonAction : MonoBehaviour {
 			btnVoltar.GetComponent("SpriteRenderer").GetComponent<Renderer>().enabled = false;
 			btnVoltar.GetComponent<Renderer>().sortingOrder = 0;
 			(btnVoltar.GetComponent ("BoxCollider2D") as BoxCollider2D).enabled = false;
+
+			//Volta valor original
+			StartGame.infoActive = 0;
+
+			(GameObject.FindGameObjectWithTag("StartButton").GetComponent ("StartGame") as StartGame).menuInicial(true);
+		}
+		else if (type == 35) {
+			//2 linhas para disparar o som
+			GameObject disparaSom = GameObject.FindGameObjectWithTag("ProxAjuda");
+			disparaSom.GetComponent<AudioSource>().Play();
+			if (StartGame.infoActive < StartGame.zimi[1]) {
+				SpriteCollection sprites = new SpriteCollection("Zimi");
+				GameObject tela = GameObject.FindGameObjectWithTag("ZimiAjuda");
+				(tela.GetComponent ("SpriteRenderer") as SpriteRenderer).sprite = sprites.GetSprite ("Zimi" + (++StartGame.infoActive));
+				sprites = null;
+			}
+			GameObject btnProx = GameObject.FindGameObjectWithTag ("ProxAjuda");
+			GameObject btnAnt = GameObject.FindGameObjectWithTag ("AntAjuda");
+			if (StartGame.infoActive == StartGame.zimi[1]) {
+				btnProx.GetComponent<Renderer>().enabled = false;
+				btnProx.GetComponent<Renderer>().sortingOrder = 0;
+				(btnProx.GetComponent ("BoxCollider2D") as BoxCollider2D).enabled = false;
+			}
+			else {
+				btnProx.GetComponent<Renderer>().enabled = true;
+				btnProx.GetComponent<Renderer>().sortingOrder = 11;
+				(btnProx.GetComponent ("BoxCollider2D") as BoxCollider2D).enabled = true;
+			}
+			if (StartGame.infoActive == StartGame.zimi[0]) {
+				btnAnt.GetComponent<Renderer>().enabled = false;
+				btnAnt.GetComponent<Renderer>().sortingOrder = 0;
+				(btnAnt.GetComponent ("BoxCollider2D") as BoxCollider2D).enabled = false;
+			}
+			else {
+				btnAnt.GetComponent<Renderer>().enabled = true;
+				btnAnt.GetComponent<Renderer>().sortingOrder = 11;
+				(btnAnt.GetComponent ("BoxCollider2D") as BoxCollider2D).enabled = true;
+			}
+		}
+		else if (type == 36) {
+			//2 linhas para disparar o som
+			GameObject disparaSom = GameObject.FindGameObjectWithTag("AntAjuda");
+			disparaSom.GetComponent<AudioSource>().Play();
+			if (StartGame.infoActive > StartGame.zimi[0]) {
+				SpriteCollection sprites = new SpriteCollection("Zimi");
+				GameObject tela = GameObject.FindGameObjectWithTag("ZimiAjuda");
+				(tela.GetComponent ("SpriteRenderer") as SpriteRenderer).sprite = sprites.GetSprite ("Zimi" + (--StartGame.infoActive));
+				sprites = null;
+			}
+			GameObject btnProx = GameObject.FindGameObjectWithTag ("ProxAjuda");
+			GameObject btnAnt = GameObject.FindGameObjectWithTag ("AntAjuda");
+			if (StartGame.infoActive == StartGame.zimi[1]) {
+				btnProx.GetComponent<Renderer>().enabled = false;
+				btnProx.GetComponent<Renderer>().sortingOrder = 0;
+				(btnProx.GetComponent ("BoxCollider2D") as BoxCollider2D).enabled = false;
+			}
+			else {
+				btnProx.GetComponent<Renderer>().enabled = true;
+				btnProx.GetComponent<Renderer>().sortingOrder = 11;
+				(btnProx.GetComponent ("BoxCollider2D") as BoxCollider2D).enabled = true;
+			}
+			if (StartGame.infoActive == StartGame.zimi[0]) {
+				btnAnt.GetComponent<Renderer>().enabled = false;
+				btnAnt.GetComponent<Renderer>().sortingOrder = 0;
+				(btnAnt.GetComponent ("BoxCollider2D") as BoxCollider2D).enabled = false;
+			}
+			else {
+				btnAnt.GetComponent<Renderer>().enabled = true;
+				btnAnt.GetComponent<Renderer>().sortingOrder = 11;
+				(btnAnt.GetComponent ("BoxCollider2D") as BoxCollider2D).enabled = true;
+			}
+		}
+		else if (type == 37) {
+			//2 linhas para disparar o som
+			GameObject disparaSom = GameObject.FindGameObjectWithTag("FecharAjuda");
+			disparaSom.GetComponent<AudioSource>().Play();
+			GameObject tela = GameObject.FindGameObjectWithTag("TelaAjuda");
+			tela.GetComponent("SpriteRenderer").GetComponent<Renderer>().enabled = false;
+			tela.GetComponent<Renderer>().sortingOrder = 0;
+
+			GameObject btnVoltar = GameObject.FindGameObjectWithTag("AntAjuda");
+			btnVoltar.GetComponent("SpriteRenderer").GetComponent<Renderer>().enabled = false;
+			btnVoltar.GetComponent<Renderer>().sortingOrder = 0;
+			(btnVoltar.GetComponent ("BoxCollider2D") as BoxCollider2D).enabled = false;
+
+			GameObject btnAvancar = GameObject.FindGameObjectWithTag("ProxAjuda");
+			btnAvancar.GetComponent("SpriteRenderer").GetComponent<Renderer>().enabled = false;
+			btnAvancar.GetComponent<Renderer>().sortingOrder = 0;
+			(btnAvancar.GetComponent ("BoxCollider2D") as BoxCollider2D).enabled = false;
+
+			GameObject btnFechar = GameObject.FindGameObjectWithTag("FecharAjuda");
+			btnFechar.GetComponent("SpriteRenderer").GetComponent<Renderer>().enabled = false;
+			btnFechar.GetComponent<Renderer>().sortingOrder = 0;
+			(btnFechar.GetComponent ("BoxCollider2D") as BoxCollider2D).enabled = false;
+
+			GameObject zimi = GameObject.FindGameObjectWithTag("ZimiAjuda");
+			zimi.GetComponent("SpriteRenderer").GetComponent<Renderer>().enabled = false;
+			zimi.GetComponent<Renderer>().sortingOrder = 0;
 
 			//Volta valor original
 			StartGame.infoActive = 0;
