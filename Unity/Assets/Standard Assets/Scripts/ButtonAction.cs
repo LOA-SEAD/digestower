@@ -364,6 +364,13 @@ public class ButtonAction : MonoBehaviour {
 				StartGame.paused = 1;
 				(GameObject.FindGameObjectWithTag("StartButton").GetComponent ("StartGame") as StartGame).GUITextStatus(true);
 			}
+			if (StartGame.infoActive == 1){
+				(GameObject.FindGameObjectWithTag ("IniciarButton").GetComponent ("BoxCollider2D") as BoxCollider2D).enabled = true;
+				(GameObject.FindGameObjectWithTag ("AjudaButton").GetComponent ("BoxCollider2D") as BoxCollider2D).enabled = true;
+				(GameObject.FindGameObjectWithTag ("CarregarInicialButton").GetComponent ("BoxCollider2D") as BoxCollider2D).enabled = true;
+				(GameObject.FindGameObjectWithTag ("CreditosButton").GetComponent ("BoxCollider2D") as BoxCollider2D).enabled = true;
+				StartGame.infoActive = 0;
+			}
 		}
 		else if (type == 10) {
 			if (nivelChange) {
@@ -814,6 +821,9 @@ public class ButtonAction : MonoBehaviour {
 			(GameObject.FindGameObjectWithTag("StartButton").GetComponent ("StartGame") as StartGame).GUITextStatus(true);
 		}
 		else if (type == 27) {// Iniciar
+			//2 linhas para disparar o som
+			GameObject disparaSom = GameObject.FindGameObjectWithTag("IniciarButton");
+			disparaSom.GetComponent<AudioSource>().Play();
 			(GameObject.FindGameObjectWithTag("StartButton").GetComponent ("StartGame") as StartGame).menuInicial(false);
 
 			(GameObject.FindGameObjectWithTag("StartButton").GetComponent ("StartGame") as StartGame).GUITextStatus(true);
@@ -825,6 +835,9 @@ public class ButtonAction : MonoBehaviour {
 			(GameObject.FindGameObjectWithTag("StartButton").GetComponent ("StartGame") as StartGame).carregaTela (20, 24);
 		}
 		else if (type == 28) {//Ajuda
+			//2 linhas para disparar o som
+			GameObject disparaSom = GameObject.FindGameObjectWithTag("AjudaButton");
+			disparaSom.GetComponent<AudioSource>().Play();
 			(GameObject.FindGameObjectWithTag("StartButton").GetComponent ("StartGame") as StartGame).menuInicial(false);
 			
 			(GameObject.FindGameObjectWithTag("StartButton").GetComponent ("StartGame") as StartGame).ajuda(1, 25);
@@ -834,6 +847,17 @@ public class ButtonAction : MonoBehaviour {
 
 		}
 		else if (type == 29) {//Carregar
+			//2 linhas para disparar o som
+			GameObject disparaSom = GameObject.FindGameObjectWithTag("CarregarInicialButton");
+			disparaSom.GetComponent<AudioSource>().Play();
+
+			StartGame.infoActive = 1;
+			//GameObject botaoIniciar = GameObject.FindGameObjectWithTag ("TelaEscura");
+			(GameObject.FindGameObjectWithTag ("IniciarButton").GetComponent ("BoxCollider2D") as BoxCollider2D).enabled = false;
+			(GameObject.FindGameObjectWithTag ("AjudaButton").GetComponent ("BoxCollider2D") as BoxCollider2D).enabled = false;
+			(GameObject.FindGameObjectWithTag ("CarregarInicialButton").GetComponent ("BoxCollider2D") as BoxCollider2D).enabled = false;
+			(GameObject.FindGameObjectWithTag ("CreditosButton").GetComponent ("BoxCollider2D") as BoxCollider2D).enabled = false;
+
 			activatedMenuSaveLoad = true;
 			//DisableMenu (3);
 			// GameObject menuPause = GameObject.FindGameObjectWithTag ("MenuPause");
@@ -877,6 +901,9 @@ public class ButtonAction : MonoBehaviour {
 			(continu.GetComponent ("BoxCollider2D") as BoxCollider2D).enabled = true;
 		}
 		else if (type == 30) {//Creditos
+			//2 linhas para disparar o som
+			GameObject disparaSom = GameObject.FindGameObjectWithTag("CreditosButton");
+			disparaSom.GetComponent<AudioSource>().Play();
 			(GameObject.FindGameObjectWithTag("StartButton").GetComponent ("StartGame") as StartGame).menuInicial(false);
 			
 			(GameObject.FindGameObjectWithTag("StartButton").GetComponent ("StartGame") as StartGame).creditos();

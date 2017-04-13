@@ -1202,7 +1202,7 @@ public class StartGame : MonoBehaviour {
 						insertedLast++;*/
 					}
 				}
-				Debug.Log ("Fase: "+ fase + " Nivel: "+ nivel + " Wave: " + wave);
+				//Debug.Log ("Fase: "+ fase + " Nivel: "+ nivel + " Wave: " + wave);
 
 			} else {
 				//Debug.Log ("FINISHING INSERTION");
