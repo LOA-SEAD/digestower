@@ -74,6 +74,7 @@
      <Compile Include="Assets\Standard Assets\Scripts\StartGame.cs" />
      <Compile Include="Assets\Standard Assets\Scripts\TowerFunctionality.cs" />
      <Compile Include="Assets\Standard Assets\Scripts\VitaminUp.cs" />
+     <Compile Include="Assets\Standard Assets\Scripts\ZoomBoca.cs" />
      <None Include="Assets\StreamingAssets\build_info.txt" />
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>

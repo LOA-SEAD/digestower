@@ -450,7 +450,7 @@ public class ButtonAction : MonoBehaviour {
 			GameObject disparaSom = GameObject.FindGameObjectWithTag("InfoProx");
 			disparaSom.GetComponent<AudioSource>().Play();
 			if (StartGame.infoActive < StartGame.infoTela[1]) {
-				Debug.Log (StartGame.infoActive + "..." + StartGame.infoTela[1]);
+				//Debug.Log (StartGame.infoActive + "..." + StartGame.infoTela[1]);
 				SpriteCollection sprites = new SpriteCollection("Telas");
 				GameObject tela = GameObject.FindGameObjectWithTag("InfoTela");
 				(tela.GetComponent ("SpriteRenderer") as SpriteRenderer).sprite = sprites.GetSprite ("Tela" + (++StartGame.infoActive));
@@ -477,6 +477,10 @@ public class ButtonAction : MonoBehaviour {
 				btnAnt.GetComponent<Renderer>().enabled = true;
 				btnAnt.GetComponent<Renderer>().sortingOrder = 11;
 				(btnAnt.GetComponent ("BoxCollider2D") as BoxCollider2D).enabled = true;
+			}
+			//Ativa o script que vai dando o zoom lentamente na boca da personagem
+			if (StartGame.infoActive == 24 || StartGame.infoActive == 52){
+				ZoomBoca.zoom = true;
 			}
 		}
 		else if (type == 13) {
@@ -510,6 +514,11 @@ public class ButtonAction : MonoBehaviour {
 				btnAnt.GetComponent<Renderer>().enabled = true;
 				btnAnt.GetComponent<Renderer>().sortingOrder = 11;
 				(btnAnt.GetComponent ("BoxCollider2D") as BoxCollider2D).enabled = true;
+			}
+			//Volta as imagens para a escala original, pois o zoom na boca aumentou a escala das imagens
+			if (StartGame.infoActive == 23 || StartGame.infoActive == 51){
+				ZoomBoca.zoom = false;
+				ZoomBoca.reset = true;
 			}
 		}
 		else if (type == 14) {
@@ -548,6 +557,11 @@ public class ButtonAction : MonoBehaviour {
 				(GameObject.FindGameObjectWithTag("StartButton").GetComponent ("StartGame") as StartGame).GUITextStatus(true);
 				return;
 			}
+			//Volta as imagens para a escala original, pois o zoom na boca aumentou a escala das imagens
+			if (StartGame.infoActive == 24 || StartGame.infoActive == 52){
+				ZoomBoca.zoom = false;
+				ZoomBoca.reset = true;
+			}
 			StartGame.infoActive = 0;
 			Time.timeScale = 1;
 			(GameObject.FindGameObjectWithTag("StartButton").GetComponent ("StartGame") as StartGame).GUITextStatus(true);
@@ -558,20 +572,17 @@ public class ButtonAction : MonoBehaviour {
 				StartGame.paused = 1;
 				if (StartGame.infoTela[0] == 1 && StartGame.infoTela[1] == 4)
 					(GameObject.FindGameObjectWithTag("StartButton").GetComponent ("StartGame") as StartGame).carregaTela (5,10);
-				else if (StartGame.infoTela[0] == 13 && StartGame.infoTela[1] == 14)
+				else if ((StartGame.infoTela[0] == 13 && StartGame.infoTela[1] == 14) || StartGame.infoTela[0] == 30)
 					(GameObject.FindGameObjectWithTag("StartButton").GetComponent ("StartGame") as StartGame).dicasZimi (9,12);
-				else if (StartGame.infoTela[0] == 15 && StartGame.infoTela[1] == 17)
+				else if ((StartGame.infoTela[0] == 15 && StartGame.infoTela[1] == 17) || StartGame.infoTela[0] == 31)
 					(GameObject.FindGameObjectWithTag("StartButton").GetComponent ("StartGame") as StartGame).dicasZimi (19,23);
-				else if (StartGame.infoTela[0] == 18 && StartGame.infoTela[1] == 19)
+				else if ((StartGame.infoTela[0] == 18 && StartGame.infoTela[1] == 19) || StartGame.infoTela[0] == 32)
 					(GameObject.FindGameObjectWithTag("StartButton").GetComponent ("StartGame") as StartGame).dicasZimi (14,17);
 				else if (StartGame.infoTela[0] == 20 && StartGame.infoTela[1] == 24)
 					(GameObject.FindGameObjectWithTag("StartButton").GetComponent ("StartGame") as StartGame).carregaTela (25,28);
 				else if (StartGame.infoTela[0] == 25 && StartGame.infoTela[1] == 28){
 					pause();
 					(GameObject.FindGameObjectWithTag("StartButton").GetComponent ("StartGame") as StartGame).dicasZimi (1,3);
-				}
-				else if (StartGame.infoTela[0] == 30 || StartGame.infoTela[0] == 31 ||StartGame.infoTela[0] == 32){
-					play ();
 				}
 				else if (StartGame.infoTela[0] == 48 && StartGame.infoTela[1] == 52) {
 					CallSkill.firstUsePhysical = false;
