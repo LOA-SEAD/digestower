@@ -126,14 +126,14 @@ public class StartGame : MonoBehaviour {
 	private static bool[] audioPlaying;
 	private Sprite bkp;
 
-	//Variaveis para controlar a animacao do Capitao Banha
-	private float capBanha = 0.2f;
-	private int loopCapBanha = 0;
-	private int frameCapBanha = 0;
-
 	public AudioClip clip1; /* Gracas a isso que e possivel escolher um audio na tela do Unity.
 							  Para ele ser tocado, va no local que ele sera ativado e use o seguinte comando:
 	                          AudioSource.PlayClipAtPoint(clip1, transform.position);*/
+
+	private float capBanha;
+	private float trocaFrame;
+	private int frameCapBanha = 1;
+	private int alteracaoIndice = 1;
 
 	public static void StopAllAudio() {
 		allAudioSources = FindObjectsOfType(typeof(AudioSource)) as AudioSource[];
@@ -509,7 +509,7 @@ public class StartGame : MonoBehaviour {
 			GameObject.FindGameObjectWithTag("FaixaFase1").GetComponent<AudioSource>().Stop();
 			GameObject.FindGameObjectWithTag("FaixaFase2").GetComponent<AudioSource>().Stop();
 			GameObject.FindGameObjectWithTag("FaixaFase3").GetComponent<AudioSource>().Stop();
-			GameObject.FindGameObjectWithTag("CapBanha").GetComponent<AudioSource>().Stop();
+			GameObject.FindGameObjectWithTag("CapitaoBanha").GetComponent<AudioSource>().Stop();
 			GameObject.FindGameObjectWithTag("MusicaDerrota").GetComponent<AudioSource>().Play();
 		}
 		if (start == 45){
@@ -517,7 +517,7 @@ public class StartGame : MonoBehaviour {
 			GameObject.FindGameObjectWithTag("FaixaFase1").GetComponent<AudioSource>().Stop();
 			GameObject.FindGameObjectWithTag("FaixaFase2").GetComponent<AudioSource>().Stop();
 			GameObject.FindGameObjectWithTag("FaixaFase3").GetComponent<AudioSource>().Stop();
-			GameObject.FindGameObjectWithTag("CapBanha").GetComponent<AudioSource>().Stop();
+			GameObject.FindGameObjectWithTag("CapitaoBanha").GetComponent<AudioSource>().Stop();
 			GameObject.FindGameObjectWithTag("MusicaVitoria").GetComponent<AudioSource>().Play();
 		}
 
@@ -625,6 +625,8 @@ public class StartGame : MonoBehaviour {
 		StartGame.loose = false;
 		StartGame.firstStart = true;
 		StartGame.playAfterClose = true;
+		comboPrimeiraVez = false;
+		gorduraPrimeiraVez = false;
 		(GameObject.FindGameObjectWithTag("StartButton").GetComponent ("StartGame") as StartGame).myTimer = 149.423f;
 		CallSkill.creatingAcido = false;
 		CallSkill.creatingSaliva = false;
@@ -834,10 +836,33 @@ public class StartGame : MonoBehaviour {
 	{
 		Time.timeScale = 0.00001f;
 		float pauseEndTime = Time.realtimeSinceStartup + p;
+		float capBanha = Time.realtimeSinceStartup;
 		while (Time.realtimeSinceStartup < pauseEndTime)
 		{
 			GUITextStatus(false);
 			paused = 2;
+			//Animacao Capitao Banha
+			if (f == 3){
+				trocaFrame = Time.realtimeSinceStartup - capBanha;
+				if (trocaFrame > 0.2f) {
+					capBanha = Time.realtimeSinceStartup;
+					frameCapBanha = frameCapBanha + (1 * alteracaoIndice);
+					try {
+						SpriteCollection sprites = new SpriteCollection("CapBanha");
+						GameObject.FindGameObjectWithTag ("CapitaoBanha").GetComponent<SpriteRenderer>().sprite = sprites.GetSprite("CapBanha" + frameCapBanha);
+						sprites = null;
+					} catch (NullReferenceException) {
+						Debug.LogError ("nao eh assim que se anima o capitao banha");
+					}
+					//Atingiu o ultimo frame, comeca a descer
+					if (frameCapBanha == 5){
+						alteracaoIndice = -1;
+					}
+					if (frameCapBanha == 1){
+						alteracaoIndice = 1;
+					}
+				}
+			}
 			yield return 0;
 		}
 		//Time.timeScale = 0;
@@ -882,6 +907,16 @@ public class StartGame : MonoBehaviour {
 			carregaTela(32,32);
 			//carregaTela(15,17);
 			//play ();
+		}
+		else if (f == 3){
+			GameObject capitaoBanha = GameObject.FindGameObjectWithTag("CapitaoBanha");
+			capitaoBanha.GetComponent("SpriteRenderer").GetComponent<Renderer>().enabled = false;
+			mostrandoFaixa = false;
+			place1.GetComponent("SpriteRenderer").GetComponent<Renderer>().enabled = true;
+			place2.GetComponent("SpriteRenderer").GetComponent<Renderer>().enabled = true;
+			(place1.GetComponent ("BoxCollider2D") as BoxCollider2D).enabled = true;
+			(place2.GetComponent ("BoxCollider2D") as BoxCollider2D).enabled = true;
+			play ();
 		}
 		Time.timeScale = 1;
 	}
@@ -1056,68 +1091,17 @@ public class StartGame : MonoBehaviour {
 								else {
 									GameObject.FindGameObjectWithTag("MenuInicial").GetComponent<AudioSource>().Stop();
 									GameObject.FindGameObjectWithTag("FaixaFase3").GetComponent<AudioSource>().Stop();
-									GameObject.FindGameObjectWithTag("Hamburguer").GetComponent<AudioSource>().Play();
+									if (!loadingGame) {
+										GameObject.FindGameObjectWithTag("Hamburguer").GetComponent<AudioSource>().Play();
+									}
+									else loadingGame = false;
 									myTimer = 0;
 
-									pause ();
-									GameObject capitaoBanha = GameObject.FindGameObjectWithTag("CapBanha");
+									//pause ();
+									GameObject capitaoBanha = GameObject.FindGameObjectWithTag("CapitaoBanha");
 									capitaoBanha.GetComponent("SpriteRenderer").GetComponent<Renderer>().enabled = true;
-									while(loopCapBanha < 3){
-										while(frameCapBanha < 5){
-											capBanha -= Time.deltaTime;
-											if (capBanha < 0) {
-												try {
-													SpriteCollection sprites = new SpriteCollection("CapBanha");
-													capitaoBanha.GetComponent<SpriteRenderer>().sprite = sprites.GetSprite("CapBanha" + (frameCapBanha + 1));
-													sprites = null;
-													Debug.Log("entrou");
-												} catch (NullReferenceException) {
-													//Debug.LogError ("vitamina sumiu");
-												}
-												capBanha = 0.2f;
-												frameCapBanha = frameCapBanha + 1;
-												/*reverse++;
-												if (reverse == 11) {
-													reverse = 0;
-													SpriteCollection sprites = new SpriteCollection("Energy");
-													GameObject.FindGameObjectWithTag ("EnergyBar").GetComponent<SpriteRenderer>().sprite = sprites.GetSprite("Energia0");
-													sprites = null;
-													piscar = false;
-												}*/
-											}
-										}
-										while(frameCapBanha > 0){
-											capBanha -= Time.deltaTime;
-											if (capBanha < 0) {
-												try {
-													SpriteCollection sprites = new SpriteCollection("CapBanha");
-													capitaoBanha.GetComponent<SpriteRenderer>().sprite = sprites.GetSprite("CapBanha" + (frameCapBanha));
-													sprites = null;
-													Debug.Log("entrou2");
-												} catch (NullReferenceException) {
-													//Debug.LogError ("vitamina sumiu");
-												}
-												capBanha = 0.2f;
-												frameCapBanha = frameCapBanha - 1;
-												/*reverse++;
-												if (reverse == 11) {
-													reverse = 0;
-													SpriteCollection sprites = new SpriteCollection("Energy");
-													GameObject.FindGameObjectWithTag ("EnergyBar").GetComponent<SpriteRenderer>().sprite = sprites.GetSprite("Energia0");
-													sprites = null;
-													piscar = false;
-												}*/
-											}
-										}
-										loopCapBanha = loopCapBanha + 1;
-									}
-									//GameObject faixaFase2 = GameObject.FindGameObjectWithTag("FaixaFase2");
-									capitaoBanha.GetComponent("SpriteRenderer").GetComponent<Renderer>().enabled = false;
-									place1.GetComponent("SpriteRenderer").GetComponent<Renderer>().enabled = true;
-									place2.GetComponent("SpriteRenderer").GetComponent<Renderer>().enabled = true;
-									(place1.GetComponent ("BoxCollider2D") as BoxCollider2D).enabled = true;
-									(place2.GetComponent ("BoxCollider2D") as BoxCollider2D).enabled = true;
-									play ();
+									mostrandoFaixa = true;
+									StartCoroutine(Pause(3, 3));
 								}
 								waveSet++;
 							}

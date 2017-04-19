@@ -574,9 +574,9 @@ public class ButtonAction : MonoBehaviour {
 					(GameObject.FindGameObjectWithTag("StartButton").GetComponent ("StartGame") as StartGame).carregaTela (5,10);
 				else if ((StartGame.infoTela[0] == 13 && StartGame.infoTela[1] == 14) || StartGame.infoTela[0] == 30)
 					(GameObject.FindGameObjectWithTag("StartButton").GetComponent ("StartGame") as StartGame).dicasZimi (9,12);
-				else if ((StartGame.infoTela[0] == 15 && StartGame.infoTela[1] == 17) || StartGame.infoTela[0] == 31)
+				else if ((StartGame.infoTela[0] == 15 && StartGame.infoTela[1] == 17) || StartGame.infoTela[0] == 32)
 					(GameObject.FindGameObjectWithTag("StartButton").GetComponent ("StartGame") as StartGame).dicasZimi (19,23);
-				else if ((StartGame.infoTela[0] == 18 && StartGame.infoTela[1] == 19) || StartGame.infoTela[0] == 32)
+				else if ((StartGame.infoTela[0] == 18 && StartGame.infoTela[1] == 19) || StartGame.infoTela[0] == 31)
 					(GameObject.FindGameObjectWithTag("StartButton").GetComponent ("StartGame") as StartGame).dicasZimi (14,17);
 				else if (StartGame.infoTela[0] == 20 && StartGame.infoTela[1] == 24)
 					(GameObject.FindGameObjectWithTag("StartButton").GetComponent ("StartGame") as StartGame).carregaTela (25,28);
@@ -929,7 +929,7 @@ public class ButtonAction : MonoBehaviour {
 			GameObject disparaSom = GameObject.FindGameObjectWithTag("InfoProxZimi");
 			disparaSom.GetComponent<AudioSource>().Play();
 			if (StartGame.infoActive < StartGame.zimi[1]) {
-				Debug.Log (StartGame.infoActive + "..." + StartGame.zimi[1]);
+				//Debug.Log (StartGame.infoActive + "..." + StartGame.zimi[1]);
 				SpriteCollection sprites = new SpriteCollection("Zimi");
 				GameObject tela = GameObject.FindGameObjectWithTag("DicasZimi");
 				(tela.GetComponent ("SpriteRenderer") as SpriteRenderer).sprite = sprites.GetSprite ("Zimi" + (++StartGame.infoActive));
