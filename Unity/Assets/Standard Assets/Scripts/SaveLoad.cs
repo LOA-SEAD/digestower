@@ -73,14 +73,21 @@ public class SaveLoad : MonoBehaviour {
 		disparaSom.GetComponent<AudioSource>().Play();
 		//AudioSource.PlayClipAtPoint (clip, transform.position);
 		if (type) {
+			SpriteCollection sprites = new SpriteCollection("MsgsSalvCarr");
+			GameObject msg = GameObject.FindGameObjectWithTag("MsgSalvCarr");
 			if (StartGame.started) {
 				Debug.Log("saving");
 				Save ();
-				StartGame.msg("Jogo salvo com sucesso!");
+				(msg.GetComponent ("SpriteRenderer") as SpriteRenderer).sprite = sprites.GetSprite ("msgSave1");
+				//StartGame.msg("Jogo salvo com sucesso!");
 			}
 			else {
-				StartGame.msg("Inicie o jogo antes de salvar!");
+				(msg.GetComponent ("SpriteRenderer") as SpriteRenderer).sprite = sprites.GetSprite ("msgSave2");
+				//StartGame.msg("Inicie o jogo antes de salvar!");
 			}
+			msg.GetComponent("SpriteRenderer").GetComponent<Renderer>().enabled = true;
+			msg.GetComponent<Renderer>().sortingOrder = 15;
+			StartGame.msgBuffer = true;
 		}
 		else {
 			Debug.Log("loading");
@@ -290,7 +297,13 @@ public class SaveLoad : MonoBehaviour {
 			}
 		}
 		else {
-			StartGame.msg ("Nao ha jogo salvo ate o momento");
+			SpriteCollection sprites = new SpriteCollection("MsgsSalvCarr");
+			GameObject msg = GameObject.FindGameObjectWithTag("MsgSalvCarr");
+			(msg.GetComponent ("SpriteRenderer") as SpriteRenderer).sprite = sprites.GetSprite ("msgSave3");
+			msg.GetComponent("SpriteRenderer").GetComponent<Renderer>().enabled = true;
+			msg.GetComponent<Renderer>().sortingOrder = 15;
+			StartGame.msgBuffer = true;
+			//StartGame.msg ("Nao ha jogo salvo ate o momento");
 		}
 			
 			//file.Close();

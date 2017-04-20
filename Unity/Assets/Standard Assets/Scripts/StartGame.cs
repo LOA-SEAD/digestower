@@ -59,7 +59,7 @@ public class StartGame : MonoBehaviour {
 	 */
 	/**/
 
-	public static float msgTimeInterval = 10.0f;
+	public static float msgTimeInterval = 3.0f;
 	public float initialPosX = -2.95f;
 	public float initialPosY = 2.59f;
 	public GameObject place1, place2;
@@ -97,7 +97,7 @@ public class StartGame : MonoBehaviour {
 	public static int paused = 1;
 	private GameObject[] instantiatedGameObjects;
 	private int myTimerInt, msgTimerInt;
-	private static string msgBuffer = null;
+	public static bool msgBuffer = false;
 
 	private int[,][] maxInserted = new int[8, 16][];
 	public static int[] maxInsertedSize = new int[8];
@@ -676,10 +676,10 @@ public class StartGame : MonoBehaviour {
 		}
 	}
 
-	public static void msg(string msg) {
+	/*public static void msg(string msg) {
 		msgTimeInterval = 3.0f;
 		msgBuffer = msg;
-	}
+	}*/
 
 	public static void refreshStatus () {
 		(GameObject.FindGameObjectWithTag ("IndigestText").GetComponent ("GUIText") as GUIText).text = Math.Floor((indigest*100)/maxIndigest) + "/" + 100;
@@ -700,10 +700,10 @@ public class StartGame : MonoBehaviour {
 		return new Rect(rectX,rectY,rectWidth,rectHeight);
 	}
 	void OnGUI() {
-		if (msgBuffer != null) {
+		/*if (msgBuffer) {
 			GUI.color = Color.white;
 			GUI.Label(new Rect(Screen.height/2, Screen.width/4, 400, 400), "<size=40>" + msgBuffer + "</size>");
-		}
+		}*/
 		if (!activatedMenuInicial && !ButtonAction.activatedMenuTorres && !ButtonAction.activatedMenuEspeciais && !ButtonAction.activatedMenuPause && infoActive == 0 && !mostrandoFaixa && !almanaqueAberto) {
 			if (fat > maxFat)
 				fat = maxFat;
@@ -922,12 +922,15 @@ public class StartGame : MonoBehaviour {
 	}
 
 	void Update () {
-		if (msgBuffer != null) {
+		if (msgBuffer) {
 			if (msgTimer > 100-msgTimeInterval) {
 				msgTimer -= Time.deltaTime;
 			} else {
-				msgBuffer = null;
+				msgBuffer = false;
 				msgTimer = 100;
+				GameObject msg = GameObject.FindGameObjectWithTag("MsgSalvCarr");
+				msg.GetComponent("SpriteRenderer").GetComponent<Renderer>().enabled = false;
+				msg.GetComponent<Renderer>().sortingOrder = 0;
 			}
 		}
 		if (Time.frameCount % 30 == 0)
