@@ -211,7 +211,8 @@ public class InsertTower : MonoBehaviour {
 
 				if (toothPos > 0) {
 					//Chama mais uma dica da Zimi
-					if (activeTooth[0] == false && activeTooth[1] == false && activeTooth[2] == false && StartGame.started == false){
+					if (activeTooth[0] == false && activeTooth[1] == false && activeTooth[2] == false && StartGame.started == false && StartGame.dentePrimeiraVez == false){
+						StartGame.dentePrimeiraVez = true;
 						StartGame.playAfterClose = false;
 						(GameObject.FindGameObjectWithTag("StartButton").GetComponent ("StartGame") as StartGame).dicasZimi (4,8);
 					}

@@ -137,8 +137,8 @@ public class FoodProperties : MonoBehaviour {
 			*/
 			Debug.Log ("Saliva");
 			health -= 60;
-			(GameObject.FindGameObjectWithTag("SalivaText").GetComponent ("GUIText") as GUIText).text = ++col.gameObject.GetComponent<SalivaEspecial>().nFood + "";
-			/**/
+			//Caso queira verificar quantos alimentos a saliva acertou, descomente a linha de baixo
+			//(GameObject.FindGameObjectWithTag("SalivaText").GetComponent ("GUIText") as GUIText).text = ++col.gameObject.GetComponent<SalivaEspecial>().nFood + "";
 			changed = true;
 		}
 		else if (col.gameObject.tag == "AcidoInserido" && col.gameObject.GetComponent<AcidoEspecial>().saiu && healthMode2 && health2 > 0) {
@@ -147,8 +147,8 @@ public class FoodProperties : MonoBehaviour {
 			*/
 			Debug.Log ("Acido");
 			health2 -= 60;
-			(GameObject.FindGameObjectWithTag("AcidoText").GetComponent ("GUIText") as GUIText).text = ++col.gameObject.GetComponent<AcidoEspecial>().nFood + "";
-			/**/
+			//Caso queira verificar quantos alimentos o acido acertou, descomente a linha de baixo
+			//(GameObject.FindGameObjectWithTag("AcidoText").GetComponent ("GUIText") as GUIText).text = ++col.gameObject.GetComponent<AcidoEspecial>().nFood + "";
 			changed = true;
 		}
 		else {

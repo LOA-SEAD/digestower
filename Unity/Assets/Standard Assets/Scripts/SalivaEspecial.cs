@@ -63,7 +63,7 @@ public class SalivaEspecial : MonoBehaviour {
 				else
 					StartGame.indigest -= 500;
 			}
-			(GameObject.FindGameObjectWithTag("SalivaText").GetComponent ("GUIText") as GUIText).text = "";
+			//(GameObject.FindGameObjectWithTag("SalivaText").GetComponent ("GUIText") as GUIText).text = "";
 			GameObject.Destroy (gameObject);
 		}
 	}

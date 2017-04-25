@@ -287,6 +287,10 @@ public class ButtonAction : MonoBehaviour {
 			//2 linhas para disparar o som
 			GameObject disparaSom = GameObject.FindGameObjectWithTag("LoadButton");
 			disparaSom.GetComponent<AudioSource>().Play();
+
+			//Para nao ativar a barra de energia
+			StartGame.infoActive = 2;
+
 			activatedMenuSaveLoad = true;
 			DisableMenu (3);
 			// GameObject menuPause = GameObject.FindGameObjectWithTag ("MenuPause");
@@ -369,6 +373,10 @@ public class ButtonAction : MonoBehaviour {
 				(GameObject.FindGameObjectWithTag ("AjudaButton").GetComponent ("BoxCollider2D") as BoxCollider2D).enabled = true;
 				(GameObject.FindGameObjectWithTag ("CarregarInicialButton").GetComponent ("BoxCollider2D") as BoxCollider2D).enabled = true;
 				(GameObject.FindGameObjectWithTag ("CreditosButton").GetComponent ("BoxCollider2D") as BoxCollider2D).enabled = true;
+				StartGame.infoActive = 0;
+			}
+			//Consertar o infoActive alterado no salvar/carregar
+			if (StartGame.infoActive == 2){
 				StartGame.infoActive = 0;
 			}
 		}

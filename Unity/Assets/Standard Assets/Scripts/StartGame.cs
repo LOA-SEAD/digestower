@@ -122,6 +122,8 @@ public class StartGame : MonoBehaviour {
 	public static int killFood = 0;
 	//Para controlar o trigger de outra fala da Zimi
 	public static bool comboPrimeiraVez = false;
+	//Para controlar o trigger da fala do dente da Zimi
+	public static bool dentePrimeiraVez = false;
 	private static AudioSource[] allAudioSources;
 	private static bool[] audioPlaying;
 	private Sprite bkp;
@@ -627,6 +629,7 @@ public class StartGame : MonoBehaviour {
 		StartGame.playAfterClose = true;
 		comboPrimeiraVez = false;
 		gorduraPrimeiraVez = false;
+		dentePrimeiraVez = false;
 		(GameObject.FindGameObjectWithTag("StartButton").GetComponent ("StartGame") as StartGame).myTimer = 149.423f;
 		CallSkill.creatingAcido = false;
 		CallSkill.creatingSaliva = false;
@@ -661,9 +664,9 @@ public class StartGame : MonoBehaviour {
 		if (paused > 0) {
 			//Audio do play
 			if (started) {
-				/*Nao sei qual eh esse audio, suspeito ser o do 
-				Main Camera/Buttons/TelaPrincipal/StartButton (clip som_play)*/
-				AudioSource.PlayClipAtPoint(clip1, transform.position);
+				//2 linhas para disparar o som
+				GameObject disparaSom = GameObject.FindGameObjectWithTag("PlayGame");
+				disparaSom.GetComponent<AudioSource>().Play();
 			}
 			play();
 			if (!ButtonAction.activatedMenuPause && !ButtonAction.activatedMenuEspeciais &&

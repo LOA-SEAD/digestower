@@ -60,7 +60,7 @@ public class AcidoEspecial : MonoBehaviour {
 				else
 					StartGame.indigest -= 500;
 			}
-			(GameObject.FindGameObjectWithTag("AcidoText").GetComponent ("GUIText") as GUIText).text = "";
+			//(GameObject.FindGameObjectWithTag("AcidoText").GetComponent ("GUIText") as GUIText).text = "";
 			GameObject.Destroy (gameObject);
 		}
 	}

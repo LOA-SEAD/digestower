@@ -125,6 +125,11 @@ public class SaveLoad : MonoBehaviour {
 		PlayerPrefs.SetInt("wave" + slot,StartGame.wave);
 		PlayerPrefs.SetInt("fase" + slot,StartGame.fase);
 		PlayerPrefs.SetInt("nivel" + slot,StartGame.nivel);
+		PlayerPrefs.SetInt("actualSubWave" + slot,StartGame.actualSubWave);
+		PlayerPrefs.SetInt("waveSet" + slot,StartGame.waveSet);
+		PlayerPrefs.SetInt("comboPrimeiraVez" + slot,StartGame.comboPrimeiraVez?1:0);
+		PlayerPrefs.SetInt("gorduraPrimeiraVez" + slot,StartGame.gorduraPrimeiraVez?1:0);
+		PlayerPrefs.SetInt("dentePrimeiraVez" + slot,StartGame.dentePrimeiraVez?1:0);
 		PlayerPrefs.SetFloat("energy" + slot,StartGame.energy);
 		PlayerPrefs.SetFloat("fat" + slot,StartGame.fat);
 		PlayerPrefs.SetFloat("vitamin" + slot,StartGame.vitamin);
@@ -168,8 +173,11 @@ public class SaveLoad : MonoBehaviour {
 			StartGame.wave = PlayerPrefs.GetInt("wave" + slot);
 			StartGame.fase = PlayerPrefs.GetInt("fase" + slot);
 			StartGame.nivel = PlayerPrefs.GetInt("nivel" + slot);
-			StartGame.actualSubWave = 0;
-			StartGame.waveSet = 0;
+			StartGame.actualSubWave = PlayerPrefs.GetInt("actualSubWave" + slot);
+			StartGame.waveSet = PlayerPrefs.GetInt("waveSet" + slot);
+			StartGame.comboPrimeiraVez = PlayerPrefs.GetInt("comboPrimeiraVez" + slot)==1?true:false;
+			StartGame.gorduraPrimeiraVez = PlayerPrefs.GetInt("gorduraPrimeiraVez" + slot)==1?true:false;
+			StartGame.dentePrimeiraVez = PlayerPrefs.GetInt("dentePrimeiraVez" + slot)==1?true:false;
 			StartGame.energy = PlayerPrefs.GetFloat("energy" + slot);
 			StartGame.fat = PlayerPrefs.GetFloat("fat" + slot);
 			StartGame.vitamin = PlayerPrefs.GetFloat("vitamin" + slot);
@@ -286,7 +294,9 @@ public class SaveLoad : MonoBehaviour {
 			CallSkill.firstUsePhysical = true;
 
 			StartGame.ClearAllAudio();
-			StartGame.loadingGame = true;
+			if (StartGame.nivel == 0 && StartGame.wave == 0){
+				StartGame.loadingGame = true;
+			}
 			(GameObject.FindGameObjectWithTag("StartButton").GetComponent ("StartGame") as StartGame).myTimer = 149.423f;
 			if (StartGame.fase < 3) GameObject.FindGameObjectWithTag("FaixaFase" + (StartGame.fase + 1)).GetComponent<AudioSource>().Play();
 			else GameObject.FindGameObjectWithTag("Hamburguer").GetComponent<AudioSource>().Play();
