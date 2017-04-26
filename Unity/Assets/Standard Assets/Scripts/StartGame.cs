@@ -511,7 +511,7 @@ public class StartGame : MonoBehaviour {
 			GameObject.FindGameObjectWithTag("FaixaFase1").GetComponent<AudioSource>().Stop();
 			GameObject.FindGameObjectWithTag("FaixaFase2").GetComponent<AudioSource>().Stop();
 			GameObject.FindGameObjectWithTag("FaixaFase3").GetComponent<AudioSource>().Stop();
-			GameObject.FindGameObjectWithTag("CapitaoBanha").GetComponent<AudioSource>().Stop();
+			GameObject.FindGameObjectWithTag("Hamburguer").GetComponent<AudioSource>().Stop();
 			GameObject.FindGameObjectWithTag("MusicaDerrota").GetComponent<AudioSource>().Play();
 		}
 		if (start == 45){
@@ -519,7 +519,7 @@ public class StartGame : MonoBehaviour {
 			GameObject.FindGameObjectWithTag("FaixaFase1").GetComponent<AudioSource>().Stop();
 			GameObject.FindGameObjectWithTag("FaixaFase2").GetComponent<AudioSource>().Stop();
 			GameObject.FindGameObjectWithTag("FaixaFase3").GetComponent<AudioSource>().Stop();
-			GameObject.FindGameObjectWithTag("CapitaoBanha").GetComponent<AudioSource>().Stop();
+			GameObject.FindGameObjectWithTag("Hamburguer").GetComponent<AudioSource>().Stop();
 			GameObject.FindGameObjectWithTag("MusicaVitoria").GetComponent<AudioSource>().Play();
 		}
 
@@ -861,6 +861,7 @@ public class StartGame : MonoBehaviour {
 					if (frameCapBanha == 5){
 						alteracaoIndice = -1;
 					}
+					//Atingiu o primeiro frame, comeca a subir
 					if (frameCapBanha == 1){
 						alteracaoIndice = 1;
 					}
@@ -987,10 +988,13 @@ public class StartGame : MonoBehaviour {
 						//try{
 						// Debug.Log (numNivelEmFase[0]*(fase > 0?1:0)+numNivelEmFase[1]*(fase > 1?1:0)+nivel);
 						int arrayPos = numNivelEmFase[0]*(fase > 0?1:0)+numNivelEmFase[1]*(fase > 1?1:0)+numNivelEmFase[2]*(fase > 2?1:0)+nivel;
+						//Obtem o vetor contendo a quantidade de alimentos que eh para jogar em toda subwave
 						waveNum = maxInserted[arrayPos,wave];
 
 						//Debug.Log ("INSERTING OBJECTS f" + fase + "...n" + nivel + "...fn" + (fase*3+nivel) + "...w" + wave + "...a" + actualSubWave + ".. wS" + waveSet + "..waveN" + waveNum);
+						
 						if (actualSubWave < waveNum.Length) {
+							//Se ainda nao jogou todos os alimentos, continua
 							if (waveSet < maxInserted[arrayPos,wave][actualSubWave]) {
 								if (fase == 0 && nivel == 0 && wave == 0 && actualSubWave == 0 && waveSet == 1) {
 									mostrandoFaixa = true;
@@ -1045,7 +1049,7 @@ public class StartGame : MonoBehaviour {
 								foodWayProperties.food = inserted.GetComponent<FoodProperties>();
 								foodWayProperties.oldTag = inserted.tag;
 								inserted.tag = "ComidaInserida1"/* + (fase+1)*/;
-								//Debug.Log ("fase: " + fase + ", nivel: " + nivel + ", wave: " + wave + ", actualSubWave: " + actualSubWave + ", waveSet:" + waveSet);
+								Debug.Log ("fase: " + fase + ", nivel: " + nivel + ", wave: " + wave + ", actualSubWave: " + actualSubWave + ", waveSet:" + waveSet);
 								//GameObject lastFood = GameObject.FindGameObjectWithTag("LastFood");
 								//(lastFood.GetComponent ("SpriteRenderer") as SpriteRenderer).sprite = (inserted.GetComponent ("SpriteRenderer") as SpriteRenderer).sprite;
 
@@ -1055,6 +1059,7 @@ public class StartGame : MonoBehaviour {
 										int waveTemp = wave;
 										int nivelTemp = nivel;
 										int faseTemp = fase;
+										//Obtem o vetor contendo a quantidade de alimentos que eh para jogar em toda subwave
 										int[] waveNumTemp = maxInserted[StartGame.numNivelEmFase[0]*(StartGame.fase > 0?1:0)+StartGame.numNivelEmFase[1]*(StartGame.fase > 1?1:0)+StartGame.nivel,wave];
 										if (actualSubWaveTemp >= waveNumTemp.Length) {
 											waveTemp++;
@@ -1075,7 +1080,7 @@ public class StartGame : MonoBehaviour {
 													faseTemp++;
 													//}
 												}
-											}
+											} 
 											else {
 												actualSubWaveTemp = 0;
 											}

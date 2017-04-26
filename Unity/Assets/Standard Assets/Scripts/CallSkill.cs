@@ -47,9 +47,7 @@ public class CallSkill : MonoBehaviour {
 		else if (type == 2 && StartGame.vitamin >= 1000 && StartGame.fase > 1 && !usingPhysicalExercise) {
 			usingPhysicalExercise = true;
 			if (firstUsePhysical) {
-				Debug.Log ("xxxxxxxxxx");
 				(GameObject.FindGameObjectWithTag("StartButton").GetComponent ("StartGame") as StartGame).carregaTela (48,52);
-				Debug.Log ("bbbbbbb");
 			}
 
 			/* ALTERACAO

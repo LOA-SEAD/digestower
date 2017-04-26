@@ -174,7 +174,7 @@ public class SaveLoad : MonoBehaviour {
 			StartGame.fase = PlayerPrefs.GetInt("fase" + slot);
 			StartGame.nivel = PlayerPrefs.GetInt("nivel" + slot);
 			StartGame.actualSubWave = PlayerPrefs.GetInt("actualSubWave" + slot);
-			StartGame.waveSet = PlayerPrefs.GetInt("waveSet" + slot);
+			StartGame.waveSet = 0;//PlayerPrefs.GetInt("waveSet" + slot);
 			StartGame.comboPrimeiraVez = PlayerPrefs.GetInt("comboPrimeiraVez" + slot)==1?true:false;
 			StartGame.gorduraPrimeiraVez = PlayerPrefs.GetInt("gorduraPrimeiraVez" + slot)==1?true:false;
 			StartGame.dentePrimeiraVez = PlayerPrefs.GetInt("dentePrimeiraVez" + slot)==1?true:false;
