@@ -578,9 +578,7 @@ public class ButtonAction : MonoBehaviour {
 			}
 			else {
 				StartGame.paused = 1;
-				if (StartGame.infoTela[0] == 1 && StartGame.infoTela[1] == 4)
-					(GameObject.FindGameObjectWithTag("StartButton").GetComponent ("StartGame") as StartGame).carregaTela (5,10);
-				else if ((StartGame.infoTela[0] == 13 && StartGame.infoTela[1] == 14) || StartGame.infoTela[0] == 30)
+				if ((StartGame.infoTela[0] == 13 && StartGame.infoTela[1] == 14) || StartGame.infoTela[0] == 30)
 					(GameObject.FindGameObjectWithTag("StartButton").GetComponent ("StartGame") as StartGame).dicasZimi (9,12);
 				else if ((StartGame.infoTela[0] == 15 && StartGame.infoTela[1] == 17) || StartGame.infoTela[0] == 32)
 					(GameObject.FindGameObjectWithTag("StartButton").GetComponent ("StartGame") as StartGame).dicasZimi (19,23);

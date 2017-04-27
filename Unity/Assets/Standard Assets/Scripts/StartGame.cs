@@ -284,7 +284,7 @@ public class StartGame : MonoBehaviour {
 		maxInserted[4,1] = new int[2]{3, 3};
 		maxInserted[4,2] = new int[2]{3, 3};
 		maxInserted[4,3] = new int[2]{3, 3};
-		maxInserted[4,4] = new int[2]{3, 3};
+		maxInserted[4,4] = new int[3]{3, 3, 3};
 		maxInsertedSize [4] = 4;
 
 		maxInserted[5,0] = new int[14]{5, 3, 4, 4, 4, 4, 4, 4, 4, 4, 3, 3, 5, 4};
@@ -360,12 +360,12 @@ public class StartGame : MonoBehaviour {
 		tags[4,1] = new string[2]{"Ovo", "Margarina"};
 		tags[4,2] = new string[2]{"Amendoim", "Chips"};
 		tags[4,3] = new string[2]{"Leite", "Bolo"};
-		tags[4,4] = new string[2]{"Maionese", "Pastel"};
+		tags[4,4] = new string[3]{"Maionese", "Pastel", "Chocolate"};
 
 		tags[5,0] = new string[14]{"Vagem", "Mel", "Pao", "Banana", "PaoIntegral", "Lentilha", "Peixe", "Queijo", "Mortadela", "Soja", "Carne", "Chocolate", "Abacate", "Coco"};
 		tags[5,1] = new string[15]{"Batata", "Maionese", "Mel", "Cereal", "Pao", "Queijo", "Mortadela", "Soja", "Peixe", "Carne", "Soja", "Chips", "Margarina", "Coco", "Bolo"};
-		tags[5,2] = new string[15]{"Vagem", "Banana", "Cereal", "Arroz", "PaoIntegral", "Queijo", "Lentilha", "Soja", "Peixe", "Carne", "Abacate", "Ovo", "Leite", "Margarina", "Chips"};
-		tags[5,3] = new string[16]{"Batata", "Maionese", "Arroz", "PaoIntegral", "Mel", "Queijo", "Lentilha", "Mortadela", "Soja", "Carne", "Coco", "Margarina", "Leite", "Ovo", "Bolo", "Amendoim"};
+		tags[5,2] = new string[15]{"Vagem", "Banana", "Cereal", "Arroz", "PaoIntegral", "Queijo", "Chocolate", "Soja", "Peixe", "Carne", "Abacate", "Ovo", "Leite", "Margarina", "Chips"};
+		tags[5,3] = new string[16]{"Batata", "Maionese", "Arroz", "PaoIntegral", "Mel", "Queijo", "Lentilha", "Mortadela", "Soja", "Chocolate", "Coco", "Margarina", "Leite", "Ovo", "Bolo", "Amendoim"};
 		tags[5,4] = new string[8]{"Vagem", "Banana", "Batata", "Cereal", "Queijo", "Lentilha", "Soja", "Peixe"};
 
 		tags[6,0] = new string[7]{"Carne", "Abacate", "Leite", "Ovo", "Bolo", "Pastel", "Amendoim"};
@@ -634,6 +634,7 @@ public class StartGame : MonoBehaviour {
 		CallSkill.creatingAcido = false;
 		CallSkill.creatingSaliva = false;
 		CallSkill.usingPhysicalExercise = false;
+		CallSkill.firstUsePhysical = true;
 		InsertTower.activeTooth = new bool[3]{false, false, false};
 		ButtonAction.activatedMenuEspeciais = ButtonAction.activatedMenuPause = ButtonAction.activatedMenuSaveLoad = ButtonAction.activatedMenuTorres = false;
 		ButtonAction.storre3 = ButtonAction.storre4 = ButtonAction.storre5 = ButtonAction.storre6 = ButtonAction.storre7 = ButtonAction.storre8 = null;

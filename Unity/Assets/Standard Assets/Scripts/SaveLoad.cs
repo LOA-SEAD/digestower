@@ -130,6 +130,7 @@ public class SaveLoad : MonoBehaviour {
 		PlayerPrefs.SetInt("comboPrimeiraVez" + slot,StartGame.comboPrimeiraVez?1:0);
 		PlayerPrefs.SetInt("gorduraPrimeiraVez" + slot,StartGame.gorduraPrimeiraVez?1:0);
 		PlayerPrefs.SetInt("dentePrimeiraVez" + slot,StartGame.dentePrimeiraVez?1:0);
+		PlayerPrefs.SetInt("firstUsePhysical" + slot,CallSkill.firstUsePhysical?1:0);
 		PlayerPrefs.SetFloat("energy" + slot,StartGame.energy);
 		PlayerPrefs.SetFloat("fat" + slot,StartGame.fat);
 		PlayerPrefs.SetFloat("vitamin" + slot,StartGame.vitamin);
@@ -178,6 +179,7 @@ public class SaveLoad : MonoBehaviour {
 			StartGame.comboPrimeiraVez = PlayerPrefs.GetInt("comboPrimeiraVez" + slot)==1?true:false;
 			StartGame.gorduraPrimeiraVez = PlayerPrefs.GetInt("gorduraPrimeiraVez" + slot)==1?true:false;
 			StartGame.dentePrimeiraVez = PlayerPrefs.GetInt("dentePrimeiraVez" + slot)==1?true:false;
+			CallSkill.firstUsePhysical = PlayerPrefs.GetInt("firstUsePhysical" + slot)==1?true:false;
 			StartGame.energy = PlayerPrefs.GetFloat("energy" + slot);
 			StartGame.fat = PlayerPrefs.GetFloat("fat" + slot);
 			StartGame.vitamin = PlayerPrefs.GetFloat("vitamin" + slot);
@@ -291,7 +293,6 @@ public class SaveLoad : MonoBehaviour {
 			Time.timeScale = 1;
 			(GameObject.FindGameObjectWithTag("StartButton").GetComponent("StartGame") as StartGame).myTimerInterWaves = 0.04f;
 			StartGame.refreshStatus ();
-			CallSkill.firstUsePhysical = true;
 
 			StartGame.ClearAllAudio();
 			if (StartGame.nivel == 0 && StartGame.wave == 0){
