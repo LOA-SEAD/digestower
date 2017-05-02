@@ -126,6 +126,8 @@ public class StartGame : MonoBehaviour {
 	public static bool dentePrimeiraVez = false;
 	private static AudioSource[] allAudioSources;
 	private static bool[] audioPlaying;
+	//Para controlar se o jogo estah acelerado ou nao
+	public static int acelerarAtivado = 0;
 	private Sprite bkp;
 
 	public AudioClip clip1; /* Gracas a isso que e possivel escolher um audio na tela do Unity.
@@ -1096,6 +1098,7 @@ public class StartGame : MonoBehaviour {
 											GameObject nextSprite = GameObject.FindGameObjectWithTag(tags[numNivelEmFase[0]*(faseTemp > 0?1:0)+numNivelEmFase[1]*(faseTemp > 1?1:0)+numNivelEmFase[2]*(faseTemp > 2?1:0)+nivelTemp,waveTemp][actualSubWaveTemp]);
 
 											(nextFood.GetComponent ("SpriteRenderer") as SpriteRenderer).sprite = (nextSprite.GetComponent ("SpriteRenderer") as SpriteRenderer).sprite;
+											//Debug.Log("myTimer: ")
 										}
 										else ButtonAction.nivelChange = false;
 									}

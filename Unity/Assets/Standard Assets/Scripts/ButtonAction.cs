@@ -45,7 +45,7 @@ public class ButtonAction : MonoBehaviour {
 	void OnMouseEnter()
 	{
 		SpriteCollection sprites = null;
-		if ((type > 0 && type < 10) || (type > 10 && type < 15) || type == 22 || type == 21 || type == 20 || (type >= 24 && type <= 37)) {
+		if ((type > 0 && type < 10) || (type > 10 && type < 15) || type == 22 || type == 21 || type == 20 || (type >= 24 && type <= 38)) {
 			bkp = (gameObject.GetComponent ("SpriteRenderer") as SpriteRenderer).sprite;
 			sprites = new SpriteCollection("Pressed");
 		}
@@ -91,11 +91,17 @@ public class ButtonAction : MonoBehaviour {
 			(gameObject.GetComponent ("SpriteRenderer") as SpriteRenderer).sprite = sprites.GetSprite ("CarregarInicialPressionado");
 		else if (type == 30)
 			(gameObject.GetComponent ("SpriteRenderer") as SpriteRenderer).sprite = sprites.GetSprite ("CreditosPressionado");
+		else if (type == 38 && StartGame.acelerarAtivado == 0)
+			(gameObject.GetComponent ("SpriteRenderer") as SpriteRenderer).sprite = sprites.GetSprite ("AcelerarPressionado");
+		else if (type == 38 && StartGame.acelerarAtivado == 1){
+			sprites = new SpriteCollection("Start");
+			(gameObject.GetComponent ("SpriteRenderer") as SpriteRenderer).sprite = sprites.GetSprite ("acelerar");
+		}
 		sprites = null;
 	}
 	void OnMouseExit()
 	{
-		if ((type > 0 && type < 10) || (type > 10 && type < 15) || type == 22 || type == 21 || type == 20 || (type >= 24 && type <= 37)) {
+		if ((type > 0 && type < 10) || (type > 10 && type < 15) || type == 22 || type == 21 || type == 20 || (type >= 24 && type <= 38)) {
 			(gameObject.GetComponent ("SpriteRenderer") as SpriteRenderer).sprite = bkp;
 		}
 	}
@@ -1174,6 +1180,23 @@ public class ButtonAction : MonoBehaviour {
 			StartGame.infoActive = 0;
 
 			(GameObject.FindGameObjectWithTag("StartButton").GetComponent ("StartGame") as StartGame).menuInicial(true);
+		}
+		else if (type == 38) {
+			//2 linhas para disparar o som
+			GameObject botao = GameObject.FindGameObjectWithTag("AceleraButton");
+			botao.GetComponent<AudioSource>().Play();
+			
+			if (StartGame.acelerarAtivado == 0){
+				StartGame.acelerarAtivado = 1;
+				SpriteCollection sprites = new SpriteCollection("Pressed");
+				(botao.GetComponent ("SpriteRenderer") as SpriteRenderer).sprite = sprites.GetSprite ("AcelerarPressionado");
+			}
+			else{
+				StartGame.acelerarAtivado = 0;
+				SpriteCollection sprites = new SpriteCollection("Start");
+				(botao.GetComponent ("SpriteRenderer") as SpriteRenderer).sprite = sprites.GetSprite ("acelerar");
+			}
+			bkp = (botao.GetComponent ("SpriteRenderer") as SpriteRenderer).sprite;
 		}
 	}
 
