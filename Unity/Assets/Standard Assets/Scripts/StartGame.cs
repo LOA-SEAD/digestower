@@ -381,7 +381,7 @@ public class StartGame : MonoBehaviour {
 
 		insertTimeInterval = 1f;
 		myTimerInterWaves = 0.09f;
-		myTimer = 149.423f; //maximumFoods * insertTimeInterval + 1;
+		myTimer = 500.423f; //maximumFoods * insertTimeInterval + 1;
 		msgTimer = 100.0f;
 		playAfterClose = false;
 	
@@ -632,7 +632,8 @@ public class StartGame : MonoBehaviour {
 		comboPrimeiraVez = false;
 		gorduraPrimeiraVez = false;
 		dentePrimeiraVez = false;
-		(GameObject.FindGameObjectWithTag("StartButton").GetComponent ("StartGame") as StartGame).myTimer = 149.423f;
+		(GameObject.FindGameObjectWithTag("StartButton").GetComponent ("StartGame") as StartGame).myTimer = 500.423f;
+		(GameObject.FindGameObjectWithTag("StartButton").GetComponent ("StartGame") as StartGame).myTimerInterWaves = 0.09f;
 		CallSkill.creatingAcido = false;
 		CallSkill.creatingSaliva = false;
 		CallSkill.usingPhysicalExercise = false;
@@ -643,6 +644,10 @@ public class StartGame : MonoBehaviour {
 		InsertTower.towerObject = null;
 		Application.LoadLevel (0);
 		Time.timeScale = 1;
+		acelerarAtivado = 0;
+		GameObject botao = GameObject.FindGameObjectWithTag("AceleraButton");
+		SpriteCollection sprites = new SpriteCollection("Start");
+		(botao.GetComponent ("SpriteRenderer") as SpriteRenderer).sprite = sprites.GetSprite ("acelerar");
 	}
 
 	/*#if UNITY_EDITOR || UNITY_STANDALONE || UNITY_WEBPLAYER
@@ -1052,7 +1057,8 @@ public class StartGame : MonoBehaviour {
 								foodWayProperties.food = inserted.GetComponent<FoodProperties>();
 								foodWayProperties.oldTag = inserted.tag;
 								inserted.tag = "ComidaInserida1"/* + (fase+1)*/;
-								Debug.Log ("fase: " + fase + ", nivel: " + nivel + ", wave: " + wave + ", actualSubWave: " + actualSubWave + ", waveSet:" + waveSet);
+								//Debug.Log("myTimer: " + myTimer);
+								//Debug.Log ("fase: " + fase + ", nivel: " + nivel + ", wave: " + wave + ", actualSubWave: " + actualSubWave + ", waveSet:" + waveSet);
 								//GameObject lastFood = GameObject.FindGameObjectWithTag("LastFood");
 								//(lastFood.GetComponent ("SpriteRenderer") as SpriteRenderer).sprite = (inserted.GetComponent ("SpriteRenderer") as SpriteRenderer).sprite;
 
@@ -1098,7 +1104,6 @@ public class StartGame : MonoBehaviour {
 											GameObject nextSprite = GameObject.FindGameObjectWithTag(tags[numNivelEmFase[0]*(faseTemp > 0?1:0)+numNivelEmFase[1]*(faseTemp > 1?1:0)+numNivelEmFase[2]*(faseTemp > 2?1:0)+nivelTemp,waveTemp][actualSubWaveTemp]);
 
 											(nextFood.GetComponent ("SpriteRenderer") as SpriteRenderer).sprite = (nextSprite.GetComponent ("SpriteRenderer") as SpriteRenderer).sprite;
-											//Debug.Log("myTimer: ")
 										}
 										else ButtonAction.nivelChange = false;
 									}
@@ -1128,7 +1133,7 @@ public class StartGame : MonoBehaviour {
 									actualSubWave++;
 									waveSet = 0;
 									killFood = 0;
-									myTimerInterWaves = 0.09f;
+									myTimerInterWaves = 0.09f - (acelerarAtivado * 0.06f);
 
 								}
 							}
@@ -1149,7 +1154,7 @@ public class StartGame : MonoBehaviour {
 								wave++;
 								//msg ("Wave: "+ (wave+1));
 								
-								myTimer = 149.423f;
+								myTimer = 500.423f;
 							//}
 
 							/*int r = Random.Range (0, 100);

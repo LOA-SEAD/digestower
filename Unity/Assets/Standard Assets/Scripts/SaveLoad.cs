@@ -135,6 +135,7 @@ public class SaveLoad : MonoBehaviour {
 		PlayerPrefs.SetFloat("fat" + slot,StartGame.fat);
 		PlayerPrefs.SetFloat("vitamin" + slot,StartGame.vitamin);
 		PlayerPrefs.SetFloat("indigest" + slot,StartGame.indigest);
+		PlayerPrefs.SetInt("acelerarAtivado" + slot,StartGame.acelerarAtivado);
 
 		Transform _places = GameObject.Find("TowerPosition").transform;
 		for (int i=0;i < _places.childCount;i++) {
@@ -184,7 +185,18 @@ public class SaveLoad : MonoBehaviour {
 			StartGame.fat = PlayerPrefs.GetFloat("fat" + slot);
 			StartGame.vitamin = PlayerPrefs.GetFloat("vitamin" + slot);
 			StartGame.indigest = PlayerPrefs.GetFloat("indigest" + slot);
+			StartGame.acelerarAtivado = PlayerPrefs.GetInt("acelerarAtivado" + slot);
 			(GameObject.FindGameObjectWithTag("BarraGordura").GetComponent ("SpriteRenderer") as SpriteRenderer).enabled = (StartGame.fase > 1?true:false);
+
+			GameObject botao = GameObject.FindGameObjectWithTag("AceleraButton");
+			if (StartGame.acelerarAtivado == 0){
+				SpriteCollection sprites = new SpriteCollection("Start");
+				(botao.GetComponent ("SpriteRenderer") as SpriteRenderer).sprite = sprites.GetSprite ("acelerar");
+			}
+			else{
+				SpriteCollection sprites = new SpriteCollection("Pressed");
+				(botao.GetComponent ("SpriteRenderer") as SpriteRenderer).sprite = sprites.GetSprite ("AcelerarPressionado");
+			}
 
 			//StartGame.started = false;
 			//StartGame.paused = 1;
@@ -291,14 +303,14 @@ public class SaveLoad : MonoBehaviour {
 			}
 			StartGame.loose = false;
 			Time.timeScale = 1;
-			(GameObject.FindGameObjectWithTag("StartButton").GetComponent("StartGame") as StartGame).myTimerInterWaves = 0.04f;
+			(GameObject.FindGameObjectWithTag("StartButton").GetComponent("StartGame") as StartGame).myTimerInterWaves = 0.09f - (StartGame.acelerarAtivado * 0.06f);
 			StartGame.refreshStatus ();
 
 			StartGame.ClearAllAudio();
 			if (StartGame.nivel == 0 && StartGame.wave == 0){
 				StartGame.loadingGame = true;
 			}
-			(GameObject.FindGameObjectWithTag("StartButton").GetComponent ("StartGame") as StartGame).myTimer = 149.423f;
+			(GameObject.FindGameObjectWithTag("StartButton").GetComponent ("StartGame") as StartGame).myTimer = 500.423f;
 			if (StartGame.fase < 3) GameObject.FindGameObjectWithTag("FaixaFase" + (StartGame.fase + 1)).GetComponent<AudioSource>().Play();
 			else GameObject.FindGameObjectWithTag("Hamburguer").GetComponent<AudioSource>().Play();
 			if (!StartGame.started) StartGame.StopAllAudio();
