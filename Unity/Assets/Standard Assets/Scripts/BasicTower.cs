@@ -41,6 +41,19 @@ public class BasicTower : MonoBehaviour {
 		bulletSpeed *= 2;
 	}
 
+	public void mudarVelocidade() {
+		if (StartGame.acelerarAtivado == 1){
+			CancelInvoke ("SpawnBullet");
+			fireRate *= 0.5f;
+			InvokeRepeating ("SpawnBullet", 0.0f, fireRate);
+		}
+		else{
+			CancelInvoke ("SpawnBullet");
+			fireRate *= 2.0f;
+			InvokeRepeating ("SpawnBullet", 0.0f, fireRate);
+		}
+	}
+
 	private Vector3 worldPosition = new Vector3();
 	private Vector3 screenPosition = new Vector3();
 	private Texture2D barTexture;

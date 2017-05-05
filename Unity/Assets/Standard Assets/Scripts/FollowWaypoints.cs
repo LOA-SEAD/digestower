@@ -86,6 +86,12 @@ public class FollowWaypoints : MonoBehaviour
 		}
 		else
 		{
+			if (StartGame.acelerarAtivado == 1){
+				movementSpeed = 20;
+			}
+			else{
+				movementSpeed = 10;
+			}
 			// Walk towards waypoint
 			GetComponent<Rigidbody2D>().AddForce(new Vector2(movementNormal.x, movementNormal.y) * movementSpeed);
 		}

@@ -1197,6 +1197,24 @@ public class ButtonAction : MonoBehaviour {
 				(botao.GetComponent ("SpriteRenderer") as SpriteRenderer).sprite = sprites.GetSprite ("acelerar");
 			}
 			bkp = (botao.GetComponent ("SpriteRenderer") as SpriteRenderer).sprite;
+
+			/*Transform _places = GameObject.Find("TowerPosition").transform;
+			for (int i=0;i < _places.childCount;i++) {
+				InsertTower insertPlace = _places.GetChild(i).GetComponent ("InsertTower") as InsertTower;
+				if (insertPlace.insertedTower != null) {
+					BasicTower basicTower = insertPlace.insertedTower.GetComponent("BasicTower") as BasicTower;
+					basicTower.mudarVelocidade();
+				}
+			}*/
+
+			GameObject[] target1 = (GameObject[])FindObjectsOfType(typeof(GameObject));
+			for(int i=0;i < target1.Length;i++){
+				if(target1[i].tag.Contains("Torre ")) {
+					//target1[i].tag = tag;
+				    if (target1[i].GetComponent("BasicTower"))
+				    	(target1[i].GetComponent("BasicTower") as BasicTower).mudarVelocidade();
+				}
+			}
 		}
 	}
 

@@ -261,7 +261,7 @@ public class InsertTower : MonoBehaviour {
 					}
 				}
 				else {
-					towerProperties.fireRate = fireRate[type-1];
+					towerProperties.fireRate = fireRate[type-1] - (StartGame.acelerarAtivado * fireRate[type-1] * 0.5f);
 					towerProperties.bulletSpeed = bulletSpeed[type-1];
 					//towerProperties.force = force[int.Parse(words[1])-1];
 					towerProperties.maxRatio = maxRatio[type-1];

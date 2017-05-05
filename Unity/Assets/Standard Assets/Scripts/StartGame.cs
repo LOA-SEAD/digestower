@@ -1057,7 +1057,7 @@ public class StartGame : MonoBehaviour {
 								foodWayProperties.food = inserted.GetComponent<FoodProperties>();
 								foodWayProperties.oldTag = inserted.tag;
 								inserted.tag = "ComidaInserida1"/* + (fase+1)*/;
-								//Debug.Log("myTimer: " + myTimer);
+								Debug.Log("myTimer: " + myTimer);
 								//Debug.Log ("fase: " + fase + ", nivel: " + nivel + ", wave: " + wave + ", actualSubWave: " + actualSubWave + ", waveSet:" + waveSet);
 								//GameObject lastFood = GameObject.FindGameObjectWithTag("LastFood");
 								//(lastFood.GetComponent ("SpriteRenderer") as SpriteRenderer).sprite = (inserted.GetComponent ("SpriteRenderer") as SpriteRenderer).sprite;
