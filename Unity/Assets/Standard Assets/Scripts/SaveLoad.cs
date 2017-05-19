@@ -208,6 +208,11 @@ public class SaveLoad : MonoBehaviour {
 			CallSkill.usingPhysicalExercise = false;
 			InsertTower.activeTooth = new bool[3]{false, false, false};
 
+			(GameObject.FindGameObjectWithTag ("IniciarButton").GetComponent ("BoxCollider2D") as BoxCollider2D).enabled = false;
+			(GameObject.FindGameObjectWithTag ("AjudaButton").GetComponent ("BoxCollider2D") as BoxCollider2D).enabled = false;
+			(GameObject.FindGameObjectWithTag ("CarregarInicialButton").GetComponent ("BoxCollider2D") as BoxCollider2D).enabled = false;
+			(GameObject.FindGameObjectWithTag ("CreditosButton").GetComponent ("BoxCollider2D") as BoxCollider2D).enabled = false;
+
 			GameObject[] target_fat = GameObject.FindGameObjectsWithTag ("FatPlace");
 			for (int i = 0;i < target_fat.Length;i++) {
 				FatPlace fatPlace = target_fat[i].GetComponent<FatPlace>();
@@ -315,6 +320,7 @@ public class SaveLoad : MonoBehaviour {
 			else GameObject.FindGameObjectWithTag("Hamburguer").GetComponent<AudioSource>().Play();
 			if (!StartGame.started) StartGame.StopAllAudio();
 			StartGame startGame = GameObject.FindGameObjectWithTag("StartButton").GetComponent ("StartGame") as StartGame;
+			Debug.Log(StartGame.activatedMenuInicial?"true":"false");
 			if (StartGame.activatedMenuInicial) {
 				startGame.menuInicial(false);
 			}

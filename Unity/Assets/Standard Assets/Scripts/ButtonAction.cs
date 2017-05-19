@@ -289,13 +289,17 @@ public class ButtonAction : MonoBehaviour {
 				StartGame.paused = 1;
 				(GameObject.FindGameObjectWithTag ("StartButton").GetComponent ("StartGame") as StartGame).GUITextStatus (true);
 			}
+			//Consertar o infoActive alterado no salvar/carregar
+			if (StartGame.infoActive == 2){
+				StartGame.infoActive = 0;
+			}
 		} else if (type == 5 || type == 6) {
 			//2 linhas para disparar o som
 			GameObject disparaSom = GameObject.FindGameObjectWithTag("LoadButton");
 			disparaSom.GetComponent<AudioSource>().Play();
 
 			//Para nao ativar a barra de energia
-			StartGame.infoActive = 2;
+			StartGame.infoActive = 1;
 
 			activatedMenuSaveLoad = true;
 			DisableMenu (3);
@@ -375,14 +379,14 @@ public class ButtonAction : MonoBehaviour {
 				(GameObject.FindGameObjectWithTag("StartButton").GetComponent ("StartGame") as StartGame).GUITextStatus(true);
 			}
 			if (StartGame.infoActive == 1){
-				(GameObject.FindGameObjectWithTag ("IniciarButton").GetComponent ("BoxCollider2D") as BoxCollider2D).enabled = true;
-				(GameObject.FindGameObjectWithTag ("AjudaButton").GetComponent ("BoxCollider2D") as BoxCollider2D).enabled = true;
-				(GameObject.FindGameObjectWithTag ("CarregarInicialButton").GetComponent ("BoxCollider2D") as BoxCollider2D).enabled = true;
-				(GameObject.FindGameObjectWithTag ("CreditosButton").GetComponent ("BoxCollider2D") as BoxCollider2D).enabled = true;
 				StartGame.infoActive = 0;
 			}
 			//Consertar o infoActive alterado no salvar/carregar
 			if (StartGame.infoActive == 2){
+				(GameObject.FindGameObjectWithTag ("IniciarButton").GetComponent ("BoxCollider2D") as BoxCollider2D).enabled = StartGame.activatedMenuInicial;
+				(GameObject.FindGameObjectWithTag ("AjudaButton").GetComponent ("BoxCollider2D") as BoxCollider2D).enabled = StartGame.activatedMenuInicial;
+				(GameObject.FindGameObjectWithTag ("CarregarInicialButton").GetComponent ("BoxCollider2D") as BoxCollider2D).enabled = StartGame.activatedMenuInicial;
+				(GameObject.FindGameObjectWithTag ("CreditosButton").GetComponent ("BoxCollider2D") as BoxCollider2D).enabled = StartGame.activatedMenuInicial;
 				StartGame.infoActive = 0;
 			}
 		}
@@ -866,7 +870,7 @@ public class ButtonAction : MonoBehaviour {
 			(GameObject.FindGameObjectWithTag("StartButton").GetComponent ("StartGame") as StartGame).ajuda(1, 25);
 
 			//Para nao ativar a barra de energia
-			StartGame.infoActive = 1;
+			StartGame.infoActive = 2;
 
 		}
 		else if (type == 29) {//Carregar
@@ -874,7 +878,7 @@ public class ButtonAction : MonoBehaviour {
 			GameObject disparaSom = GameObject.FindGameObjectWithTag("CarregarInicialButton");
 			disparaSom.GetComponent<AudioSource>().Play();
 
-			StartGame.infoActive = 1;
+			StartGame.infoActive = 2;
 			//GameObject botaoIniciar = GameObject.FindGameObjectWithTag ("TelaEscura");
 			(GameObject.FindGameObjectWithTag ("IniciarButton").GetComponent ("BoxCollider2D") as BoxCollider2D).enabled = false;
 			(GameObject.FindGameObjectWithTag ("AjudaButton").GetComponent ("BoxCollider2D") as BoxCollider2D).enabled = false;
@@ -932,7 +936,7 @@ public class ButtonAction : MonoBehaviour {
 			(GameObject.FindGameObjectWithTag("StartButton").GetComponent ("StartGame") as StartGame).creditos();
 
 			//Para nao ativar a barra de energia
-			StartGame.infoActive = 1;
+			StartGame.infoActive = 2;
 		}
 
 		//Sequencia dos botoes da Zimi, um dia tentar melhorar isso e ver se todo esse codigo eh necessario
